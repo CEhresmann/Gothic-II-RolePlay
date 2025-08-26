@@ -1,0 +1,10 @@
+<server>
+	<script src="Main.nut" type="client" />
+	<script src="Camera.nut" type="client" />
+	<script src="List.nut" type="client" />
+	<script src="Vob.nut" type="client" />
+	<script src="Gui.nut" type="client" />
+	<script src="Vobs.nut" type="client" />
+
+	<script src="Manager.nut" type="client" />
+</server>

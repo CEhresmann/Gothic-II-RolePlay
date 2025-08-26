@@ -1,0 +1,9 @@
+<server>
+    <script src="NPC/BotType.nut" type="shared"/>
+    <script src="NPC/Bots.nut" type="shared"/>
+
+    <import src="NPC/Dialogs/dialogs.xml" />
+
+    <script src="Classes.nut" type="shared"/>
+    <script src="Vobs.nut" type="shared"/>
+</server>
