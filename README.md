@@ -9,7 +9,7 @@
 
 The pack has been updated so it can **run without issues on the latest G2O API**. The original version was made for G2O v0.1.4 and does not work on current versions.  
 
-Due to the significant differences between the old and current API, **unexpected issues may occur**. If you encounter any bugs, please report them in Issues or contact directly.  
+Due to the significant differences between the old and current API, **unexpected issues may occur**. If you encounter any bugs, please report them in Issues or contact directly. (Discord: artiixdxd)  
 
 Version 2.0 includes:  
 - **MySQL support** – replacing the previous file-based saving system.  
@@ -42,7 +42,7 @@ Change MySQL login data in ``RP\Modules\Mysql\Connector.nut``:
 
 Projekt został zaktualizowany tak, aby paczka mogła **bezproblemowo działać na najnowszym API G2O**. Oryginalna wersja była tworzona pod G2O v0.1.4 i nie uruchamia się na obecnych wersjach.  
 
-Ze względu na dużą różnicę pomiędzy starym a obecnym API, mogą wystąpić **nieoczekiwane problemy z działaniem**. Jeśli znajdziesz jakieś błędy, zgłoś je w Issues lub skontaktuj się bezpośrednio.  
+Ze względu na dużą różnicę pomiędzy starym a obecnym API, mogą wystąpić **nieoczekiwane problemy z działaniem**. Jeśli znajdziesz jakieś błędy, zgłoś je w Issues lub skontaktuj się bezpośrednio.  (Discord: artiixdxd)  
 
 Wersja 2.0 obejmuje m.in.:  
 - **Obsługa MySQL** – zamiast wcześniejszego zapisu plikowego.  
