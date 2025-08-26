@@ -1,3 +1,37 @@
+
+# Open Roleplay 2.0
+
+# Author: Artii #
+
+**This project is an updated and further developed version of the original Gothic Roleplay pack by Quahodron** — available at: https://gitlab.com/g2o/gamemodes/gothicroleplay.
+
+## Description
+
+The pack has been updated so it can **run without issues on the latest G2O API**. The original version was made for G2O v0.1.4 and does not work on current versions.  
+
+Due to the significant differences between the old and current API, **unexpected issues may occur**. If you encounter any bugs, please report them in Issues or contact directly.  
+
+Version 2.0 includes:  
+- **MySQL support** – replacing the previous file-based saving system.  
+- **Updated GUI layout** – improved scaling and positioning of elements (based on the old layout).  
+- **Compatibility with G2O v0.3.+** – all key systems adapted to the current API.  
+- **Future development plans** – further improvements in upcoming releases.  
+
+## Installation
+
+Change MySQL login data in ``RP\Modules\Mysql\Connector.nut``:  
+``ORM.MySQL("host", "user", "password", "database_name");``
+
+* The script uses the following modules: MySQL module, ORM Framework, and GUI Framework.
+
+
+
+
+## ----- PL SECTION -----
+
+
+
+
 # Open Roleplay 2.0
 
 #Autor: Artii#
