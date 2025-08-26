@@ -1,7 +1,7 @@
 ::g_DatabaseEngine <- null;
 ::g_IsDatabaseConnected <- false;
 
-ORM.engine = ORM.MySQL("sql.24.svpj.link", "db_112429", "kibKpxQHtxAun2R2", "db_112429");
+ORM.engine = ORM.MySQL("host", "user", "password", "database_name");
 
 class Database_Health extends ORM.Model </ table="Database_Health" /> {
     </ primary_key=true, auto_increment=true />
