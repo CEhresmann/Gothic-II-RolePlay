@@ -38,7 +38,7 @@ Change MySQL login data in ``RP\Modules\Mysql\Connector.nut``:
 
 # Open Roleplay 2.0
 
-#Autor: Artii#
+# Autor: Artii #
 
 **Ten projekt jest rozwiniętą i zaktualizowaną wersją oryginalnej paczki Gothic Roleplay autorstwa Quahodron** — dostępnej pod adresem: https://gitlab.com/g2o/gamemodes/gothicroleplay.
 
