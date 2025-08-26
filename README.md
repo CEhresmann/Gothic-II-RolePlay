@@ -22,7 +22,7 @@ Version 2.0 includes:
 Change MySQL login data in ``RP\Modules\Mysql\Connector.nut``:  
 ``ORM.MySQL("host", "user", "password", "database_name");``
 
-* Script uses: MySQL module, ORM Framework, and GUI Framework.
+* Script uses: MySQL module, ORM Framework, and GUI.Framework.
 
 
 
