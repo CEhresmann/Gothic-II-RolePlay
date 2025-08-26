@@ -1,8 +1,0 @@
-<server>
-	<script src="client/playerlist.nut" type="client" />
-	<script src="client/chat.nut" type="client" />
-	<script src="client/net.nut" type="client" />
-
-	<!--<script src="server/chat.nut" type="server" />-->
-	<import src="server/ai/ai.xml" />
-</server>
