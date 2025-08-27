@@ -1,8 +1,0 @@
-<server>
-    <script src="Player.nut" type="server" />
-
-    <script src="Item.nut" type="server" />
-    <script src="Trade.nut" type="server" />
-    <script src="Helpers.nut" type="server" />
-    <script src="Database.nut" type="server" />
-</server>
