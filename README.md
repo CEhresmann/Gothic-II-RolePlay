@@ -3,7 +3,7 @@
 
 # Author: Artii #
 
-**This project is an updated and further developed version of the original Gothic Roleplay pack by Quahodron** — available at: https://gitlab.com/g2o/gamemodes/gothicroleplay.
+**This project is an updated and further developed version of the original Gothic Roleplay pack by Quarchodron** — available at: https://gitlab.com/g2o/gamemodes/gothicroleplay.
 
 ## Description
 
@@ -40,7 +40,7 @@ Change MySQL login data in ``RP\Modules\Mysql\Connector.nut``:
 
 # Autor: Artii #
 
-**Ten projekt jest rozwiniętą i zaktualizowaną wersją oryginalnej paczki Gothic Roleplay autorstwa Quahodron** — dostępnej pod adresem: https://gitlab.com/g2o/gamemodes/gothicroleplay.
+**Ten projekt jest rozwiniętą i zaktualizowaną wersją oryginalnej paczki Gothic Roleplay autorstwa Quarchodron** — dostępnej pod adresem: https://gitlab.com/g2o/gamemodes/gothicroleplay.
 
 ## Opis
 
