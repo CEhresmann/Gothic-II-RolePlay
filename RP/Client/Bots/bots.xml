@@ -1,0 +1,9 @@
+<server>
+	<script src="Bot.nut" type="client" />
+	<script src="Integration.nut" type="client" />
+
+	<script src="Instance/Npc.nut" type="client" />
+	<script src="Instance/Monster.nut" type="client" />
+	<script src="Instance/Oneh.nut" type="client" />
+	<script src="Instance/Twoh.nut" type="client" />
+</server>
