@@ -1,5 +1,0 @@
-<server>
-    <script src="Player.nut" type="client" />
-    <script src="Interaction.nut" type="client" />
-    <script src="Trade.nut" type="client" />
-</server>
