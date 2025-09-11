@@ -1,0 +1,6 @@
+<server>
+	<script src="Object.nut" type="server" />
+	<script src="Call.nut" type="server" />
+
+    <script src="Integration.nut" type="server" />
+</server>

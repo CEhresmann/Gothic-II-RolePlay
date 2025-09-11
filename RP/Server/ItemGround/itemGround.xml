@@ -1,0 +1,4 @@
+<server>
+    <script src="ItemGround.nut" type="server" />
+    <script src="Herbs.nut" type="server" />
+</server>
