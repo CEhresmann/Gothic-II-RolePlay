@@ -1,7 +1,7 @@
 
 CFG <- {
     Hostname = "Open Roleplay 2.0"
-    Version = "2.0.2",
+    Version = "2.0.4",
 
     Spawn = {x = 0, y = 0, z = 0, angle = 65}
 
@@ -21,17 +21,9 @@ CFG <- {
 
     Currency = "ITMI_GOLD"
 
-    AdminPassword = "test123"
-    ModPassword = "test123"
-
     WhiteList = [
     ]
 
-    ModSerial = [
-    ]
-
-    AdminSerial = [
-    ]
 
     Shout = { Distance = 3000, Color = {r = 199, g = 22, b = 22}, Prefix = " krzyk: ", Sufix = "" }
     Whisper = { Distance = 660, Color = {r = 155, g = 199, b = 155}, Prefix = " szept: ", Sufix = "" }
@@ -51,7 +43,6 @@ CFG <- {
 
     WorldBuilder = true
     WorldBuilderTrueBuilding = true
-    WorldBuilderPassword = "test123"
 
     BotEyeVision = true,
     BotUseWaypoints = true,

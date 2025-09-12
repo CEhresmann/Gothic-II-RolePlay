@@ -23,12 +23,9 @@ addEventHandler("onInit", function() {
 	print("Map show yourself: "+CFG.MapShowYourself);
 	print("World builder on: "+CFG.WorldBuilder);
 	print("World builder true building on: "+CFG.WorldBuilderTrueBuilding);
-	print("World builder password: "+CFG.WorldBuilderPassword);
 	print("Default language: "+CFG.DefaultLanguage);
 	print("Switch language: "+CFG.LanguageSwitcher);
 	print("Currency: "+CFG.Currency);
-	print("AdminPassword: "+CFG.AdminPassword);
-	print("ModPassword: "+CFG.ModPassword);
 	print("----=====================----");
 })
 
