@@ -8,7 +8,6 @@ Player <- {
     description = array(getMaxSlots(), "")
 }
 
-addEvent("onLocalPlayerLoggIn");
 
 function getPlayerClass(pid)
 {
@@ -130,16 +129,12 @@ addEventHandler("onPlayerUseItem", function(id, item, from, to)
     if (from != 0)
         return;
 
-    local instance = item.instance;
-
-    if(instance.find("ITPO_") != null || instance.find("ITSC_") != null || instance.find("ITFO_") != null || instance.find("ITPL_") != null){
-        local packet = Packet();
-        packet.writeUInt8(PacketId.Player);
-        packet.writeUInt8(PacketPlayer.UseItem);
-        packet.writeString(instance);
-        packet.send(RELIABLE_ORDERED);
-        packet = null;
-    }
+    local packet = Packet();
+    packet.writeUInt8(PacketId.Player);
+    packet.writeUInt8(PacketPlayer.UseItem);
+    packet.writeString(item.instance);
+    packet.send(RELIABLE_ORDERED);
+    packet = null;
 });
 
 addEventHandler("onPlayerSpellCast", function(playerid, item, spell) 

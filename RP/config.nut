@@ -8,7 +8,7 @@ ChatConfig <- {
 
 CFG <- {
     Hostname = "Open Roleplay 2.0"
-    Version = "2.0.5",
+    Version = "2.0.6",
 
     Spawn = {x = 0, y = 0, z = 0, angle = 65}
 
@@ -148,10 +148,10 @@ CFG <- {
 
 // Tabela czasów respawnu w MILISEKUNDACH
 npcRespawnTimes <- {
-	DYNAMIC_HUMAN = 15000,
+	DYNAMIC_HUMAN = 900000,
 
 
-    SHEEP = 15000,
+    SHEEP = 900000,
     HAMMEL = 900000,
     
 

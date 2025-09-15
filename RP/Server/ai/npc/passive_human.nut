@@ -9,6 +9,7 @@ class AIDynamicHuman extends AIHumanoid {
     idle_chance = 2
     flee_distance = 1000
     idle_speech = true
+    enable_weapon_warning = true
     
     was_attacked = false
     last_attacker_id = -1
@@ -18,10 +19,18 @@ class AIDynamicHuman extends AIHumanoid {
     idle_sound_timer = 0
     next_idle_sound_time = 0
     last_sound_time = 0
+    last_warning_time = 0
+    is_warning = false
+    warning_target = -1
+    warning_end_time = 0
+    warning_start_time = 0
+    final_warning_sent = false
 
     attack_sounds = null
     help_sounds = null
     idle_sounds = null
+    warning_sounds = null
+    final_warning_sounds = null
 
     sound_time_offset = 0
     individual_delay = 0
@@ -38,9 +47,11 @@ class AIDynamicHuman extends AIHumanoid {
         this.attack_distance = 200;
         this.chase_distance = 500;
         
-        this.attack_sounds = ::CFG.NPCSounds.attack_sounds;
-        this.help_sounds = ::CFG.NPCSounds.help_sounds;
-        this.idle_sounds = ::CFG.NPCSounds.idle_sounds;
+        this.attack_sounds = CFG.NPCSounds.attack_sounds;
+        this.help_sounds = CFG.NPCSounds.help_sounds;
+        this.idle_sounds = CFG.NPCSounds.idle_sounds;
+        this.warning_sounds = CFG.NPCSounds.warning_sounds;
+        this.final_warning_sounds = CFG.NPCSounds.final_warning_sounds;
         
         this.sound_time_offset = (npc_id * 257 + 113) % 1000000;
         this.individual_delay = (npc_id * 73) % 5000;
@@ -53,12 +64,9 @@ class AIDynamicHuman extends AIHumanoid {
         this.config = cfg;
         this.customCallback = callback;
         
-        if ("visual" in cfg) {
-            this.visual = cfg.visual;
-        }
-        if ("name" in cfg) {
-            this.npc_name = cfg.name;
-        }
+        if ("visual" in cfg) this.visual = cfg.visual;
+        if ("name" in cfg) this.npc_name = cfg.name;
+        if ("weapon_warning" in cfg) this.enable_weapon_warning = cfg.weapon_warning;
     }
 
     function ApplyConfig() {
@@ -72,18 +80,14 @@ class AIDynamicHuman extends AIHumanoid {
                 if (isPlayerConnected(id)) {
                     try {
                         setPlayerVisual(id, visual.body, visual.bodyTex, visual.head, visual.headTex);
-                    } catch (e) {
-                        print("Failed to set visual: " + e);
-                    }
+                    } catch (e) {}
                 }
             }, 100, 1, this.id, this.config.visual);
         }
         
         if (this.customCallback != null) {
             setTimer(function(npc, callback) {
-                if (isPlayerConnected(npc.id)) {
-                    callback(npc);
-                }
+                if (isPlayerConnected(npc.id)) callback(npc);
             }, 500, 1, this, this.customCallback);
         }
     }
@@ -105,12 +109,16 @@ class AIDynamicHuman extends AIHumanoid {
         this.idle_sound_timer = 0;
         this.next_idle_sound_time = this.GetRandomIdleSoundTime();
         this.last_sound_time = 0;
+        this.last_warning_time = 0;
+        this.is_warning = false;
+        this.warning_target = -1;
+        this.warning_end_time = 0;
+        this.warning_start_time = 0;
+        this.final_warning_sent = false;
         
         this.idle_sound_timer = this.sound_time_offset + this.individual_delay;
         
-        if (getPlayerWeaponMode(this.id) != WEAPONMODE_NONE) {
-            this.RemoveWeapon();
-        }
+        if (getPlayerWeaponMode(this.id) != WEAPONMODE_NONE) removeWeapon(this.id);
     }
 
     function GetRandomIdleSoundTime() {
@@ -120,13 +128,10 @@ class AIDynamicHuman extends AIHumanoid {
     function Update(ts) {
         if (isPlayerDead(this.id)) return;
         
-        if (this.is_fleeing) {
-            this.FleeBehavior(ts);
-        } 
+        if (this.is_warning) this.WarningBehavior(ts);
+        else if (this.is_fleeing) this.FleeBehavior(ts);
         else if (this.was_attacked && this.can_fight_back) {
-            if (!this.ValidateEnemy()) {
-                this.enemy_id = this.CollectDefenseTarget();
-            }
+            if (!this.ValidateEnemy()) this.enemy_id = this.CollectDefenseTarget();
 
             if (this.enemy_id != -1) {
                 if (this.combat_state != 1) {
@@ -135,26 +140,129 @@ class AIDynamicHuman extends AIHumanoid {
                     this.PlaySoundForPlayer(this.last_attacker_id, randomSound);
                 }
                 this.AttackRoutine(ts);
-            } else {
-                this.IdleBehavior(ts);
-            }
+            } else this.IdleBehavior(ts);
         } else {
+            if (this.can_fight_back && this.enable_weapon_warning) this.CheckForArmedPlayers();
             this.IdleBehavior(ts);
-            if (this.idle_speech) {
-                this.HandleIdleSounds(ts);
+            if (this.idle_speech) this.HandleIdleSounds(ts);
+        }
+    }
+
+    function WarningBehavior(ts) {
+        if (getTickCount() > this.warning_end_time) {
+            this.StopWarning();
+            return;
+        }
+        
+        if (this.warning_target != -1 && isPlayerConnected(this.warning_target)) {
+            local weaponMode = getPlayerWeaponMode(this.warning_target);
+            
+            if (weaponMode == WEAPONMODE_NONE) {
+                this.StopWarning();
+                return;
+            }
+            
+            local myPos = getPlayerPosition(this.id);
+            local targetPos = getPlayerPosition(this.warning_target);
+            local angleToTarget = getVectorAngle(myPos.x, myPos.z, targetPos.x, targetPos.z);
+            setPlayerAngle(this.id, angleToTarget);
+            
+            local currentTime = getTickCount();
+            local elapsedTime = currentTime - this.warning_start_time;
+            
+            if (!this.final_warning_sent && elapsedTime > 15000) this.SendFinalWarning();
+            if (elapsedTime > 20000) this.AttackWarningTarget();
+        }
+    }
+
+    function SendFinalWarning() {
+        if (this.warning_target != -1 && isPlayerConnected(this.warning_target) && this.final_warning_sounds.len() > 0) {
+            local randomSound = this.final_warning_sounds[rand() % this.final_warning_sounds.len()];
+            this.PlaySoundForPlayer(this.warning_target, randomSound);
+            this.final_warning_sent = true;
+        }
+    }
+
+    function AttackWarningTarget() {
+        if (this.warning_target != -1 && isPlayerConnected(this.warning_target)) {
+            local weaponMode = getPlayerWeaponMode(this.warning_target);
+            if (weaponMode != WEAPONMODE_NONE) {
+                this.was_attacked = true;
+                this.last_attacker_id = this.warning_target;
+                this.enemy_id = this.warning_target;
+                this.combat_state = 1;
+                
+                if (this.attack_sounds.len() > 0) {
+                    local randomSound = this.attack_sounds[rand() % this.attack_sounds.len()];
+                    this.PlaySoundForPlayer(this.warning_target, randomSound);
+                }
+            }
+            this.StopWarning();
+        }
+    }
+
+    function StopWarning() {
+        this.is_warning = false;
+        this.warning_target = -1;
+        this.final_warning_sent = false;
+        
+        if (!this.was_attacked && getPlayerWeaponMode(this.id) != WEAPONMODE_NONE) removeWeapon(this.id);
+        
+        this.idle_sound_timer = this.sound_time_offset;
+        this.next_idle_sound_time = this.GetRandomIdleSoundTime();
+    }
+
+    function CheckForArmedPlayers() {
+        local currentTime = getTickCount();
+        if (currentTime - this.last_warning_time < 2000) return;
+        
+        this.last_warning_time = currentTime;
+        
+        local streamedPlayers = getStreamedPlayersByPlayer(this.id);
+        local myPos = getPlayerPosition(this.id);
+        
+        foreach (playerid in streamedPlayers) {
+            if (playerid != this.id && isPlayerConnected(playerid) && !isPlayerDead(playerid)) {
+                local playerPos = getPlayerPosition(playerid);
+                local distance = getDistance3d(myPos.x, myPos.y, myPos.z, playerPos.x, playerPos.y, playerPos.z);
+                
+                if (distance > 800) continue;
+                
+                local weaponMode = getPlayerWeaponMode(playerid);
+                
+                if (weaponMode != WEAPONMODE_NONE && !this.is_warning) {
+                    this.StartWarning(playerid);
+                    break;
+                }
             }
         }
     }
 
+    function StartWarning(playerid) {
+        if (!isPlayerConnected(playerid) || isPlayerDead(playerid)) return;
+        
+        this.is_warning = true;
+        this.warning_target = playerid;
+        this.warning_start_time = getTickCount();
+        this.warning_end_time = getTickCount() + 40000;
+        this.final_warning_sent = false;
+        
+        if (this.can_fight_back && getPlayerWeaponMode(this.id) == WEAPONMODE_NONE) drawWeapon(this.id, this.weapon_mode);
+        
+        if (this.warning_sounds.len() > 0) {
+            local randomSound = this.warning_sounds[rand() % this.warning_sounds.len()];
+            this.PlaySoundForPlayer(playerid, randomSound);
+            this.last_sound_time = getTickCount();
+        }
+    }
+
     function HandleIdleSounds(ts) {
-        if (this.combat_state == 0) {
+        if (this.combat_state == 0 && !this.is_warning) {
             this.idle_sound_timer += ts;
             
-
             if (this.idle_sound_timer >= this.next_idle_sound_time) {
                 local currentTime = getTickCount();
                 
-
                 if ((currentTime - this.last_sound_time) > 30000 &&
                     (currentTime % 17 == this.id % 17) && 
                     rand() % 100 < this.sound_chance) {
@@ -182,9 +290,7 @@ class AIDynamicHuman extends AIHumanoid {
 
     function PlaySoundForStream(soundName) {
         local streamed = getStreamedPlayersByPlayer(this.id);
-        foreach (playerid in streamed) {
-            this.PlaySoundForPlayer(playerid, soundName);
-        }
+        foreach (playerid in streamed) this.PlaySoundForPlayer(playerid, soundName);
     }
 
     function CollectDefenseTarget() {
@@ -193,25 +299,16 @@ class AIDynamicHuman extends AIHumanoid {
             !isPlayerDead(this.last_attacker_id)) {
 
             local distance = AI_GetDistancePlayers(this.id, this.last_attacker_id);
-            if (distance <= this.chase_distance) {
-                return this.last_attacker_id;
-            }
+            if (distance <= this.chase_distance) return this.last_attacker_id;
         }
         return -1;
     }
 
     function IdleBehavior(ts) {
-        if (getPlayerWeaponMode(this.id) != WEAPONMODE_NONE) {
-            this.RemoveWeapon();
-        }
-        
-        if (this.can_wander && !AI_WaitForAction(this.id, this.wait_for_action_id)) {
+        if (this.can_wander && !AI_WaitForAction(this.id, this.wait_for_action_id) && !this.is_warning) {
             local chance = rand() % 100;
-            if (chance < this.wander_chance) {
-                this.Wander();
-            } else if (chance > 100 - this.idle_chance) {
-                this.PlayIdleAnimation();
-            }
+            if (chance < this.wander_chance) this.Wander();
+            else if (chance > 100 - this.idle_chance) this.PlayIdleAnimation();
         }
     }
 
@@ -228,11 +325,8 @@ class AIDynamicHuman extends AIHumanoid {
         }
         
         if (getTickCount() > this.wait_until) {
-            if (distance < 300) {
-                this.ContinueFleeing();
-            } else {
-                this.StopFleeing();
-            }
+            if (distance < 300) this.ContinueFleeing();
+            else this.StopFleeing();
             return;
         }
         
@@ -280,17 +374,17 @@ class AIDynamicHuman extends AIHumanoid {
     }
 
     function PlayIdleAnimation() {
-        local idleAnis = ["T_LOOKAROUND", "T_HEAD_TURN", "S_RUNL_2_STAND"];
+        local idleAnis = ["T_SEARCH", "S_LGUARD", "S_HGUARD"];
         playAni(this.id, idleAnis[rand() % idleAnis.len()]);
     }
 
     function OnHitReceived(kid, desc) {
-        if (this.last_attacker_id == kid && this.is_fleeing) {
-            return;
-        }
+        if (this.last_attacker_id == kid && this.is_fleeing) return;
 
         this.was_attacked = true;
         this.last_attacker_id = kid;
+
+        if (this.is_warning) this.StopWarning();
 
         local currentTime = getTickCount();
         if ((currentTime - this.last_sound_time) > 3000) {
@@ -322,9 +416,7 @@ class AIDynamicHuman extends AIHumanoid {
     }
 
     function StartFleeing(attackerId) {
-        if (!isPlayerConnected(attackerId) || isPlayerDead(attackerId)) {
-            return;
-        }
+        if (!isPlayerConnected(attackerId) || isPlayerDead(attackerId)) return;
         
         this.is_fleeing = true;
         
@@ -347,16 +439,31 @@ class AIDynamicHuman extends AIHumanoid {
             packet.writeInt32(this.id);
             packet.writeString(soundName);
             packet.send(playerid, 0);
-        } catch (e) {
-        }
+        } catch (e) {}
     }
 
     function OnFocusChange(from, to) {
-        if (to == -1 && this.was_attacked) {
-            this.StopFleeing();
-        }
+        if (to == -1 && this.was_attacked) this.StopFleeing();
         base.OnFocusChange(from, to);
     }
 
     function OnSpawn() {}
 }
+
+addEventHandler("onPlayerChangeWeaponMode", function(playerid, oldWeaponMode, newWeaponMode) {
+    local npcs = null;
+    
+    if ("AI_Manager" in getroottable() && "npcs" in ::AI_Manager) npcs = ::AI_Manager.npcs;
+    else if ("npcs" in getroottable()) npcs = ::npcs;
+    else return;
+    
+    foreach (npcid, npc in npcs) {
+        if (npc instanceof AIDynamicHuman && npc.can_fight_back && npc.enable_weapon_warning && isPlayerConnected(npcid)) {
+            local distance = AI_GetDistancePlayers(npcid, playerid);
+            
+            if (distance < 800 && newWeaponMode != WEAPONMODE_NONE && !npc.is_warning) {
+                if (rand() % 100 < 40) npc.StartWarning(playerid);
+            }
+        }
+    }
+});

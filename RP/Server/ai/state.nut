@@ -143,47 +143,21 @@ function createHuman(x, y, z, angle, config = {}, customCallback = null) {
         return null;
     }
     
-    // ZAPISZ KONFIGURACJĘ w instancji NPC
     npcInstance.SetConfig(config, customCallback);
     
-    // Przenieś ustawienia do SetConfig()
     if ("name" in config) npcInstance.name = config.name;
     if ("can_wander" in config) npcInstance.can_wander = config.can_wander;
     if ("idle_speech" in config) npcInstance.idle_speech = config.idle_speech;
     if ("can_fight_back" in config) npcInstance.can_fight_back = config.can_fight_back;
     if ("weapon_mode" in config) npcInstance.weapon_mode = config.weapon_mode;
     if ("attack_distance" in config) npcInstance.attack_distance = config.attack_distance;
+    if ("weapon_warning" in config) npcInstance.enable_weapon_warning = config.weapon_warning;
     
     local spawnedNpc = AI_SpawnNPC(npcInstance, x, y, z, angle, CFG.BotsSpawnMap);
     if (spawnedNpc == null) {
         print("ERROR: Failed to spawn NPC");
         return null;
     }
-    
-    // Te operacje są teraz w ApplyConfig()
-    // if ("name" in config) {
-    //     setPlayerName(spawnedNpc.id, config.name);
-    // }
-    // 
-    // if ("visual" in config) {
-    //     setTimer(function(id, visual) {
-    //         if (isPlayerConnected(id)) {
-    //             try {
-    //                 setPlayerVisual(id, visual.body, visual.bodyTex, visual.head, visual.headTex);
-    //             } catch (e) {
-    //                 print("Failed to set visual: " + e);
-    //             }
-    //         }
-    //     }, 100, 1, spawnedNpc.id, config.visual);
-    // }
-    // 
-    // if (customCallback != null) {
-    //     setTimer(function(npc, callback) {
-    //         if (isPlayerConnected(npc.id)) {
-    //             callback(npc);
-    //         }
-    //     }, 500, 1, spawnedNpc, customCallback);
-    // }
     
     return spawnedNpc;
 }
