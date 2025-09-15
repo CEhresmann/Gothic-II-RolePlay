@@ -89,6 +89,24 @@ CFG <- {
             "SVM_1_Smalltalk30",
             "SVM_10_Smalltalk05",
             "SVM_10_Smalltalk12"
+        ],
+        
+        warning_sounds = [
+            "SVM_3_WeaponDown",
+            "SVM_8_WeaponDown",
+            "SVM_1_WeaponDown",
+            "SVM_13_ISaidWeaponDown",
+            "SVM_10_WeaponDown",
+            "SVM_4_WeaponDown"
+        ],
+		
+		final_warning_sounds = [
+            "SVM_4_ITakeYourWeapon",
+            "SVM_9_ThatsMyWeapon",
+            "SVM_11_ITakeYourWeapon",
+            "SVM_12_ITakeYourWeapon",
+            "SVM_1_DieEnemy",
+            "DIA_Rukhar_HAENSELN_12_02"
         ]
     }
 
