@@ -20,7 +20,6 @@ class VobModel extends ORM.Model </ table="worldbuilder_vobs" />
     isStatic = false;
 }
 
-
 WorldBuilder <- {
     players = [],
     vobs = []
@@ -38,22 +37,22 @@ function WorldBuilder::loadVobs()
 
 function WorldBuilder::commandInit(pid, params)
 {
-	if (checkPermission(pid, LEVEL.MOD)){
-		local alreadyBuilder = false;
-		foreach(_pid in WorldBuilder.players) {
-			if (_pid == pid) {
-				alreadyBuilder = true;
-				break;
-			}
-		}
-		if (!alreadyBuilder) WorldBuilder.players.append(pid);
-		sendMessageToPlayer(pid, 0, 255, 0, "WB: Zalogowano do World Buildera. U¿yj F12, aby rozpocz¹æ budowanie.");
-		local packet = Packet();
-		packet.writeUInt8(PacketId.WorldBuilder);
-		packet.writeUInt8(PacketWorldBuilder.Player);
-		packet.send(pid, RELIABLE_ORDERED);
-		packet = null;
-	}
+    if (checkPermission(pid, LEVEL.MOD)){
+        local alreadyBuilder = false;
+        foreach(_pid in WorldBuilder.players) {
+            if (_pid == pid) {
+                alreadyBuilder = true;
+                break;
+            }
+        }
+        if (!alreadyBuilder) WorldBuilder.players.append(pid);
+        SendSystemMessage(pid, "WB: Zalogowano do World Buildera. U¿yj F12, aby rozpocz¹æ budowanie.", {r=0,g=255,b=0});
+        local packet = Packet();
+        packet.writeUInt8(PacketId.WorldBuilder);
+        packet.writeUInt8(PacketWorldBuilder.Player);
+        packet.send(pid, RELIABLE_ORDERED);
+        packet = null;
+    }
 }
 
 addCommand("wb", WorldBuilder.commandInit);
@@ -80,7 +79,6 @@ function WorldBuilder::onPacket(pid, packet)
         local roty = packet.readInt16();
         local rotz = packet.readInt16();
         local isStatic = packet.readBool();
-        
 
         local existingVob = null;
         try {
@@ -89,7 +87,7 @@ function WorldBuilder::onPacket(pid, packet)
         } catch (e) {}
         
         if (existingVob != null) {
-            sendMessageToPlayer(pid, 255, 0, 0, "WB: Vob '" + name + "' ju¿ istnieje na tej pozycji.");
+            SendSystemMessage(pid, "WB: Vob '" + name + "' ju¿ istnieje na tej pozycji.", {r=255,g=0,b=0});
             return;
         }
         
@@ -104,7 +102,8 @@ function WorldBuilder::onPacket(pid, packet)
             newVob.rotz = rotz;
             newVob.isStatic = isStatic;
             newVob.insert();
-            sendMessageToPlayer(pid, 0, 255, 0, "WB: Vob '" + name + "' zosta³ zapisany w bazie danych.");
+            SendSystemMessage(pid, "WB: Vob '" + name + "' zosta³ zapisany w bazie danych.", {r=0,g=255,b=0});
+            
             if (CFG.WorldBuilderTrueBuilding) {
                 WorldBuilder.vobs.append(newVob);
                 local updatePacket = Packet();
@@ -122,7 +121,7 @@ function WorldBuilder::onPacket(pid, packet)
                 updatePacket = null;
             }
         } catch (e) {
-            sendMessageToPlayer(pid, 255, 0, 0, "WB: B³¹d zapisu voba do bazy danych: " + e);
+            SendSystemMessage(pid, "WB: B³¹d zapisu voba do bazy danych: " + e, {r=255,g=0,b=0});
         }
     }
 }

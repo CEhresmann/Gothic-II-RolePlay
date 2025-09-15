@@ -25,6 +25,7 @@ builder <- {
     active = false,
     cameraMode = 1,
     access = false,
+    localVobs = []
 }
 
 function builder::start()
@@ -43,7 +44,6 @@ function builder::end()
     Interface.baseInterface(false);
     hideGUI();
     active = false;
-    
 
     for (local i = manager.len() - 1; i >= 0; i--) {
         local vobManaged = manager[i];
@@ -60,7 +60,6 @@ function builder::save()
 {
     foreach(vobManaged in manager)
     {
-
         if (isVobAlreadySaved(vobManaged)) {
             continue;
         }
@@ -81,9 +80,7 @@ function builder::save()
         packet.writeInt16(_zvobrot.z);
         packet.writeBool(_zvob.cdStatic);
         packet.send(RELIABLE_ORDERED);
-        packet = null;
         
-
         savedVobs.append({
             name = vobManaged.name,
             x = _zvobpos.x,
@@ -94,7 +91,6 @@ function builder::save()
     }
     end();
 }
-
 
 function isVobAlreadySaved(vobManaged)
 {
@@ -131,17 +127,18 @@ function builder::setUpVob()
     local newVob = Vob(builder.list[vobsSelection.cat][vobsSelection.sId].name);
     newVob.setPosition(currentVobPosition.x, currentVobPosition.y, currentVobPosition.z);
     newVob.setRotation(currentVobRotation.x, currentVobRotation.y, currentVobRotation.z);
+    newVob.cdStatic = currentVob.cdStatic;
+    newVob.cdDynamic = currentVob.cdStatic;
     newVob.addToWorld();
     
-
-    newVob.cdStatic = !currentVob.cdStatic;
-    newVob.cdDynamic = currentVob.cdStatic;
-    
-    builderManager.openRenders();
-    builder.vob.setPosition(currentVobPosition.x + 100, currentVobPosition.y, currentVobPosition.z);
-    
-
     manager.append({element = newVob, name = builder.list[vobsSelection.cat][vobsSelection.sId].name});
+    builder.localVobs.append({
+        name = builder.list[vobsSelection.cat][vobsSelection.sId].name,
+        x = currentVobPosition.x,
+        y = currentVobPosition.y,
+        z = currentVobPosition.z
+    });
+  
 }
 
 function builder::onBuilderCameraChange()
@@ -192,7 +189,21 @@ local function packetHandler(packet)
             local roty = packet.readInt16();
             local rotz = packet.readInt16();
             local isStatic = packet.readBool();
-            addVob(x,y,z,rotx,roty,rotz,isStatic,name);
+            
+            local isLocalVob = false;
+            foreach(localVob in builder.localVobs) {
+                if (localVob.name == name && 
+                    abs(localVob.x - x) < 1.0 && 
+                    abs(localVob.y - y) < 1.0 && 
+                    abs(localVob.z - z) < 1.0) {
+                    isLocalVob = true;
+                    break;
+                }
+            }
+            
+            if (!isLocalVob) {
+                addVob(x,y,z,rotx,roty,rotz,isStatic,name);
+            }
         break;
     }
 }
@@ -201,7 +212,6 @@ function isBuilderActive() { return builder.active; }
 
 function addVob(x,y,z,rotx,roty,rotz,isStatic,name,synchronized = true)
 {
-
     local duplicate = false;
     foreach(managedVob in builder.manager) {
         if (managedVob.name == name) {
@@ -217,15 +227,12 @@ function addVob(x,y,z,rotx,roty,rotz,isStatic,name,synchronized = true)
         local placeVob = Vob(name);
         placeVob.setPosition(x,y,z);
         placeVob.setRotation(rotx, roty, rotz);
-        placeVob.addToWorld();
-        
-
-        placeVob.cdStatic = !isStatic;
+        placeVob.cdStatic = isStatic;
         placeVob.cdDynamic = isStatic;
+        placeVob.addToWorld();
         
         builder.manager.append({element = placeVob, name = name});
         
-
         builder.savedVobs.append({
             name = name,
             x = x,
