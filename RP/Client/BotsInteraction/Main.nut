@@ -156,7 +156,7 @@ addEventHandler("onLostFocus", function(type, id, name) {
 });
 
 addEventHandler("onKeyDown", function(key) {
-    if (key == KEY_G && focusedNpcId != null) {
+    if (key == KEY_LCONTROL || key == MOUSE_BUTTONLEFT && focusedNpcId != null) {
         local currentTime = getTickCount();
         if (currentTime - lastLootTime < 2000 && lastLootNpcId == focusedNpcId) return;
         
