@@ -380,7 +380,7 @@ addEventHandler("onPlayerJoin", function(pid) {
 
 addEventHandler("onPlayerDead", function(pid, killerid) {
 	setPlayerRespawnTime(pid, 0);
-	sendMessageToPlayer(pid, 255, 0, 0, "Umar³eœ! Obudzisz siê za minutê.");
+	SendSystemMessage(pid, "Umar³eœ, odrodzisz siê za minute!", {r=255, g=0, b=0});
 	setTimer(function() {
 		respawnPlayer(pid);
 		setPlayerHealth(pid, 20);
