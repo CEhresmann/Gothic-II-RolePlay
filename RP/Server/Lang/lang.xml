@@ -1,7 +1,0 @@
-<server>
-    <script type="server" src="System.nut" />
-    <script src="_pl.nut" type="server"/>
-    <script src="_de.nut" type="server"/>
-    <script src="_ru.nut" type="server"/>
-    <script src="_en.nut" type="server"/>
-</server>
