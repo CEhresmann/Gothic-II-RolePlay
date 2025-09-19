@@ -1,0 +1,28 @@
+
+enum PLAYER_GUI 
+{
+    MAP,
+    NETWORK,
+    PLAYERLIST,
+    FRACTION,
+    LOGGIN,
+    REGISTER,
+    VISUAL,
+    NPC,
+    ANIMATION,
+    MENUINGAME,
+    WORLDBUILDER,
+    GRIDEDITOR,
+	LOOTMENU,
+}
+
+enum LEVEL {
+	MOD = 1,
+	ADMIN = 2,
+}
+
+enum OBJECT {
+    DISTANCE,
+    KEY,
+    ITEM,
+}
