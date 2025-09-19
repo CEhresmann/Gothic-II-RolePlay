@@ -22,42 +22,42 @@ function checkPermission(pid, level) {
     if (Player[pid].rank >= level)
         return true;
 
-    SendSystemMessage(pid, "Nie masz uprawnieÅ„ do uÅ¼ycia tej komendy!", {r=255,g=0,b=0});
+    SendSystemMessage(pid, "Nie masz uprawnieñ do u¿ycia tej komendy!", {r=255,g=0,b=0});
     return false;
 }
 
 local function cmd_acp(pid, params) {
     SendSystemMessage(pid, "-=========== ACP (Panel Administracji) ===========-", {r=0,g=255,b=0});
-    SendSystemMessage(pid, "/login - Zaloguj siÄ™ na swoje konto admina/moda na podstawie UID.", {r=0,g=255,b=0});
-    SendSystemMessage(pid, "/color id r g b - ZmieÅ„ kolor gracza", {r=0,g=255,b=0});
-    SendSystemMessage(pid, "/name id nickname - ZmieÅ„ pseudonim gracza", {r=0,g=255,b=0});
-    SendSystemMessage(pid, "/kick id powÃ³d - WyrzuÄ‡ gracza", {r=0,g=255,b=0});
-    SendSystemMessage(pid, "/pos nazwa - Zapisz pozycjÄ™ do pliku", {r=0,g=255,b=0});
-    SendSystemMessage(pid, "/ros - Zapisz pozycjÄ™ ziela do pliku", {r=0,g=255,b=0});
-    SendSystemMessage(pid, "/ban id minuty powÃ³d - Zbanuj gracza (minuty = 0 = na zawsze)", {r=0,g=255,b=0});
+    SendSystemMessage(pid, "/login - Zaloguj siê na swoje konto admina/moda na podstawie UID.", {r=0,g=255,b=0});
+    SendSystemMessage(pid, "/color id r g b - Zmieñ kolor gracza", {r=0,g=255,b=0});
+    SendSystemMessage(pid, "/name id nickname - Zmieñ pseudonim gracza", {r=0,g=255,b=0});
+    SendSystemMessage(pid, "/kick id powód - Wyrzuæ gracza", {r=0,g=255,b=0});
+    SendSystemMessage(pid, "/pos nazwa - Zapisz pozycjê do pliku", {r=0,g=255,b=0});
+    SendSystemMessage(pid, "/ros - Zapisz pozycjê ziela do pliku", {r=0,g=255,b=0});
+    SendSystemMessage(pid, "/ban id minuty powód - Zbanuj gracza (minuty = 0 = na zawsze)", {r=0,g=255,b=0});
     SendSystemMessage(pid, "/tp from_id to_id - Teleportuj gracza do innego gracza", {r=0,g=255,b=0});
     SendSystemMessage(pid, "/tpall to_id - Teleportuj wszystkich graczy do gracza", {r=0,g=255,b=0});
-    SendSystemMessage(pid, "/giveitem id instancja iloÅ›Ä‡ - Daj przedmiot graczowi", {r=0,g=255,b=0});
-    SendSystemMessage(pid, "/removeitem id instancja iloÅ›Ä‡ - Zabierz przedmiot graczowi", {r=0,g=255,b=0});
-    SendSystemMessage(pid, "/str id wartoÅ›Ä‡ - Ustaw siÅ‚Ä™ gracza", {r=0,g=255,b=0});
-    SendSystemMessage(pid, "/dex id wartoÅ›Ä‡ - Ustaw zrÄ™cznoÅ›Ä‡ gracza", {r=0,g=255,b=0});
+    SendSystemMessage(pid, "/giveitem id instancja iloœæ - Daj przedmiot graczowi", {r=0,g=255,b=0});
+    SendSystemMessage(pid, "/removeitem id instancja iloœæ - Zabierz przedmiot graczowi", {r=0,g=255,b=0});
+    SendSystemMessage(pid, "/str id wartoœæ - Ustaw si³ê gracza", {r=0,g=255,b=0});
+    SendSystemMessage(pid, "/dex id wartoœæ - Ustaw zrêcznoœæ gracza", {r=0,g=255,b=0});
     SendSystemMessage(pid, "/heal id - Ulecz gracza", {r=0,g=255,b=0});
-    SendSystemMessage(pid, "/mana id - UzupeÅ‚nij manÄ™ gracza", {r=0,g=255,b=0});
+    SendSystemMessage(pid, "/mana id - Uzupe³nij manê gracza", {r=0,g=255,b=0});
     SendSystemMessage(pid, "/setmaxhp id maxHP - Ustaw maksymalne HP gracza", {r=0,g=255,b=0});
-    SendSystemMessage(pid, "/setmaxmana id maxMana - Ustaw maksymalnÄ… manÄ™ gracza", {r=0,g=255,b=0});
-    SendSystemMessage(pid, "/setweaponskill id skillId procenty - Ustaw umiejÄ™tnoÅ›Ä‡ broni (0=1H,1=2H,2=BOW,3=CBOW)", {r=0,g=255,b=0});
+    SendSystemMessage(pid, "/setmaxmana id maxMana - Ustaw maksymaln¹ manê gracza", {r=0,g=255,b=0});
+    SendSystemMessage(pid, "/setweaponskill id skillId procenty - Ustaw umiejêtnoœæ broni (0=1H,1=2H,2=BOW,3=CBOW)", {r=0,g=255,b=0});
     SendSystemMessage(pid, "/time godzina minuta - Ustaw czas serwera", {r=0,g=255,b=0});
     SendSystemMessage(pid, "/kill id - Zabij gracza", {r=0,g=255,b=0});
-    SendSystemMessage(pid, "/instance id instancja - ZmieÅ„ instancjÄ™ gracza", {r=0,g=255,b=0});
+    SendSystemMessage(pid, "/instance id instancja - Zmieñ instancjê gracza", {r=0,g=255,b=0});
     SendSystemMessage(pid, "/admin_awans idFrakcji idKlasy idGracza - Awansuj gracza", {r=0,g=255,b=0});
-    SendSystemMessage(pid, "/report id powÃ³d - ZgÅ‚oÅ› gracza", {r=0,g=255,b=0});
-    SendSystemMessage(pid, "/invisible - PrzeÅ‚Ä…cz niewidzialnoÅ›Ä‡", {r=0,g=255,b=0});
+    SendSystemMessage(pid, "/report id powód - Zg³oœ gracza", {r=0,g=255,b=0});
+    SendSystemMessage(pid, "/invisible - Prze³¹cz niewidzialnoœæ", {r=0,g=255,b=0});
 }
 
 local function cmd_login(pid, params) {
     local playerUID = getPlayerUID(pid);
     if (!playerUID) {
-        SendSystemMessage(pid, "Nie udaÅ‚o siÄ™ pobraÄ‡ twojego unikalnego ID (UID).", {r=255,g=0,b=0});
+        SendSystemMessage(pid, "Nie uda³o siê pobraæ twojego unikalnego ID (UID).", {r=255,g=0,b=0});
         return;
     }
 
@@ -67,21 +67,21 @@ local function cmd_login(pid, params) {
             if (account.rank >= LEVEL.MOD) {
                 Player[pid].rank = account.rank;
                 local rankName = (account.rank == LEVEL.ADMIN) ? "Administratora" : "Moderatora";
-                SendSystemMessage(pid, "Zalogowano pomyÅ›lnie jako " + rankName + ".", {r=255,g=255,b=0});
+                SendSystemMessage(pid, "Zalogowano pomyœlnie jako " + rankName + ".", {r=255,g=255,b=0});
 
                 if (account.rank == LEVEL.ADMIN)
                     setPlayerColor(pid, CFG.AdminColor.r, CFG.AdminColor.g, CFG.AdminColor.b);
                 else if (account.rank == LEVEL.MOD)
                     setPlayerColor(pid, CFG.ModColor.r, CFG.ModColor.g, CFG.ModColor.b);
             } else {
-                SendSystemMessage(pid, "Twoje konto nie ma wystarczajÄ…cych uprawnieÅ„.", {r=255,g=0,b=0});
+                SendSystemMessage(pid, "Twoje konto nie ma wystarczaj¹cych uprawnieñ.", {r=255,g=0,b=0});
             }
         } else {
-            SendSystemMessage(pid, "Twoje konto nie zostaÅ‚o znalezione w systemie administracji.", {r=255,g=0,b=0});
+            SendSystemMessage(pid, "Twoje konto nie zosta³o znalezione w systemie administracji.", {r=255,g=0,b=0});
         }
     } catch (e) {
-        SendSystemMessage(pid, "WystÄ…piÅ‚ bÅ‚Ä…d bazy danych podczas logowania. Skontaktuj siÄ™ z wÅ‚aÅ›cicielem serwera.", {r=255,g=0,b=0});
-        serverLog("ACP BÅ‚Ä…d Logowania dla " + getPlayerName(pid) + " (UID: " + playerUID + "): " + e);
+        SendSystemMessage(pid, "Wyst¹pi³ b³¹d bazy danych podczas logowania. Skontaktuj siê z w³aœcicielem serwera.", {r=255,g=0,b=0});
+        serverLog("ACP B³¹d Logowania dla " + getPlayerName(pid) + " (UID: " + playerUID + "): " + e);
     }
 }
 
@@ -90,7 +90,7 @@ local function cmd_pos(pid, params) {
 
     local args = sscanf("s", params);
     if (!args) {
-        SendSystemMessage(pid, "UÅ¼ycie: /pos nazwa", {r=255,g=0,b=0});
+        SendSystemMessage(pid, "U¿ycie: /pos nazwa", {r=255,g=0,b=0});
         return;
     }
 
@@ -119,7 +119,7 @@ local function cmd_color(pid, params) {
 
     local args = sscanf("dddd", params);
     if (!args) {
-        SendSystemMessage(pid, "UÅ¼ycie: /color id r g b", {r=255,g=0,b=0});
+        SendSystemMessage(pid, "U¿ycie: /color id r g b", {r=255,g=0,b=0});
         return;
     }
 
@@ -129,14 +129,14 @@ local function cmd_color(pid, params) {
     local b = args[3];
 
     if (!isPlayerConnected(id)) {
-        SendSystemMessage(pid, "Nie moÅ¼esz zmieniÄ‡ koloru niepoÅ‚Ä…czonemu graczowi!", {r=255,g=0,b=0});
+        SendSystemMessage(pid, "Nie mo¿esz zmieniæ koloru niepo³¹czonemu graczowi!", {r=255,g=0,b=0});
         return;
     }
 
     setPlayerColor(id, r, g, b);
 
-    SendSystemMessage(pid, format("ZmieniÅ‚eÅ› kolor gracza %s na %d, %d, %d", getPlayerName(id), r, g, b), {r=r,g=g,b=b});
-    SendSystemMessage(id, format("TwÃ³j kolor zostaÅ‚ zmieniony na %d, %d, %d przez %s", r, g, b, getPlayerName(pid)), {r=r,g=g,b=b});
+    SendSystemMessage(pid, format("Zmieni³eœ kolor gracza %s na %d, %d, %d", getPlayerName(id), r, g, b), {r=r,g=g,b=b});
+    SendSystemMessage(id, format("Twój kolor zosta³ zmieniony na %d, %d, %d przez %s", r, g, b, getPlayerName(pid)), {r=r,g=g,b=b});
 }
 
 local function cmd_name(pid, params) {
@@ -144,7 +144,7 @@ local function cmd_name(pid, params) {
 
     local args = sscanf("ds", params);
     if (!args) {
-        SendSystemMessage(pid, "UÅ¼ycie: /name id pseudonim", {r=255,g=0,b=0});
+        SendSystemMessage(pid, "U¿ycie: /name id pseudonim", {r=255,g=0,b=0});
         return;
     }
 
@@ -152,21 +152,21 @@ local function cmd_name(pid, params) {
     local name = args[1];
 
     if (!isPlayerConnected(id)) {
-        SendSystemMessage(pid, "Nie moÅ¼esz zmieniÄ‡ pseudonimu niepoÅ‚Ä…czonemu graczowi!", {r=255,g=0,b=0});
+        SendSystemMessage(pid, "Nie mo¿esz zmieniæ pseudonimu niepo³¹czonemu graczowi!", {r=255,g=0,b=0});
         return;
     }
 
     setPlayerName(id, name);
 
-    SendSystemMessage(pid, format("ZmieniÅ‚eÅ› pseudonim gracza %s na %s", getPlayerName(id), name), {r=0,g=255,b=0});
-    SendSystemMessage(id, format("TwÃ³j pseudonim zostaÅ‚ zmieniony na %s przez %s", name, getPlayerName(pid)), {r=0,g=255,b=0});
+    SendSystemMessage(pid, format("Zmieni³eœ pseudonim gracza %s na %s", getPlayerName(id), name), {r=0,g=255,b=0});
+    SendSystemMessage(id, format("Twój pseudonim zosta³ zmieniony na %s przez %s", name, getPlayerName(pid)), {r=0,g=255,b=0});
 }
 
 local function cmd_kick(pid, params) {
     if (checkPermission(pid, LEVEL.MOD)) {
         local args = sscanf("ds", params);
         if (!args) {
-            SendSystemMessage(pid, "UÅ¼ycie: /kick id powÃ³d", {r=255,g=0,b=0});
+            SendSystemMessage(pid, "U¿ycie: /kick id powód", {r=255,g=0,b=0});
             return;
         }
 
@@ -174,14 +174,14 @@ local function cmd_kick(pid, params) {
         local reason = args[1];
 
         if (!isPlayerConnected(id)) {
-            SendSystemMessage(pid, "Nie moÅ¼esz wyrzuciÄ‡ niepoÅ‚Ä…czonego gracza!", {r=255,g=0,b=0});
+            SendSystemMessage(pid, "Nie mo¿esz wyrzuciæ niepo³¹czonego gracza!", {r=255,g=0,b=0});
             return;
         }
 
         kick(id, reason);
 
-        SendSystemMessage(null, format("%s zostaÅ‚ wyrzucony przez %s", getPlayerName(id), getPlayerName(pid)), {r=255,g=80,b=0});
-        SendSystemMessage(null, format("PowÃ³d: %s", reason), {r=255,g=80,b=0});
+        SendSystemMessage(null, format("%s zosta³ wyrzucony przez %s", getPlayerName(id), getPlayerName(pid)), {r=255,g=80,b=0});
+        SendSystemMessage(null, format("Powód: %s", reason), {r=255,g=80,b=0});
     }
 }
 
@@ -189,7 +189,7 @@ local function cmd_ban(pid, params) {
     if (checkPermission(pid, LEVEL.ADMIN)) {
         local args = sscanf("dds", params);
         if (!args) {
-            SendSystemMessage(pid, "UÅ¼ycie: /ban id minuty powÃ³d", {r=255,g=0,b=0});
+            SendSystemMessage(pid, "U¿ycie: /ban id minuty powód", {r=255,g=0,b=0});
             return;
         }
 
@@ -198,15 +198,15 @@ local function cmd_ban(pid, params) {
         local reason = args[2];
 
         if (!isPlayerConnected(id)) {
-            SendSystemMessage(pid, "Nie moÅ¼esz zbanowaÄ‡ niepoÅ‚Ä…czonego gracza!", {r=255,g=0,b=0});
+            SendSystemMessage(pid, "Nie mo¿esz zbanowaæ niepo³¹czonego gracza!", {r=255,g=0,b=0});
             return;
         }
 
         ban(id, minutes, reason);
 
-        if (minutes > 0) SendSystemMessage(null, format("%s zostaÅ‚ zbanowany na %d minut przez %s", getPlayerName(id), minutes, getPlayerName(pid)), {r=255,g=0,b=0});
-        else SendSystemMessage(null, format("%s zostaÅ‚ ZBANOWANY NA ZAWSZE przez %s", getPlayerName(id), getPlayerName(pid)), {r=255,g=0,b=0});
-        SendSystemMessage(null, format("PowÃ³d: %s", reason), {r=255,g=0,b=0});
+        if (minutes > 0) SendSystemMessage(null, format("%s zosta³ zbanowany na %d minut przez %s", getPlayerName(id), minutes, getPlayerName(pid)), {r=255,g=0,b=0});
+        else SendSystemMessage(null, format("%s zosta³ ZBANOWANY NA ZAWSZE przez %s", getPlayerName(id), getPlayerName(pid)), {r=255,g=0,b=0});
+        SendSystemMessage(null, format("Powód: %s", reason), {r=255,g=0,b=0});
     }
 }
 
@@ -214,7 +214,7 @@ local function cmd_tp(pid, params) {
     if (checkPermission(pid, LEVEL.MOD)) {
         local args = sscanf("dd", params);
         if (!args) {
-            SendSystemMessage(pid, "UÅ¼ycie: /tp from_id to_id", {r=255,g=0,b=0});
+            SendSystemMessage(pid, "U¿ycie: /tp from_id to_id", {r=255,g=0,b=0});
             return;
         }
 
@@ -222,12 +222,12 @@ local function cmd_tp(pid, params) {
         local to_id = args[1];
 
         if (!isPlayerSpawned(from_id) || !isPlayerSpawned(to_id)) {
-            SendSystemMessage(pid, "Nie moÅ¼esz teleportowaÄ‡ niepoÅ‚Ä…czonych lub niespawniÄ™tych graczy!", {r=255,g=0,b=0});
+            SendSystemMessage(pid, "Nie mo¿esz teleportowaæ niepo³¹czonych lub niespawniêtych graczy!", {r=255,g=0,b=0});
             return;
         }
 
         if (from_id == to_id) {
-            SendSystemMessage(pid, "Nie moÅ¼esz teleportowaÄ‡ tego samego gracza!", {r=255,g=0,b=0});
+            SendSystemMessage(pid, "Nie mo¿esz teleportowaæ tego samego gracza!", {r=255,g=0,b=0});
             return;
         }
 
@@ -239,8 +239,8 @@ local function cmd_tp(pid, params) {
         setPlayerPosition(from_id, pos.x, pos.y, pos.z);
 
         SendSystemMessage(pid, format("Teleportowano %s do %s", getPlayerName(from_id), getPlayerName(to_id)), {r=0,g=255,b=0});
-        SendSystemMessage(from_id, format("ZostaÅ‚eÅ› teleportowany do %s przez %s", getPlayerName(to_id), getPlayerName(pid)), {r=0,g=255,b=0});
-        SendSystemMessage(to_id, format("Do ciebie zostaÅ‚ teleportowany %s przez %s", getPlayerName(from_id), getPlayerName(pid)), {r=0,g=255,b=0});
+        SendSystemMessage(from_id, format("Zosta³eœ teleportowany do %s przez %s", getPlayerName(to_id), getPlayerName(pid)), {r=0,g=255,b=0});
+        SendSystemMessage(to_id, format("Do ciebie zosta³ teleportowany %s przez %s", getPlayerName(from_id), getPlayerName(pid)), {r=0,g=255,b=0});
     }
 }
 
@@ -248,19 +248,19 @@ local function cmd_tpall(pid, params) {
     if (checkPermission(pid, LEVEL.ADMIN)) {
         local args = sscanf("d", params);
         if (!args) {
-            SendSystemMessage(pid, "UÅ¼ycie: /tpall to_id", {r=255,g=0,b=0});
+            SendSystemMessage(pid, "U¿ycie: /tpall to_id", {r=255,g=0,b=0});
             return;
         }
 
         local to_id = args[0];
         if (!isPlayerSpawned(to_id)) {
-            SendSystemMessage(pid, "Nie moÅ¼esz teleportowaÄ‡ do niepoÅ‚Ä…czonego lub niespawniÄ™tego gracza!", {r=255,g=0,b=0});
+            SendSystemMessage(pid, "Nie mo¿esz teleportowaæ do niepo³¹czonego lub niespawniêtego gracza!", {r=255,g=0,b=0});
             return;
         }
 
         local world = getPlayerWorld(to_id);
         local pos = getPlayerPosition(to_id);
-        local message = format("ZostaÅ‚eÅ› teleportowany do %s przez %s", getPlayerName(to_id), getPlayerName(pid));
+        local message = format("Zosta³eœ teleportowany do %s przez %s", getPlayerName(to_id), getPlayerName(pid));
 
         for (local i = 0; i < getMaxSlots(); ++i) {
             if (isPlayerConnected(i) && isPlayerSpawned(i)) {
@@ -280,7 +280,7 @@ local function cmd_giveitem(pid, params) {
     if (checkPermission(pid, LEVEL.ADMIN)) {
         local args = sscanf("dsd", params);
         if (!args) {
-            SendSystemMessage(pid, "UÅ¼ycie: /giveitem id instancja iloÅ›Ä‡", {r=255,g=0,b=0});
+            SendSystemMessage(pid, "U¿ycie: /giveitem id instancja iloœæ", {r=255,g=0,b=0});
             return;
         }
 
@@ -289,15 +289,15 @@ local function cmd_giveitem(pid, params) {
         local amount = args[2];
 
         if (!isPlayerSpawned(id)) {
-            SendSystemMessage(pid, "Nie moÅ¼esz daÄ‡ przedmiotu niepoÅ‚Ä…czonemu lub niespawniÄ™temu graczowi!", {r=255,g=0,b=0});
+            SendSystemMessage(pid, "Nie mo¿esz daæ przedmiotu niepo³¹czonemu lub niespawniêtemu graczowi!", {r=255,g=0,b=0});
             return;
         }
 
         if (amount < 1) amount = 1;
         giveItem(id, instance, amount);
 
-        SendSystemMessage(pid, format("DaÅ‚eÅ› przedmiot %s w iloÅ›ci: %d graczowi %s", instance, amount, getPlayerName(id)), {r=0,g=255,b=0});
-        SendSystemMessage(id, format("OtrzymaÅ‚eÅ› przedmiot %s w iloÅ›ci: %d od %s", instance, amount, getPlayerName(pid)), {r=0,g=255,b=0});
+        SendSystemMessage(pid, format("Da³eœ przedmiot %s w iloœci: %d graczowi %s", instance, amount, getPlayerName(id)), {r=0,g=255,b=0});
+        SendSystemMessage(id, format("Otrzyma³eœ przedmiot %s w iloœci: %d od %s", instance, amount, getPlayerName(pid)), {r=0,g=255,b=0});
     }
 }
 
@@ -305,7 +305,7 @@ local function cmd_str(pid, params) {
     if (checkPermission(pid, LEVEL.ADMIN)) {
         local args = sscanf("dd", params);
         if (!args) {
-            SendSystemMessage(pid, "UÅ¼ycie: /str id wartoÅ›Ä‡", {r=255,g=0,b=0});
+            SendSystemMessage(pid, "U¿ycie: /str id wartoœæ", {r=255,g=0,b=0});
             return;
         }
 
@@ -313,15 +313,15 @@ local function cmd_str(pid, params) {
         local value = args[1];
 
         if (!isPlayerSpawned(id)) {
-            SendSystemMessage(pid, "Nie moÅ¼esz daÄ‡ siÅ‚y niepoÅ‚Ä…czonemu lub niespawniÄ™temu graczowi!", {r=255,g=0,b=0});
+            SendSystemMessage(pid, "Nie mo¿esz daæ si³y niepo³¹czonemu lub niespawniêtemu graczowi!", {r=255,g=0,b=0});
             return;
         }
 
         if (value < 0) value = 0;
         setPlayerStrength(id, value);
 
-        SendSystemMessage(pid, format("ZmieniÅ‚eÅ› siÅ‚Ä™ gracza %s na %d", getPlayerName(id), value), {r=0,g=255,b=0});
-        SendSystemMessage(id, format("Twoja siÅ‚a zostaÅ‚a zmieniona na %d przez %s", value, getPlayerName(pid)), {r=0,g=255,b=0});
+        SendSystemMessage(pid, format("Zmieni³eœ si³ê gracza %s na %d", getPlayerName(id), value), {r=0,g=255,b=0});
+        SendSystemMessage(id, format("Twoja si³a zosta³a zmieniona na %d przez %s", value, getPlayerName(pid)), {r=0,g=255,b=0});
     }
 }
 
@@ -329,7 +329,7 @@ local function cmd_dex(pid, params) {
     if (checkPermission(pid, LEVEL.ADMIN)) {
         local args = sscanf("dd", params);
         if (!args) {
-            SendSystemMessage(pid, "UÅ¼ycie: /dex id wartoÅ›Ä‡", {r=255,g=0,b=0});
+            SendSystemMessage(pid, "U¿ycie: /dex id wartoœæ", {r=255,g=0,b=0});
             return;
         }
 
@@ -337,15 +337,15 @@ local function cmd_dex(pid, params) {
         local value = args[1];
 
         if (!isPlayerSpawned(id)) {
-            SendSystemMessage(pid, "Nie moÅ¼esz daÄ‡ zrÄ™cznoÅ›ci niepoÅ‚Ä…czonemu lub niespawniÄ™temu graczowi!", {r=255,g=0,b=0});
+            SendSystemMessage(pid, "Nie mo¿esz daæ zrêcznoœci niepo³¹czonemu lub niespawniêtemu graczowi!", {r=255,g=0,b=0});
             return;
         }
 
         if (value < 0) value = 0;
         setPlayerDexterity(id, value);
 
-        SendSystemMessage(pid, format("ZmieniÅ‚eÅ› zrÄ™cznoÅ›Ä‡ gracza %s na %d", getPlayerName(id), value), {r=0,g=255,b=0});
-        SendSystemMessage(id, format("Twoja zrÄ™cznoÅ›Ä‡ zostaÅ‚a zmieniona na %d przez %s", value, getPlayerName(pid)), {r=0,g=255,b=0});
+        SendSystemMessage(pid, format("Zmieni³eœ zrêcznoœæ gracza %s na %d", getPlayerName(id), value), {r=0,g=255,b=0});
+        SendSystemMessage(id, format("Twoja zrêcznoœæ zosta³a zmieniona na %d przez %s", value, getPlayerName(pid)), {r=0,g=255,b=0});
     }
 }
 
@@ -353,13 +353,13 @@ local function cmd_awans(pid, params) {
     if (checkPermission(pid, LEVEL.MOD)) {
         local args = sscanf("ddd", params);
         if (!args) {
-            SendSystemMessage(pid, "UÅ¼ycie: /admin_awans <id frakcji> <id klasy> <id gracza>", {r=255,g=0,b=0});
+            SendSystemMessage(pid, "U¿ycie: /admin_awans <id frakcji> <id klasy> <id gracza>", {r=255,g=0,b=0});
             return;
         }
 
         local id = args[2];
         if (!isPlayerSpawned(id)) {
-            SendSystemMessage(pid, "Nie moÅ¼esz daÄ‡ klasy niepoÅ‚Ä…czonemu lub niespawniÄ™temu graczowi!", {r=255,g=0,b=0});
+            SendSystemMessage(pid, "Nie mo¿esz daæ klasy niepo³¹czonemu lub niespawniêtemu graczowi!", {r=255,g=0,b=0});
             return;
         }
 
@@ -384,8 +384,8 @@ local function cmd_awans(pid, params) {
 
         setClassPlayer(id, fraction_id, class_id);
 
-        SendSystemMessage(pid, format("DaÅ‚eÅ› klasÄ™ %s graczowi %s", fraction.classes[class_id].name, getPlayerName(id)), {r=0,g=255,b=0});
-        SendSystemMessage(id, format("OtrzymaÅ‚eÅ› klasÄ™ %s od %s", fraction.classes[class_id].name, getPlayerName(pid)), {r=0,g=255,b=0});
+        SendSystemMessage(pid, format("Da³eœ klasê %s graczowi %s", fraction.classes[class_id].name, getPlayerName(id)), {r=0,g=255,b=0});
+        SendSystemMessage(id, format("Otrzyma³eœ klasê %s od %s", fraction.classes[class_id].name, getPlayerName(pid)), {r=0,g=255,b=0});
     }
 }
 
@@ -393,7 +393,7 @@ local function cmd_heal(pid, params) {
     if (checkPermission(pid, LEVEL.MOD)) {
         local basicArgs = sscanf("d", params);
         if (!basicArgs) {
-            SendSystemMessage(pid, "UÅ¼ycie: /heal id [wartoÅ›Ä‡]", {r=255,g=0,b=0});
+            SendSystemMessage(pid, "U¿ycie: /heal id [wartoœæ]", {r=255,g=0,b=0});
             return;
         }
 
@@ -403,7 +403,7 @@ local function cmd_heal(pid, params) {
         local value = (fullArgs && fullArgs.len() > 1) ? fullArgs[1] : null;
         
         if (!isPlayerSpawned(id)) {
-            SendSystemMessage(pid, "Nie moÅ¼esz leczyÄ‡ niepoÅ‚Ä…czonego lub niespawniÄ™tego gracza!", {r=255,g=0,b=0});
+            SendSystemMessage(pid, "Nie mo¿esz leczyæ niepo³¹czonego lub niespawniêtego gracza!", {r=255,g=0,b=0});
             return;
         }
 
@@ -413,8 +413,8 @@ local function cmd_heal(pid, params) {
             setPlayerHealth(id, value);
         }
 
-        SendSystemMessage(pid, format("UleczyÅ‚eÅ› gracza %s", getPlayerName(id)), {r=0,g=255,b=0});
-        SendSystemMessage(id, format("ZostaÅ‚eÅ› uleczony przez %s", getPlayerName(pid)), {r=0,g=255,b=0});
+        SendSystemMessage(pid, format("Uleczy³eœ gracza %s", getPlayerName(id)), {r=0,g=255,b=0});
+        SendSystemMessage(id, format("Zosta³eœ uleczony przez %s", getPlayerName(pid)), {r=0,g=255,b=0});
     }
 }
 
@@ -422,7 +422,7 @@ local function cmd_mana(pid, params) {
     if (checkPermission(pid, LEVEL.MOD)) {
         local basicArgs = sscanf("d", params);
         if (!basicArgs) {
-            SendSystemMessage(pid, "UÅ¼ycie: /mana id [wartoÅ›Ä‡]", {r=255,g=0,b=0});
+            SendSystemMessage(pid, "U¿ycie: /mana id [wartoœæ]", {r=255,g=0,b=0});
             return;
         }
 
@@ -432,7 +432,7 @@ local function cmd_mana(pid, params) {
         local value = (fullArgs && fullArgs.len() > 1) ? fullArgs[1] : null;
         
         if (!isPlayerSpawned(id)) {
-            SendSystemMessage(pid, "Nie moÅ¼esz uzupeÅ‚niÄ‡ many niepoÅ‚Ä…czonemu lub niespawniÄ™temu graczowi!", {r=255,g=0,b=0});
+            SendSystemMessage(pid, "Nie mo¿esz uzupe³niæ many niepo³¹czonemu lub niespawniêtemu graczowi!", {r=255,g=0,b=0});
             return;
         }
 
@@ -442,8 +442,8 @@ local function cmd_mana(pid, params) {
             setPlayerMana(id, value);
         }
 
-        SendSystemMessage(pid, format("ZmieniÅ‚eÅ› manÄ™ graczowi %s", getPlayerName(id)), {r=0,g=255,b=0});
-        SendSystemMessage(id, format("Twoja mana zostaÅ‚a zmieniona przez %s", getPlayerName(pid)), {r=0,g=255,b=0});
+        SendSystemMessage(pid, format("Zmieni³eœ manê graczowi %s", getPlayerName(id)), {r=0,g=255,b=0});
+        SendSystemMessage(id, format("Twoja mana zosta³a zmieniona przez %s", getPlayerName(pid)), {r=0,g=255,b=0});
     }
 }
 
@@ -451,20 +451,20 @@ local function cmd_instance(pid, params) {
     if (checkPermission(pid, LEVEL.MOD)) {
         local args = sscanf("ds", params);
         if (!args) {
-            SendSystemMessage(pid, "UÅ¼ycie: /instance id instancja (przykÅ‚ad WILK)", {r=255,g=0,b=0});
+            SendSystemMessage(pid, "U¿ycie: /instance id instancja (przyk³ad WILK)", {r=255,g=0,b=0});
             return;
         }
 
         local id = args[0];
         if (!isPlayerSpawned(id)) {
-            SendSystemMessage(pid, "Nie moÅ¼esz zmieniÄ‡ instancji temu graczowi!", {r=255,g=0,b=0});
+            SendSystemMessage(pid, "Nie mo¿esz zmieniæ instancji temu graczowi!", {r=255,g=0,b=0});
             return;
         }
 
         setPlayerInstance(id, args[1]);
 
-        SendSystemMessage(pid, format("ZmieniÅ‚eÅ› instancjÄ™ gracza %s na %s", getPlayerName(id), args[1]), {r=0,g=255,b=0});
-        SendSystemMessage(id, format("Twoja instancja zostaÅ‚a zmieniona na %s przez %s", args[1], getPlayerName(pid)), {r=0,g=255,b=0});
+        SendSystemMessage(pid, format("Zmieni³eœ instancjê gracza %s na %s", getPlayerName(id), args[1]), {r=0,g=255,b=0});
+        SendSystemMessage(id, format("Twoja instancja zosta³a zmieniona na %s przez %s", args[1], getPlayerName(pid)), {r=0,g=255,b=0});
     }
 }
 
@@ -472,20 +472,20 @@ local function cmd_kill(pid, params) {
     if (checkPermission(pid, LEVEL.MOD)) {
         local args = sscanf("d", params);
         if (!args) {
-            SendSystemMessage(pid, "UÅ¼ycie: /kill <id>", {r=255,g=0,b=0});
+            SendSystemMessage(pid, "U¿ycie: /kill <id>", {r=255,g=0,b=0});
             return;
         }
 
         local id = args[0];
 
         if (!isPlayerSpawned(id)) {
-            SendSystemMessage(pid, "Nie moÅ¼esz zabiÄ‡ niepoÅ‚Ä…czonego lub niespawniÄ™tego gracza!", {r=255,g=0,b=0});
+            SendSystemMessage(pid, "Nie mo¿esz zabiæ niepo³¹czonego lub niespawniêtego gracza!", {r=255,g=0,b=0});
             return;
         }
 
         setPlayerHealth(id, 0);
-        SendSystemMessage(id, "ZostaÅ‚eÅ› zabity przez "+getPlayerName(pid), {r=255,g=0,b=0});
-        SendSystemMessage(pid, "ZabiÅ‚eÅ› gracza "+getPlayerName(id), {r=255,g=0,b=0});
+        SendSystemMessage(id, "Zosta³eœ zabity przez "+getPlayerName(pid), {r=255,g=0,b=0});
+        SendSystemMessage(pid, "Zabi³eœ gracza "+getPlayerName(id), {r=255,g=0,b=0});
     }
 }
 
@@ -493,7 +493,7 @@ local function cmd_time(pid, params) {
     if (checkPermission(pid, LEVEL.MOD)) {
         local args = sscanf("dd", params);
         if (!args) {
-            SendSystemMessage(pid, "UÅ¼ycie: /time godzina minuta", {r=255,g=0,b=0});
+            SendSystemMessage(pid, "U¿ycie: /time godzina minuta", {r=255,g=0,b=0});
             return;
         }
 
@@ -507,14 +507,14 @@ local function cmd_time(pid, params) {
         else if (min < 0) min = 0;
 
         setTime(hour, min);
-        SendSystemMessage(null, format("%s zmieniÅ‚ czas na %02d:%02d", getPlayerName(pid), hour, min), {r=0,g=255,b=0});
+        SendSystemMessage(null, format("%s zmieni³ czas na %02d:%02d", getPlayerName(pid), hour, min), {r=0,g=255,b=0});
     }
 }
 
 function cmd_report(pid, params){
     local args = sscanf("ds", params)
     if(!args){
-        SendSystemMessage(pid, "UÅ¼yj: /report <id> <tekst>", {r=0,g=255,b=0});
+        SendSystemMessage(pid, "U¿yj: /report <id> <tekst>", {r=0,g=255,b=0});
         return;
     };
     if(!isPlayerConnected(args[0])){
@@ -524,21 +524,21 @@ function cmd_report(pid, params){
     for(local i = 0; i < getMaxSlots(); i++ ){
         if(isPlayerConnected(i)){
             if(Player[i].rank >= LEVEL.MOD)
-                SendSystemMessage(i, "ZgÅ‚oszenie od: "+getPlayerName(pid) + "(( "+pid+" )) na "+getPlayerName(args[0])+" (( "+args[0]+" )) powÃ³d: "+args[1], {r=250,g=230,b=0});
+                SendSystemMessage(i, "Zg³oszenie od: "+getPlayerName(pid) + "(( "+pid+" )) na "+getPlayerName(args[0])+" (( "+args[0]+" )) powód: "+args[1], {r=250,g=230,b=0});
         };
     };
-    SendSystemMessage(pid, "ZgÅ‚oszenie wysÅ‚ane pomyÅ›lnie!", {r=0,g=255,b=0});
+    SendSystemMessage(pid, "Zg³oszenie wys³ane pomyœlnie!", {r=0,g=255,b=0});
 };
 
 function cmd_invisible(pid, params){
     if(checkPermission(pid, LEVEL.MOD)){
         if(getPlayerInvisible(pid)){
             setPlayerInvisible(pid, false);
-            SendSystemMessage(pid, "NiewidzialnoÅ›Ä‡ wyÅ‚Ä…czona", {r=250,g=0,b=0});
+            SendSystemMessage(pid, "Niewidzialnoœæ wy³¹czona", {r=250,g=0,b=0});
         }
         else{
             setPlayerInvisible(pid, true);
-            SendSystemMessage(pid, "NiewidzialnoÅ›Ä‡ wÅ‚Ä…czona", {r=250,g=0,b=0});
+            SendSystemMessage(pid, "Niewidzialnoœæ w³¹czona", {r=250,g=0,b=0});
         }
     }
 }
@@ -547,7 +547,7 @@ local function cmd_setweaponskill(pid, params) {
     if (checkPermission(pid, LEVEL.ADMIN)) {
         local args = sscanf("ddd", params);
         if (!args) {
-            SendSystemMessage(pid, "UÅ¼ycie: /setweaponskill id skillId procenty", {r=255,g=0,b=0});
+            SendSystemMessage(pid, "U¿ycie: /setweaponskill id skillId procenty", {r=255,g=0,b=0});
             SendSystemMessage(pid, "SkillId: 0=1H, 1=2H, 2=BOW, 3=CBOW", {r=255,g=0,b=0});
             return;
         }
@@ -557,7 +557,7 @@ local function cmd_setweaponskill(pid, params) {
         local percentage = args[2];
 
         if (!isPlayerSpawned(id)) {
-            SendSystemMessage(pid, "Nie moÅ¼esz ustawiÄ‡ umiejÄ™tnoÅ›ci broni niepoÅ‚Ä…czonemu lub niespawniÄ™temu graczowi!", {r=255,g=0,b=0});
+            SendSystemMessage(pid, "Nie mo¿esz ustawiæ umiejêtnoœci broni niepo³¹czonemu lub niespawniêtemu graczowi!", {r=255,g=0,b=0});
             return;
         }
 
@@ -566,8 +566,8 @@ local function cmd_setweaponskill(pid, params) {
 
         setPlayerSkillWeapon(id, skillId, percentage);
 
-        SendSystemMessage(pid, format("UstawiÅ‚eÅ› umiejÄ™tnoÅ›Ä‡ broni %d na %d%% dla %s", skillId, percentage, getPlayerName(id)), {r=0,g=255,b=0});
-        SendSystemMessage(id, format("Twoja umiejÄ™tnoÅ›Ä‡ broni %d zostaÅ‚a ustawiona na %d%% przez %s", skillId, percentage, getPlayerName(pid)), {r=0,g=255,b=0});
+        SendSystemMessage(pid, format("Ustawi³eœ umiejêtnoœæ broni %d na %d%% dla %s", skillId, percentage, getPlayerName(id)), {r=0,g=255,b=0});
+        SendSystemMessage(id, format("Twoja umiejêtnoœæ broni %d zosta³a ustawiona na %d%% przez %s", skillId, percentage, getPlayerName(pid)), {r=0,g=255,b=0});
     }
 }
 
@@ -576,7 +576,7 @@ local function cmd_setmaxmana(pid, params) {
     if (checkPermission(pid, LEVEL.ADMIN)) {
         local args = sscanf("dd", params);
         if (!args) {
-            SendSystemMessage(pid, "UÅ¼ycie: /setmaxmana id maxMana", {r=255,g=0,b=0});
+            SendSystemMessage(pid, "U¿ycie: /setmaxmana id maxMana", {r=255,g=0,b=0});
             return;
         }
 
@@ -584,7 +584,7 @@ local function cmd_setmaxmana(pid, params) {
         local maxMana = args[1];
 
         if (!isPlayerSpawned(id)) {
-            SendSystemMessage(pid, "Nie moÅ¼esz ustawiÄ‡ maksymalnej many niepoÅ‚Ä…czonemu lub niespawniÄ™temu graczowi!", {r=255,g=0,b=0});
+            SendSystemMessage(pid, "Nie mo¿esz ustawiæ maksymalnej many niepo³¹czonemu lub niespawniêtemu graczowi!", {r=255,g=0,b=0});
             return;
         }
 
@@ -592,8 +592,8 @@ local function cmd_setmaxmana(pid, params) {
 
         setPlayerMaxMana(id, maxMana);
 
-        SendSystemMessage(pid, format("UstawiÅ‚eÅ› maksymalnÄ… manÄ™ na %d dla %s", maxMana, getPlayerName(id)), {r=0,g=255,b=0});
-        SendSystemMessage(id, format("Twoja maksymalna mana zostaÅ‚a ustawiona na %d przez %s", maxMana, getPlayerName(pid)), {r=0,g=255,b=0});
+        SendSystemMessage(pid, format("Ustawi³eœ maksymaln¹ manê na %d dla %s", maxMana, getPlayerName(id)), {r=0,g=255,b=0});
+        SendSystemMessage(id, format("Twoja maksymalna mana zosta³a ustawiona na %d przez %s", maxMana, getPlayerName(pid)), {r=0,g=255,b=0});
     }
 }
 
@@ -601,7 +601,7 @@ local function cmd_setmaxhp(pid, params) {
     if (checkPermission(pid, LEVEL.ADMIN)) {
         local args = sscanf("dd", params);
         if (!args) {
-            SendSystemMessage(pid, "UÅ¼ycie: /setmaxhp id maxHP", {r=255,g=0,b=0});
+            SendSystemMessage(pid, "U¿ycie: /setmaxhp id maxHP", {r=255,g=0,b=0});
             return;
         }
 
@@ -609,7 +609,7 @@ local function cmd_setmaxhp(pid, params) {
         local maxHP = args[1];
 
         if (!isPlayerSpawned(id)) {
-            SendSystemMessage(pid, "Nie moÅ¼esz ustawiÄ‡ maksymalnego HP niepoÅ‚Ä…czonemu lub niespawniÄ™temu graczowi!", {r=255,g=0,b=0});
+            SendSystemMessage(pid, "Nie mo¿esz ustawiæ maksymalnego HP niepo³¹czonemu lub niespawniêtemu graczowi!", {r=255,g=0,b=0});
             return;
         }
 
@@ -617,8 +617,8 @@ local function cmd_setmaxhp(pid, params) {
 
         setPlayerMaxHealth(id, maxHP);
 
-        SendSystemMessage(pid, format("UstawiÅ‚eÅ› maksymalne HP na %d dla %s", maxHP, getPlayerName(id)), {r=0,g=255,b=0});
-        SendSystemMessage(id, format("Twoje maksymalne HP zostaÅ‚o ustawione na %d przez %s", maxHP, getPlayerName(pid)), {r=0,g=255,b=0});
+        SendSystemMessage(pid, format("Ustawi³eœ maksymalne HP na %d dla %s", maxHP, getPlayerName(id)), {r=0,g=255,b=0});
+        SendSystemMessage(id, format("Twoje maksymalne HP zosta³o ustawione na %d przez %s", maxHP, getPlayerName(pid)), {r=0,g=255,b=0});
     }
 }
 
@@ -626,7 +626,7 @@ local function cmd_removeitem(pid, params) {
     if (checkPermission(pid, LEVEL.ADMIN)) {
         local args = sscanf("dsd", params);
         if (!args) {
-            SendSystemMessage(pid, "UÅ¼ycie: /removeitem id instancja iloÅ›Ä‡", {r=255,g=0,b=0});
+            SendSystemMessage(pid, "U¿ycie: /removeitem id instancja iloœæ", {r=255,g=0,b=0});
             return;
         }
 
@@ -635,7 +635,7 @@ local function cmd_removeitem(pid, params) {
         local amount = args[2];
 
         if (!isPlayerSpawned(id)) {
-            SendSystemMessage(pid, "Nie moÅ¼esz zabraÄ‡ przedmiotu niepoÅ‚Ä…czonemu lub niespawniÄ™temu graczowi!", {r=255,g=0,b=0});
+            SendSystemMessage(pid, "Nie mo¿esz zabraæ przedmiotu niepo³¹czonemu lub niespawniêtemu graczowi!", {r=255,g=0,b=0});
             return;
         }
 
@@ -643,8 +643,8 @@ local function cmd_removeitem(pid, params) {
 
         removeItem(id, instance, amount);
 
-        SendSystemMessage(pid, format("ZabraÅ‚eÅ› przedmiot %s w iloÅ›ci: %d graczowi %s", instance, amount, getPlayerName(id)), {r=0,g=255,b=0});
-        SendSystemMessage(id, format("Zabrano ci przedmiot %s w iloÅ›ci: %d przez %s", instance, amount, getPlayerName(pid)), {r=0,g=255,b=0});
+        SendSystemMessage(pid, format("Zabra³eœ przedmiot %s w iloœci: %d graczowi %s", instance, amount, getPlayerName(id)), {r=0,g=255,b=0});
+        SendSystemMessage(id, format("Zabrano ci przedmiot %s w iloœci: %d przez %s", instance, amount, getPlayerName(pid)), {r=0,g=255,b=0});
     }
 }
 
