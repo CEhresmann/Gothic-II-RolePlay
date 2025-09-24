@@ -1,4 +1,0 @@
-<server>
-	<script src="chat_server.nut" type="server"/>
-	<script src="Chat_commands.nut" type="server"/>
-</server>

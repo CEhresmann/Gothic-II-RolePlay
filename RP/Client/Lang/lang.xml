@@ -1,8 +1,0 @@
-<server>
-    <script type="client" src="System.nut" />
-
-    <script src="_pl.nut" type="client"/>
-    <script src="_ru.nut" type="client"/>
-    <script src="_de.nut" type="client"/>
-    <script src="_en.nut" type="client"/>
-</server>
