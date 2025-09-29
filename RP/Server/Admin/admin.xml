@@ -1,3 +1,4 @@
 <server>
     <script src="Acp.nut" type="server" />
+    <script src="other.nut" type="server" />
 </server>

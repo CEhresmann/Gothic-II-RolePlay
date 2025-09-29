@@ -50,6 +50,8 @@ enum PacketAdmin {
     Grid,
     Path,
     PathWay,
+    Fly,
+    Phase
 }
 enum ChatPacketType {
     ToggleChatModeRequest = 1,

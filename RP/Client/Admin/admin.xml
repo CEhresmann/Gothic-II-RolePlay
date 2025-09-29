@@ -4,4 +4,5 @@
 
     <script src="Grid.nut" type="client" />
     <script src="Acp.nut" type="client" />
+    <script src="other.nut" type="client" reload="true"/>
 </server>
