@@ -1,0 +1,8 @@
+<server>
+    <!--<script src="Camera.nut" type="client"/>-->
+    <script src="Json.nut" type="client"/>
+    <script src="Notification.nut" type="client"/>
+    <script src="Tick.nut" type="client"/>
+
+    <script src="Init.nut" type="client"/>
+</server>

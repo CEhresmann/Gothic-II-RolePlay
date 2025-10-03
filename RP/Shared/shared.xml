@@ -1,0 +1,4 @@
+<server>
+    <script src="NPC/Bots.nut" type="server"/>
+    <script src="Classes.nut" type="shared"/>
+</server>
