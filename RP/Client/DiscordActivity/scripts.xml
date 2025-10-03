@@ -1,3 +1,0 @@
-<server>
-	<script src="Client.nut" type="client" reload="true"/>
-</server>
