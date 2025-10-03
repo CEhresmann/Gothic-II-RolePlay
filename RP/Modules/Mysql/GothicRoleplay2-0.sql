@@ -145,7 +145,8 @@ CREATE TABLE `worldbuilder_vobs` (
   `rotx` int(11) DEFAULT NULL,
   `roty` int(11) DEFAULT NULL,
   `rotz` int(11) DEFAULT NULL,
-  `isStatic` tinyint(1) DEFAULT NULL
+  `isStatic` tinyint(1) DEFAULT NULL,
+  `isInteractive` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
