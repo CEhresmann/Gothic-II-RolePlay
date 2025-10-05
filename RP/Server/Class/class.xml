@@ -1,0 +1,4 @@
+<server>
+    <script src="Fraction.nut" type="server" />
+    <script src="Class.nut" type="server" />
+</server>
