@@ -8,7 +8,7 @@ ChatConfig <- {
 
 CFG <- {
     Hostname = "Open Roleplay 2.0"
-    Version = "2.1.1"
+    Version = "2.1.2"
 
     DiscordActivityID = "1420461005930233986"
     ServerIPAdress = "192.168.0.153"
@@ -263,8 +263,7 @@ LootMobItems <- {
         {item = "ItAt_CrawlerMandibles", quantity = 1}
     ],
 	"Molerat": [
-        {item = "ItAt_Addon_BCKopf", quantity = 1},
-        {item = "ItAt_CrawlerMandibles", quantity = 1}
+        {item = "ItFoMuttonRaw", quantity = 1}
     ],
 	"Scavenger": [
         {item = "ItFoMuttonRaw", quantity = 2}
