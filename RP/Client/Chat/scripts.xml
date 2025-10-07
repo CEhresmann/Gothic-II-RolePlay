@@ -1,3 +1,0 @@
-<server>
-	<script src="chat_client.nut" type="client" reload="true"/>
-</server>
