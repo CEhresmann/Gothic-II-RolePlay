@@ -1,7 +1,0 @@
-<server>
-    <script src="NPC/Bots.nut" type="server"/>
-	<script src="Crafts_shared.nut" type="shared"/>
-	<script src="Crafts/Stove.nut" type="shared"/>
-	<script src="Crafts/Anvil.nut" type="shared"/>
-    <script src="Classes.nut" type="shared"/>
-</server>
