@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 23.88.65.9:3306
--- Generation Time: Paź 07, 2025 at 10:41 PM
+-- Generation Time: Paź 18, 2025 at 09:13 PM
 -- Wersja serwera: 11.4.5-MariaDB-deb12
 -- Wersja PHP: 8.2.27
 
@@ -24,19 +24,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `Admins`
---
-
-CREATE TABLE `Admins` (
-  `id` int(11) NOT NULL,
-  `player_id` int(11) NOT NULL DEFAULT 0,
-  `level` int(11) NOT NULL DEFAULT 1,
-  `on_duty` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Struktura tabeli dla tabeli `admins_account`
 --
 
@@ -49,51 +36,11 @@ CREATE TABLE `admins_account` (
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `Characters`
---
-
-CREATE TABLE `Characters` (
-  `character_id` int(11) NOT NULL,
-  `player_id` int(11) NOT NULL DEFAULT 0,
-  `Name` text NOT NULL DEFAULT '',
-  `Body_model` text DEFAULT '',
-  `Body_txt` int(11) DEFAULT 0,
-  `Head_model` text DEFAULT '',
-  `Head_txt` int(11) DEFAULT 0,
-  `Main_spec` text DEFAULT '',
-  `Side_spec` text DEFAULT '',
-  `Position` text NOT NULL DEFAULT '',
-  `World` text NOT NULL DEFAULT '',
-  `strength` int(11) DEFAULT 10,
-  `dexterity` int(11) DEFAULT 10,
-  `one_h_weapon` int(11) DEFAULT 10,
-  `two_h_weapon` int(11) DEFAULT 10,
-  `bow` int(11) DEFAULT 10,
-  `crossbow` int(11) DEFAULT 10,
-  `BW_STATUS` int(11) DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Struktura tabeli dla tabeli `Database_Health`
 --
 
 CREATE TABLE `Database_Health` (
   `id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Struktura tabeli dla tabeli `players`
---
-
-CREATE TABLE `players` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL DEFAULT '',
-  `password` varchar(255) NOT NULL DEFAULT '',
-  `uid` varchar(255) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -116,6 +63,13 @@ CREATE TABLE `player_accounts` (
   `hp` int(255) NOT NULL DEFAULT 100,
   `mana` int(255) NOT NULL DEFAULT 30,
   `magic_level` int(11) NOT NULL DEFAULT 0,
+  `learning_points` int(255) NOT NULL DEFAULT 0,
+  `profession_hunter` int(11) NOT NULL DEFAULT 0,
+  `profession_archer` int(11) NOT NULL DEFAULT 0,
+  `profession_blacksmith` int(11) NOT NULL DEFAULT 0,
+  `profession_armorer` int(11) NOT NULL DEFAULT 0,
+  `profession_alchemist` int(11) NOT NULL DEFAULT 0,
+  `profession_cook` int(11) NOT NULL DEFAULT 0,
   `description` text DEFAULT '',
   `body_model` varchar(64) DEFAULT '',
   `body_texture` int(11) DEFAULT 0,
@@ -243,13 +197,6 @@ CREATE TABLE `world_draws` (
 --
 
 --
--- Indeksy dla tabeli `Admins`
---
-ALTER TABLE `Admins`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `player_id` (`player_id`);
-
---
 -- Indeksy dla tabeli `admins_account`
 --
 ALTER TABLE `admins_account`
@@ -257,23 +204,10 @@ ALTER TABLE `admins_account`
   ADD UNIQUE KEY `uid` (`uid`);
 
 --
--- Indeksy dla tabeli `Characters`
---
-ALTER TABLE `Characters`
-  ADD PRIMARY KEY (`character_id`);
-
---
 -- Indeksy dla tabeli `Database_Health`
 --
 ALTER TABLE `Database_Health`
   ADD PRIMARY KEY (`id`);
-
---
--- Indeksy dla tabeli `players`
---
-ALTER TABLE `players`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `name` (`name`);
 
 --
 -- Indeksy dla tabeli `player_accounts`
@@ -329,33 +263,15 @@ ALTER TABLE `world_draws`
 --
 
 --
--- AUTO_INCREMENT dla tabeli `Admins`
---
-ALTER TABLE `Admins`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT dla tabeli `admins_account`
 --
 ALTER TABLE `admins_account`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT dla tabeli `Characters`
---
-ALTER TABLE `Characters`
-  MODIFY `character_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT dla tabeli `Database_Health`
 --
 ALTER TABLE `Database_Health`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT dla tabeli `players`
---
-ALTER TABLE `players`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -388,7 +304,6 @@ ALTER TABLE `worldbuilder_vobs`
 ALTER TABLE `world_draws`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
-
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
