@@ -124,7 +124,8 @@ CREATE TABLE `player_accounts` (
   `fatness` float NOT NULL DEFAULT 0,
   `scale_x` float NOT NULL DEFAULT 1,
   `scale_y` float NOT NULL DEFAULT 1,
-  `scale_z` float NOT NULL DEFAULT 1
+  `scale_z` float NOT NULL DEFAULT 1,
+  `CK` int(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -362,7 +363,6 @@ ALTER TABLE `players`
 --
 ALTER TABLE `player_accounts`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-  ADD COLUMN `CK` int(1) NOT NULL DEFAULT 0;
 
 --
 -- AUTO_INCREMENT dla tabeli `server_logs`
