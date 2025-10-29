@@ -22,7 +22,7 @@ Version 2.0 includes:
 Change MySQL login data in ``RP\Modules\Mysql\Connector.nut``:  
 ``ORM.MySQL("host", "user", "password", "database_name");``
 
-* Script uses: MySQL module, ORM Framework, and GUI.Framework.
+* Script uses: MySQL module, LocalStorage, BCrypt, ORM Framework, and GUI.Framework.
 
 
 
@@ -58,4 +58,4 @@ Wersja 2.0 obejmuje m.in.:
 
 Zmień dane logowania mysql w ``RP\Modules\Mysql\Connector.nut`` ``ORM.MySQL("host", "user", "password", "database_name");``
 
-* Skrypt korzysta z: modułu MySQL, Framework ORM i GUI.Framework.
+* Skrypt korzysta z: modułu MySQL, LocalStorage, BCrypt, Framework ORM i GUI.Framework.
