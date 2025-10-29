@@ -1,8 +1,0 @@
-<server>
-    <script src="Grids/Waypoint.nut" type="client" />
-    <script src="Grids/Newworld.nut" type="client" />
-
-    <script src="Grid.nut" type="client" />
-    <script src="Acp.nut" type="client" />
-    <script src="other.nut" type="client" reload="true"/>
-</server>

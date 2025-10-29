@@ -1,6 +1,0 @@
-<server>
-    <script src="Dialogue.nut" type="client" />
-    <script src="DialogueItem.nut" type="client" />
-
-    <script src="Npc.nut" type="client" />
-</server>
