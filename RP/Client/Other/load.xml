@@ -1,4 +1,0 @@
-<server>
-    <script src="Main.nut" type="client" reload="true"/>
-    <script src="BW.nut" type="client" reload="true"/>
-</server>

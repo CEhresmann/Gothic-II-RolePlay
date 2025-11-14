@@ -1,4 +1,0 @@
-<server>
-	<script src="Trade.nut" type="client" reload="true"/>
-    <script src="Interaction.nut" type="client" reload="true"/>
-</server>
