@@ -1,6 +1,18 @@
 <server>
-    <script src="Player.nut" type="server" />
-
+    <!-- 
+        Player Module Refactored
+        This module now follows a layered architecture:
+        - Entity: Pure data model for the player.
+        - Repository: Handles database interactions.
+        - Service: Contains business logic.
+        - Controller: Binds everything to the game events.
+    -->
+    <script src="PlayerEntity.nut" type="server" />
+    <script src="PlayerRepository.nut" type="server" />
+    <script src="PlayerService.nut" type="server" />
+    <script src="PlayerController.nut" type="server" />
+    
+    <!-- Also include shared helpers and item logic which are still used -->
     <script src="Item.nut" type="server" />
     <script src="Helpers.nut" type="server" />
     <script src="Database.nut" type="server" />

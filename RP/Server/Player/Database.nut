@@ -90,7 +90,10 @@ class PlayerAccount extends ORM.Model </ table="player_accounts" /> {
     scale_z = 1.0
 	
 	</ type = "INTEGER", not_null = true />
-    CK = 0
+	   CK = 0
+	
+	</ type = "VARCHAR(20)" />
+	   discord_id = null
 }
 
 class PlayerPosition extends ORM.Model </ table="player_positions" /> {
@@ -224,8 +227,9 @@ function Database::createPlayer(player)
     account.head_texture = visual.headTxt.tointeger();
 	
 	account.CK = 0;
+	account.discord_id = player.discord_id;
 
-    account.insert();
+	   account.insert();
 
     local pos = getPlayerPosition(player.pid);
     local position = PlayerPosition();
@@ -362,6 +366,7 @@ function Database::updatePlayer(player)
     account.head_model = visual.headModel;
     account.head_texture = visual.headTxt.tointeger();
     account.walk_style = Player[player.pid].walkStyleString;
+ account.discord_id = player.discord_id;
 
     Database.saveItems(player.pid);
 
@@ -374,6 +379,7 @@ function Database::loadAccount(player)
     if (!account) return;
 
     player.id = account.id;
+    player.discord_id = account.discord_id;
     player.password = account.password;
     player.classId = account.class_id;
     player.fractionId = account.fraction_id;

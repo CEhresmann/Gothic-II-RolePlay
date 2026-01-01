@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: g2o_db
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-root}
+      MYSQL_DATABASE: ${DB_NAME:-g2o_rp}
+      MYSQL_USER: ${DB_USER:-user}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-password}
+    ports:
+      # Порт для подключения к БД с хост-машины (например, для отладки)
+      - "3306:3306"
+    volumes:
+      # Сохраняем данные БД в именованном томе
+      - db_data:/var/lib/mysql
+      # При первом запуске можно подложить дамп для создания таблиц
+      # - ./discord_bot_api/create_table.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - g2o_network
+
+  api:
+    build:
+      context: ./discord_bot_api
+      dockerfile: Dockerfile
+    container_name: g2o_api
+    restart: always
+    env_file:
+      - ./discord_bot_api/.env
+    ports:
+      - "${API_PORT:-3000}:${API_PORT:-3000}"
+    depends_on:
+      - db
+    networks:
+      - g2o_network
+
+  bot:
+    build:
+      context: ./discord_bot
+      dockerfile: Dockerfile
+    container_name: g2o_bot
+    restart: always
+    env_file:
+      - ./discord_bot/.env
+    depends_on:
+      - api
+    networks:
+      - g2o_network
+
+networks:
+  g2o_network:
+    driver: bridge
+
+volumes:
+  db_data:
+    driver: local

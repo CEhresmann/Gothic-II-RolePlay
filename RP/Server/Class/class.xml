@@ -1,4 +1,14 @@
 <server>
-    <script src="Fraction.nut" type="server" />
-    <script src="Class.nut" type="server" />
+    <!-- 
+        Class and Fraction Module Refactored
+        This module now follows a layered architecture:
+        - Entity: Pure data models for Fraction and Class.
+        - Loader: Initializes all fraction data from a central location.
+        - Service: Contains business logic for class assignments.
+        - Controller: Binds everything to game events and commands.
+    -->
+    <script src="FractionEntity.nut" type="server" />
+    <script src="FractionLoader.nut" type="server" />
+    <script src="FractionService.nut" type="server" />
+    <script src="FractionController.nut" type="server" />
 </server>

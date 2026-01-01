@@ -15,7 +15,7 @@ Interface.BW <- {
         window.setVisible(true);
         isBWActive = true;
         ShowChat(true);
-		this.Topic.label.setText("Jesteœ nieprzytomny, obudzisz siê za:");
+		this.Topic.label.setText("JesteÅ› nieprzytomny, obudzisz siÄ™ za:");
 		Camera.movementEnabled = true;
     },
 
@@ -38,7 +38,7 @@ Interface.BW.Topic <- GUI.Button({
     relativePositionPx = {x = 0.01 * Resolution.x, y = 0.02 * Resolution.y},
     sizePx = {width = 0.43 * Resolution.x, height = 0.03 * Resolution.y},
     file = "MENU_INGAME.TGA",
-    label = {text = "Jesteœ nieprzytomny, obudzisz siê za:"},
+    label = {text = "JesteÅ› nieprzytomny, obudzisz siÄ™ za:"},
     collection = Interface.BW.window
 })
 
@@ -58,7 +58,7 @@ Interface.BW.WakeUpButton <- GUI.Button({
     relativePositionPx = {x = 0.05 * Resolution.x, y = 0.12 * Resolution.y},
     sizePx = {width = 0.15 * Resolution.x, height = 0.04 * Resolution.y},
     file = "MENU_INGAME.TGA",
-    label = {text = "WSTAÑ"},
+    label = {text = "WSTAÅƒ"},
     collection = Interface.BW.window,
 })
 
@@ -66,7 +66,7 @@ Interface.BW.SleepButton <- GUI.Button({
     relativePositionPx = {x = 0.25 * Resolution.x, y = 0.12 * Resolution.y},
     sizePx = {width = 0.15 * Resolution.x, height = 0.04 * Resolution.y},
     file = "MENU_INGAME.TGA",
-    label = {text = "ZAŒNIJ"},
+    label = {text = "ZAÅšNIJ"},
     collection = Interface.BW.window,
 })
 
@@ -77,7 +77,7 @@ function showChoiceButtons() {
     Interface.BW.WakeUpButton.setVisible(true);
     Interface.BW.SleepButton.setVisible(true);
     Interface.BW.TimerLabel.setVisible(false);
-    Interface.BW.Topic.label.setText("Wybierz co chcesz zrobiæ:");
+    Interface.BW.Topic.label.setText("Wybierz co chcesz zrobiÄ‡:");
 }
 
 function hideChoiceButtons() {

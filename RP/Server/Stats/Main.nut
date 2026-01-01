@@ -57,32 +57,32 @@ function isValidSkillUpgrade(pid, skillType) {
     if (!isNpc(pid) && pid in Player && Player[pid].loggIn) {
         local cost = getSkillUpgradeCost(pid, skillType);
         if (getPlayerLearningPoints(pid) < cost) {
-            addNotification(pid, "Nie masz wystarczaj¹co punktów nauki! Potrzeba " + cost + "PN.");
+            addNotification(pid, "Nie masz wystarczajÄ…co punktÃ³w nauki! Potrzeba " + cost + "PN.");
             return false;
         }
 
         switch (skillType) {
             case SkillType.Health:
                 if (getPlayerMaxHealth(pid) >= SKILL_CONFIG.Limits.Health) {
-                    addNotification(pid, "Osi¹gn¹³eœ maksymalny poziom zdrowia!");
+                    addNotification(pid, "OsiÄ…gnÄ…Å‚eÅ› maksymalny poziom zdrowia!");
                     return false;
                 }
                 break;
             case SkillType.Mana:
                 if (getPlayerMaxMana(pid) >= SKILL_CONFIG.Limits.Mana) {
-                    addNotification(pid, "Osi¹gn¹³eœ maksymalny poziom many!");
+                    addNotification(pid, "OsiÄ…gnÄ…Å‚eÅ› maksymalny poziom many!");
                     return false;
                 }
                 break;
             case SkillType.Strength:
                 if (getPlayerStrength(pid) >= SKILL_CONFIG.Limits.Strength) {
-                    addNotification(pid, "Osi¹gn¹³eœ maksymalny poziom si³y!");
+                    addNotification(pid, "OsiÄ…gnÄ…Å‚eÅ› maksymalny poziom siÅ‚y!");
                     return false;
                 }
                 break;
             case SkillType.Dexterity:
                 if (getPlayerDexterity(pid) >= SKILL_CONFIG.Limits.Dexterity) {
-                    addNotification(pid, "Osi¹gn¹³eœ maksymalny poziom zrêcznoœci!");
+                    addNotification(pid, "OsiÄ…gnÄ…Å‚eÅ› maksymalny poziom zrÄ™cznoÅ›ci!");
                     return false;
                 }
                 break;
@@ -97,23 +97,23 @@ function isValidSkillUpgrade(pid, skillType) {
                     [SkillType.Crossbow] = WEAPON_CBOW
                 };
                 if (getPlayerSkillWeapon(pid, weaponMap[skillType]) >= SKILL_CONFIG.Limits.WeaponSkill) {
-                    addNotification(pid, "Osi¹gn¹³eœ maksymalny poziom tej umiejêtnoœci!");
+                    addNotification(pid, "OsiÄ…gnÄ…Å‚eÅ› maksymalny poziom tej umiejÄ™tnoÅ›ci!");
                     return false;
                 }
                 break;
             case SkillType.MagicCircle:
                  local currentMagic = getPlayerTalent(pid, TALENT_MAGE);
                  if (currentMagic == 0) {
-                    addNotification(pid, "Musisz najpierw nauczyæ siê podstaw magii!");
+                    addNotification(pid, "Musisz najpierw nauczyÄ‡ siÄ™ podstaw magii!");
                     return false;
                  }
                  if (currentMagic >= SKILL_CONFIG.Limits.MagicCircle) {
-                    addNotification(pid, "Osi¹gn¹³eœ maksymalny kr¹g magiczny!");
+                    addNotification(pid, "OsiÄ…gnÄ…Å‚eÅ› maksymalny krÄ…g magiczny!");
                     return false;
                  }
                 break;
             default:
-                addNotification(pid, "Nieznany typ umiejêtnoœci!");
+                addNotification(pid, "Nieznany typ umiejÄ™tnoÅ›ci!");
                 return false;
         }
         return true;
@@ -132,39 +132,39 @@ function upgradePlayerSkill(pid, skillType) {
     switch (skillType) {
         case SkillType.Health:
             setPlayerMaxHealth(pid, getPlayerMaxHealth(pid) + SKILL_CONFIG.Development.Vitals.Value);
-            addNotification(pid, "Zdrowie zwiêkszone!");
+            addNotification(pid, "Zdrowie zwiÄ™kszone!");
             break;
         case SkillType.Mana:
             setPlayerMaxMana(pid, getPlayerMaxMana(pid) + SKILL_CONFIG.Development.Vitals.Value);
-            addNotification(pid, "Mana zwiêkszona!");
+            addNotification(pid, "Mana zwiÄ™kszona!");
             break;
         case SkillType.Strength:
             setPlayerStrength(pid, getPlayerStrength(pid) + 1);
-            addNotification(pid, "Si³a zwiêkszona!");
+            addNotification(pid, "SiÅ‚a zwiÄ™kszona!");
             break;
         case SkillType.Dexterity:
             setPlayerDexterity(pid, getPlayerDexterity(pid) + 1);
-            addNotification(pid, "Zrêcznoœæ zwiêkszona!");
+            addNotification(pid, "ZrÄ™cznoÅ›Ä‡ zwiÄ™kszona!");
             break;
         case SkillType.OneHanded:
             setPlayerSkillWeapon(pid, WEAPON_1H, getPlayerSkillWeapon(pid, WEAPON_1H) + 1);
-            addNotification(pid, "Zwiêkszono umiejêtnoœæ walki broni¹ jednorêczn¹!");
+            addNotification(pid, "ZwiÄ™kszono umiejÄ™tnoÅ›Ä‡ walki broniÄ… jednorÄ™cznÄ…!");
             break;
         case SkillType.TwoHanded:
             setPlayerSkillWeapon(pid, WEAPON_2H, getPlayerSkillWeapon(pid, WEAPON_2H) + 1);
-            addNotification(pid, "Zwiêkszono umiejêtnoœæ walki broni¹ dwurêczn¹!");
+            addNotification(pid, "ZwiÄ™kszono umiejÄ™tnoÅ›Ä‡ walki broniÄ… dwurÄ™cznÄ…!");
             break;
         case SkillType.Bow:
             setPlayerSkillWeapon(pid, WEAPON_BOW, getPlayerSkillWeapon(pid, WEAPON_BOW) + 1);
-            addNotification(pid, "Zwiêkszono umiejêtnoœæ walki ³ukiem!");
+            addNotification(pid, "ZwiÄ™kszono umiejÄ™tnoÅ›Ä‡ walki Å‚ukiem!");
             break;
         case SkillType.Crossbow:
             setPlayerSkillWeapon(pid, WEAPON_CBOW, getPlayerSkillWeapon(pid, WEAPON_CBOW) + 1);
-            addNotification(pid, "Zwiêkszono umiejêtnoœæ walki kusz¹!");
+            addNotification(pid, "ZwiÄ™kszono umiejÄ™tnoÅ›Ä‡ walki kuszÄ…!");
             break;
         case SkillType.MagicCircle:
             setPlayerTalent(pid, TALENT_MAGE, getPlayerTalent(pid, TALENT_MAGE) + 1);
-            addNotification(pid, "Opanowa³eœ nowy kr¹g magii!");
+            addNotification(pid, "OpanowaÅ‚eÅ› nowy krÄ…g magii!");
             break;
     }
     return true;
@@ -224,13 +224,13 @@ function isValidProfessionUpgrade(pid, professionType) {
         local currentLevel = getPlayerProfessionLevel(pid, professionType);
 
         if (currentLevel >= PROFESSION_CONFIG.MaxLevel) {
-            addNotification(pid, "Osi¹gn¹³eœ maksymalny poziom tej profesji!");
+            addNotification(pid, "OsiÄ…gnÄ…Å‚eÅ› maksymalny poziom tej profesji!");
             return false;
         }
 
         local cost = getProfessionUpgradeCost(pid, professionType);
         if (getPlayerLearningPoints(pid) < cost) {
-            addNotification(pid, "Nie masz wystarczaj¹co punktów nauki! Potrzeba " + cost + " PN.");
+            addNotification(pid, "Nie masz wystarczajÄ…co punktÃ³w nauki! Potrzeba " + cost + " PN.");
             return false;
         }
 

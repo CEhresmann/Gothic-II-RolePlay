@@ -35,7 +35,7 @@ Interface.InteractMenu.leave <- GUI.Button({
     relativePositionPx = {x = 0.35 * Resolution.x, y = 0.04 * Resolution.y},
     sizePx = {width = 0.10 * Resolution.x, height = 0.04 * Resolution.y},
     file = "MENU_INGAME.TGA",
-    label = {text = "Wróæ"},
+    label = {text = "WrÃ³Ä‡"},
     collection = Interface.InteractMenu.window
 });
 Interface.TradeRequestMenu <- {
@@ -47,10 +47,10 @@ Interface.TradeRequestMenu <- {
     }),
     "show" : function(traderName) {
         Interface.baseInterface(true, PLAYER_GUI.TRADEMENU);
-        local topictradetext = "Proœba o handel"
+        local topictradetext = "ProÅ›ba o handel"
         this.Topic.setText(topictradetext);
         this.Topic.setRelativePositionPx((0.4 * Resolution.x - textWidthPx(topictradetext)) / 2, this.Topic.getRelativePositionPx().y);
-        local tradertext = traderName + " chce handlowaæ z Tob¹"
+        local tradertext = traderName + " chce handlowaÄ‡ z TobÄ…"
         this.Details.setText(tradertext);
         this.Details.setRelativePositionPx((0.4 * Resolution.x - textWidthPx(tradertext)) / 2, this.Details.getRelativePositionPx().y);
         this.window.setVisible(true);
@@ -65,7 +65,7 @@ Interface.TradeRequestMenu <- {
 };
 Interface.TradeRequestMenu.Topic <- GUI.Label({
     relativePositionPx = {x = 0.0 * Resolution.x, y = 0.01 * Resolution.y},
-    text = "Proœba o handel",
+    text = "ProÅ›ba o handel",
     collection = Interface.TradeRequestMenu.window
 });
 Interface.TradeRequestMenu.Details <- GUI.Label({
@@ -84,7 +84,7 @@ Interface.TradeRequestMenu.reject <- GUI.Button({
     relativePositionPx = {x = 0.23 * Resolution.x, y = 0.12 * Resolution.y},
     sizePx = {width = 0.12 * Resolution.x, height = 0.04 * Resolution.y},
     file = "MENU_INGAME.TGA",
-    label = {text = "Odmów"},
+    label = {text = "OdmÃ³w"},
     collection = Interface.TradeRequestMenu.window
 });
 Interface.InteractMenu.leave.bind(EventType.Click, function(element) {

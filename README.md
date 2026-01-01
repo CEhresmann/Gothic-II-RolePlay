@@ -1,61 +1,219 @@
+# Open Roleplay 2.0 
 
-# Open Roleplay 2.0
+This project is a significantly refactored and improved version of the **Open Roleplay 2.0** gamemode by **Artii**, which itself is an update to the classic **Gothic Roleplay** by **Quarchodron**.
 
-# Author: Artii #
+This fork aims to completely overhaul the codebase using modern development practices, such as **Clean Architecture**, to achieve maximum modularity, stability, and extensibility.
 
-**This project is an updated and further developed version of the original Gothic Roleplay pack by Quarchodron** — available at: https://gitlab.com/g2o/gamemodes/gothicroleplay.
+### Key Improvements:
 
-## Description
+*   **Complete Refactoring:** The code has been rewritten from the ground up, with a clear separation into logical layers (Domain, Application, Infrastructure).
+*   **Stability and Performance:** The new architecture reduces bugs and simplifies debugging.
+*   **Localization:** All end-user messages are translated.
+*   **Modern Authentication:** Integrated with Discord for fast and secure account linking.
 
-The pack has been updated so it can **run without issues on the latest G2O API**. The original version was made for G2O v0.1.4 and does not work on current versions.  
+---
 
-Due to the significant differences between the old and current API, **unexpected issues may occur**. If you encounter any bugs, please report them in Issues or contact directly. (Discord: artiixdxd)  
+## Project Architecture
 
-Version 2.0 includes:  
-- **MySQL support** – replacing the previous file-based saving system.  
-- **Updated GUI layout** – improved scaling and positioning of elements (based on the old layout).  
-- **Compatibility with G2O v0.3.+** – all key systems adapted to the current API.  
-- **Future development plans** – further improvements in upcoming releases.  
+The project is built on the principles of **Clean Architecture**, ensuring loose coupling and high modularity.
 
-## Installation
+### Server-Side (`RP/Server/`)
 
-Change MySQL login data in ``RP\Modules\Mysql\Connector.nut``:  
-``ORM.MySQL("host", "user", "password", "database_name");``
+The server logic is divided into three main layers:
 
-* Script uses: MySQL module, LocalStorage, BCrypt, ORM Framework, and GUI.Framework.
+1.  **Entities:** Pure data objects representing key game concepts (e.g., `PlayerEntity`, `FractionEntity`). They contain no business logic.
+2.  **Repositories / Loaders:** The data access layer. Responsible for saving and loading entities from the database or configuration files.
+3.  **Services:** Contain all the application's business logic. They coordinate work between entities and repositories.
+4.  **Controllers:** The entry point for each module. They register event and command handlers, delegating execution to the services.
 
+---
 
+## Game Mechanics
 
+*   **Classes and Factions:** Players can join factions and acquire classes, unlocking new abilities.
+*   **Trading:** Secure item exchange between players.
+*   **Crafting:** Create new items from materials using recipes.
+*   **Progression:** Character development through experience and skill improvement.
 
+---
 
+## Deployment with Docker (Recommended)
+
+This is the easiest way to get the entire project running.
+
+**Prerequisites:**
+*   [Docker](https://www.docker.com/get-started) and [Docker Compose](https://docs.docker.com/compose/install/) installed.
+
+**Steps:**
+
+1.  **Create Environment Files:**
+    *   Copy `.env.example` to `.env` in the root directory and fill in the database credentials.
+    *   Copy `discord_bot_api/.env.example` to `discord_bot_api/.env` and fill in your `API_KEY`.
+    *   Copy `discord_bot/.env.example` to `discord_bot/.env` and fill in your `DISCORD_TOKEN` and the same `API_KEY`.
+
+2.  **Run Docker Compose:**
+    Open a terminal in the project root and run:
+    ```bash
+    docker-compose up --build -d
+    ```
+    This command will build the images for the API and the bot, and start all services (database, API, bot) in the background.
+
+3.  **Check the Status:**
+    You can check the logs to make sure everything is running correctly:
+    ```bash
+    docker-compose logs -f
+    ```
+
+4.  **Launch the Game Server:**
+    *   For now, the G2O game server must still be run manually on your host machine.
+    *   Make sure to configure `RP/Modules/Mysql/Connector.nut` to connect to the database running in Docker (host: `127.0.0.1`, port: `3306`, and the user/password from your `.env` file).
+
+---
+
+## Getting Started: A User's Guide
+
+This guide will help you get the server up and running.
+
+### 1. Database Setup
+
+*   **Install MySQL:** Make sure you have a MySQL server installed and running.
+*   **Import the Schema:** Use a tool like MySQL Workbench or the command line to import the database structure from `RP/Modules/Mysql/GothicRoleplay2-0.sql`. This will create all the necessary tables.
+*   **Configure the Connection:** Open the file `RP/Modules/Mysql/Connector.nut` and find the line `ORM.MySQL(...)`. Replace `"host"`, `"user"`, `"password"`, and `"database_name"` with your actual database credentials.
+
+### 2. Discord Bot & API Setup
+
+This is required for players to log in.
+
+*   **Navigate to `discord_bot_api/`:**
+    *   Create a `.env` file from the `.env.example`.
+    *   Fill in your database details and create a secret `API_KEY`.
+    *   Run `npm install` to download dependencies.
+    *   Run `node index.js` to start the API server.
+*   **Navigate to `discord_bot/`:**
+    *   Create a `.env` file from the `.env.example`.
+    *   Fill in your Discord Bot Token, the API URL (from the previous step), and the same `API_KEY`.
+    *   Run `npm install`.
+    *   Run `node index.js` to start the bot.
+
+### 3. Launch the Game Server
+
+*   Simply start your G2O server. The scripts will load automatically. Players can now connect, and they will be prompted to authenticate via Discord.
+
+---
+---
+
+# Open Roleplay 2.0 
+
+## О проекте
+
+Этот проект представляет собой значительно доработанную и улучшенную версию игрового мода **Open Roleplay 2.0** от **Artii**, который, в свою очередь, является обновлением классического **Gothic Roleplay** от **Quarchodron**.
+
+Данный форк нацелен на полную переработку кодовой базы с применением современных практик разработки, таких как **Чистая Архитектура**, для достижения максимальной модульности, стабильности и расширяемости.
+
+### Ключевые улучшения:
+
+*   **Полный рефакторинг:** Код переписан с нуля с разделением на логические слои (домен, приложение, инфраструктура).
+*   **Стабильность и производительность:** Новая архитектура снижает количество ошибок и упрощает их отладку.
+*   **Локализация:** Все сообщения для конечного пользователя переведены на русский язык.
+*   **Современная аутентификация:** Интеграция с Discord для быстрой и безопасной привязки аккаунтов.
+
+---
+
+## Архитектура проекта
+
+Проект построен на принципах **Чистой Архитектуры**, что обеспечивает слабую связанность и высокую модульность компонентов.
+
+### Серверная часть (`RP/Server/`)
+
+Серверная логика разделена на три основных слоя:
+
+1.  **Entities (Сущности):** Чистые объекты данных, представляющие ключевые концепции игры (например, `PlayerEntity`, `FractionEntity`). Не содержат бизнес-логики.
+2.  **Repositories / Loaders (Репозитории / Загрузчики):** Слой доступа к данным. Отвечает за сохранение и загрузку сущностей из базы данных или конфигурационных файлов.
+3.  **Services (Сервисы):** Содержат всю бизнес-логику приложения. Координируют работу между сущностями и репозиториями.
+4.  **Controllers (Контроллеры):** "Точка входа" для каждого модуля. Регистрируют обработчики событий и команд, делегируя выполнение сервисам.
+
+---
+
+## Игровые механики
+
+*   **Классы и фракции:** Игроки могут присоединяться к фракциям и получать классы, открывая новые возможности.
+*   **Торговля:** Безопасный обмен предметами между игроками.
+*   **Крафт:** Создание новых предметов из материалов по рецептам.
+*   **Прокачка:** Развитие персонажа через получение опыта и улучшение навыков.
+
+---
+
+## Развертывание с помощью Docker (Рекомендуется)
+
+Это самый простой способ запустить весь проект.
+
+**Требования:**
+*   Установленные [Docker](https://www.docker.com/get-started) и [Docker Compose](https://docs.docker.com/compose/install/).
+
+**Шаги:**
+
+1.  **Создайте файлы окружения:**
+    *   Скопируйте `.env.example` в `.env` в корневой папке проекта и заполните данные для подключения к БД.
+    *   Скопируйте `discord_bot_api/.env.example` в `discord_bot_api/.env` и укажите ваш `API_KEY`.
+    *   Скопируйте `discord_bot/.env.example` в `discord_bot/.env` и укажите ваш `DISCORD_TOKEN` и тот же `API_KEY`.
+
+2.  **Запустите Docker Compose:**
+    Откройте терминал в корне проекта и выполните команду:
+    ```bash
+    docker-compose up --build -d
+    ```
+    Эта команда соберет образы для API и бота и запустит все сервисы (базу данных, API, бот) в фоновом режиме.
+
+3.  **Проверьте статус:**
+    Вы можете проверить логи, чтобы убедиться, что все работает корректно:
+    ```bash
+    docker-compose logs -f
+    ```
+
+4.  **Запустите игровой сервер:**
+    *   На данный момент игровой сервер G2O все еще нужно запускать вручную на вашем компьютере.
+    *   Убедитесь, что вы настроили `RP/Modules/Mysql/Connector.nut` для подключения к базе данных, запущенной в Docker (хост: `127.0.0.1`, порт: `3306`, и пользователь/пароль из вашего `.env` файла).
+
+---
+
+## Руководство по запуску
+
+Это руководство поможет вам запустить сервер.
+
+### 1. Настройка базы данных
+
+*   **Установите MySQL:** Убедитесь, что у вас установлен и запущен MySQL сервер.
+*   **Импортируйте схему:** Используя инструмент вроде MySQL Workbench или командную строку, импортируйте структуру базы данных из файла `RP/Modules/Mysql/GothicRoleplay2-0.sql`. Это создаст все необходимые таблицы.
+*   **Настройте подключение:** Откройте файл `RP/Modules/Mysql/Connector.nut` и найдите строку `ORM.MySQL(...)`. Замените `"host"`, `"user"`, `"password"` и `"database_name"` на ваши реальные данные для подключения к БД.
+
+### 2. Настройка Discord-бота и API
+
+Это необходимо для входа игроков на сервер.
+
+*   **Перейдите в `discord_bot_api/`:**
+    *   Создайте файл `.env` из `.env.example`.
+    *   Заполните данные вашей БД и придумайте секретный `API_KEY`.
+    *   Выполните `npm install` для установки зависимостей.
+    *   Выполните `node index.js` для запуска API сервера.
+*   **Перейдите в `discord_bot/`:**
+    *   Создайте файл `.env` из `.env.example`.
+    *   Укажите токен вашего Discord-бота, URL API (из предыдущего шага) и тот же самый `API_KEY`.
+    *   Выполните `npm install`.
+    *   Выполните `node index.js` для запуска бота.
+
+### 3. Запуск игрового сервера
+
+*   Просто запустите ваш сервер G2O. Скрипты загрузятся автоматически. Теперь игроки могут подключаться и проходить аутентификацию через Discord.
+
+---
+---
 
 ## ----- PL SECTION -----
 
-
-
-
-
+*Ta sekcja została zachowana z oryginalnego pliku README i może zawierać nieaktualne informacje.*
 
 # Open Roleplay 2.0
 
 # Autor: Artii #
 
 **Ten projekt jest rozwiniętą i zaktualizowaną wersją oryginalnej paczki Gothic Roleplay autorstwa Quarchodron** — dostępnej pod adresem: https://gitlab.com/g2o/gamemodes/gothicroleplay.
-
-## Opis
-
-Projekt został zaktualizowany tak, aby paczka mogła **bezproblemowo działać na najnowszym API G2O**. Oryginalna wersja była tworzona pod G2O v0.1.4 i nie uruchamia się na obecnych wersjach.  
-
-Ze względu na dużą różnicę pomiędzy starym a obecnym API, mogą wystąpić **nieoczekiwane problemy z działaniem**. Jeśli znajdziesz jakieś błędy, zgłoś je w Issues lub skontaktuj się bezpośrednio.  (Discord: artiixdxd)  
-
-Wersja 2.0 obejmuje m.in.:  
-- **Obsługa MySQL** – zamiast wcześniejszego zapisu plikowego.  
-- **Nowa organizacja GUI** – poprawione skalowanie i rozmieszczenie elementów (na bazie starego układu).  
-- **Kompatybilność z G2O v0.3.+** – wszystkie kluczowe systemy dostosowane do obecnego API.  
-- **Plany rozwoju** – Dalsze usprawnienia w kolejnych wydaniach.  
-
-## Instalacja
-
-Zmień dane logowania mysql w ``RP\Modules\Mysql\Connector.nut`` ``ORM.MySQL("host", "user", "password", "database_name");``
-
-* Skrypt korzysta z: modułu MySQL, LocalStorage, BCrypt, Framework ORM i GUI.Framework.

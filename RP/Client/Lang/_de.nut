@@ -1,6 +1,6 @@
 
 local DE = {
-    "System: Type /do <text>" : "hallo ähm",
+    "System: Type /do <text>" : "hallo Ã¤hm",
 }
 
 setLanguagePackage("de", DE)

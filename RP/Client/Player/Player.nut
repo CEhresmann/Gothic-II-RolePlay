@@ -22,7 +22,7 @@ function getLocalPlayerLearningPoints()
 }
 
 /**
- * Zwraca lokalny poziom profesji gracza (do uøycia w GUI).
+ * Zwraca lokalny poziom profesji gracza (do u≈ºycia w GUI).
  * @param {integer} professionId - ID profesji.
  * @returns {integer} - Poziom profesji.
  */

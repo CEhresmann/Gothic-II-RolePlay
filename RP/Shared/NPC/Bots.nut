@@ -10,7 +10,7 @@ addEventHandler("onInit", function(){
 
 
 	createHuman(8960.55, 368.261, -2766.44, 60, {
-		name = "Straønik Miejski",
+		name = "Stra≈ºnik Miejski",
 		can_fight_back = true,
 		can_wander = false,
 		idle_speech = true,

@@ -56,19 +56,19 @@ PROFESSION_CONFIG <- {
     },
     MaxLevel = 5,
     Names = {
-        [ProfessionType.Hunter] = "£owca",
-        [ProfessionType.Archer] = "£ucznik",
+        [ProfessionType.Hunter] = "Åowca",
+        [ProfessionType.Archer] = "Åucznik",
         [ProfessionType.Blacksmith] = "Kowal",
-        [ProfessionType.Armorer] = "P³atnerz",
+        [ProfessionType.Armorer] = "PÅ‚atnerz",
         [ProfessionType.Alchemist] = "Alchemik",
         [ProfessionType.Cook] = "Kucharz"
     },
     Descriptions = {
         [ProfessionType.Hunter] = "Specjalista w tropieniu i polowaniach",
-        [ProfessionType.Archer] = "Mistrz strzelania z ³uku",
-        [ProfessionType.Blacksmith] = "Tworzy i naprawia broñ",
+        [ProfessionType.Archer] = "Mistrz strzelania z Å‚uku",
+        [ProfessionType.Blacksmith] = "Tworzy i naprawia broÅ„",
         [ProfessionType.Armorer] = "Wytwarza i naprawia zbroje",
         [ProfessionType.Alchemist] = "Przygotowuje mikstury i eliksiry",
-        [ProfessionType.Cook] = "Przyrz¹dza po¿ywne posi³ki"
+        [ProfessionType.Cook] = "PrzyrzÄ…dza poÅ¼ywne posiÅ‚ki"
     }
 }

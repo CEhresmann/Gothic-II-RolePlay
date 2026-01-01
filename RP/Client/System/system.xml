@@ -5,4 +5,5 @@
     <script src="Tick.nut" type="client"/>
 
     <script src="Init.nut" type="client"/>
+    <script src="Auth/discord_auth_client.nut" type="client"/>
 </server>

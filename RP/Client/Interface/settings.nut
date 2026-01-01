@@ -67,7 +67,7 @@ Interface.Settings.musicVolumeReset <- GUI.Button({
 
 Interface.Settings.musicVolumeLabel <- GUI.Label({
     relativePositionPx = {x = 0.01 * Resolution.x, y = 0.10 * Resolution.y},
-    label = {text = "G³oœnoœæ muzyki: " + (Music.volume * 100).tointeger() + "%"},
+    label = {text = "GÅ‚oÅ›noÅ›Ä‡ muzyki: " + (Music.volume * 100).tointeger() + "%"},
     collection = Interface.Settings.window
 })
 
@@ -172,7 +172,7 @@ function loadSettings() {
 
     Interface.Settings.musicVolumeSlider.setValue(validMusicVolume);
     Music.volume = validMusicVolume / 100.0;
-    Interface.Settings.musicVolumeLabel.setText("G³oœnoœæ muzyki: " + validMusicVolume.tointeger() + "%");
+    Interface.Settings.musicVolumeLabel.setText("GÅ‚oÅ›noÅ›Ä‡ muzyki: " + validMusicVolume.tointeger() + "%");
 
     Interface.Settings.fovSlider.setValue(validFOV);
     applyFOV(validFOV);
@@ -188,7 +188,7 @@ function loadSettings() {
 function onMusicVolumeChanged(self) {
     local value = Interface.Settings.musicVolumeSlider.getValue();
     Music.volume = value / 100.0;
-    Interface.Settings.musicVolumeLabel.setText("G³oœnoœæ muzyki: " + value.tointeger() + "%");
+    Interface.Settings.musicVolumeLabel.setText("GÅ‚oÅ›noÅ›Ä‡ muzyki: " + value.tointeger() + "%");
     saveSettings();
 }
 
@@ -206,7 +206,7 @@ function applyFOV(fovValue) {
 function resetMusicVolume(self) {
     Interface.Settings.musicVolumeSlider.setValue(defaultMusicVolume);
     Music.volume = defaultMusicVolume / 100.0;
-    Interface.Settings.musicVolumeLabel.setText("G³oœnoœæ muzyki: " + defaultMusicVolume.tointeger() + "%");
+    Interface.Settings.musicVolumeLabel.setText("GÅ‚oÅ›noÅ›Ä‡ muzyki: " + defaultMusicVolume.tointeger() + "%");
     saveSettings();
 }
 

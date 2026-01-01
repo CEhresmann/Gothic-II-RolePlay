@@ -1,3 +1,5 @@
 <server>
-    <script src="Main.nut" type="server"/>
+    <script src="CraftRepository.nut" type="server"/>
+    <script src="CraftService.nut" type="server"/>
+    <script src="CraftController.nut" type="server"/>
 </server>

@@ -1,5 +1,5 @@
 Craft("ItMw_Stabkeule", {
-    name = "Bu≥awa drzewcowa",
+    name = "Bu≈Çawa drzewcowa",
     mob = CraftingStation.Anvil,
     itemsToCraft = [
         { item = "ItMw_1H_Bau_Mace", quantity = 2 }

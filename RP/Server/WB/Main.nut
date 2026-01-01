@@ -50,7 +50,7 @@ function WorldBuilder::commandInit(pid, params)
             }
         }
         if (!alreadyBuilder) WorldBuilder.players.append(pid);
-        SendSystemMessage(pid, "WB: Zalogowano do World Buildera. U�yj F12, aby rozpocz�� budowanie.", {r=0,g=255,b=0});
+        SendSystemMessage(pid, "WB: Zalogowano do World Buildera. UĹĽyj F12, aby rozpoczÄ…Ä‡ budowanie.", {r=0,g=255,b=0});
         local packet = Packet();
         packet.writeUInt8(PacketId.WorldBuilder);
         packet.writeUInt8(PacketWorldBuilder.Player);
@@ -98,7 +98,7 @@ function WorldBuilder::onPacket(pid, packet)
             } catch (e) {}
 
             if (existingVob != null) {
-                SendSystemMessage(pid, "WB: Vob '" + name + "' ju� istnieje na tej pozycji.", {r=255,g=0,b=0});
+                SendSystemMessage(pid, "WB: Vob '" + name + "' juĹĽ istnieje na tej pozycji.", {r=255,g=0,b=0});
                 return;
             }
 
@@ -115,7 +115,7 @@ function WorldBuilder::onPacket(pid, packet)
                 newVob.vobType = vobType;
                 newVob.keyInstance = keyInstance;
                 newVob.insert();
-                SendSystemMessage(pid, "WB: Vob '" + name + "' zosta� zapisany w bazie danych (ID: " + newVob.id + ").", {r=0,g=255,b=0});
+                SendSystemMessage(pid, "WB: Vob '" + name + "' zostaĹ‚ zapisany w bazie danych (ID: " + newVob.id + ").", {r=0,g=255,b=0});
 
                 if (CFG.WorldBuilderTrueBuilding) {
                     WorldBuilder.vobs.append(newVob);
@@ -139,7 +139,7 @@ function WorldBuilder::onPacket(pid, packet)
                     updatePacket = null;
                 }
             } catch (e) {
-                SendSystemMessage(pid, "WB: B��d zapisu voba do bazy danych: " + e, {r=255,g=0,b=0});
+                SendSystemMessage(pid, "WB: BĹ‚Ä…d zapisu voba do bazy danych: " + e, {r=255,g=0,b=0});
             }
         break;
 		case PacketWorldBuilder.VobRemove:
@@ -154,7 +154,7 @@ function WorldBuilder::onPacket(pid, packet)
 					
 					vobToRemove.remove();
 
-					SendSystemMessage(pid, "WB: Vob '" + vobName + "' (ID: " + vobId + ") zosta� usuni�ty z bazy danych.", {r=0,g=255,b=0});
+					SendSystemMessage(pid, "WB: Vob '" + vobName + "' (ID: " + vobId + ") zostaĹ‚ usuniÄ™ty z bazy danych.", {r=0,g=255,b=0});
 
 					foreach(i, vob in WorldBuilder.vobs) {
 						if (vob.id == vobId) {
@@ -175,8 +175,8 @@ function WorldBuilder::onPacket(pid, packet)
 				}
 
 			} catch(e) {
-				SendSystemMessage(pid, "WB: Wyst�pi� b��d podczas usuwania voba o ID " + vobIdToRemove + ": " + e, {r=255,g=0,b=0});
-				print("B��d usuwania voba: " + e);
+				SendSystemMessage(pid, "WB: WystÄ…piĹ‚ bĹ‚Ä…d podczas usuwania voba o ID " + vobIdToRemove + ": " + e, {r=255,g=0,b=0});
+				print("BĹ‚Ä…d usuwania voba: " + e);
 			}
 		break;
     }

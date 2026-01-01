@@ -34,7 +34,7 @@ Interface.Binds.Topic.setColor({r = 255, g = 0, b = 0});
 Interface.Binds.InfoLabel <- GUI.Label({
     relativePositionPx = {x = 0.02 * Resolution.x, y = 0.07 * Resolution.y},
     sizePx = {width = 0.31 * Resolution.x, height = 0.40 * Resolution.y},
-    text = "[#FFFFFF]F3[#AAAAAA] - Ukrywa/pokazuje ca³e GUI.\n\n[#FFFFFF]F10[#AAAAAA] - Pokazuje/ukrywa okno animacji.\n\n[#FFFFFF]T[#AAAAAA] - Otwiera/zamyka czat.\n\n[#FFFFFF]V[#AAAAAA] - Zmienia aktualn¹ kategoriê czatu.\n\n[#FFFFFF]B[#AAAAAA] - Otwiera okno statystyk postaci.\n\n[#FFFFFF]LCTRL/LPM[#AAAAAA] - Lootuje przedmioty z martwego moba.\n\n[#FFFFFF]LCTRL/LPM[#AAAAAA] - Otwiera okno craftingu voba.\n\n[#FFFFFF]LCTRL + SCROLL[#AAAAAA] - Przewija historiê wiadomoœci na czacie.",
+    text = "[#FFFFFF]F3[#AAAAAA] - Ukrywa/pokazuje caÅ‚e GUI.\n\n[#FFFFFF]F10[#AAAAAA] - Pokazuje/ukrywa okno animacji.\n\n[#FFFFFF]T[#AAAAAA] - Otwiera/zamyka czat.\n\n[#FFFFFF]V[#AAAAAA] - Zmienia aktualnÄ… kategoriÄ™ czatu.\n\n[#FFFFFF]B[#AAAAAA] - Otwiera okno statystyk postaci.\n\n[#FFFFFF]LCTRL/LPM[#AAAAAA] - Lootuje przedmioty z martwego moba.\n\n[#FFFFFF]LCTRL/LPM[#AAAAAA] - Otwiera okno craftingu voba.\n\n[#FFFFFF]LCTRL + SCROLL[#AAAAAA] - Przewija historiÄ™ wiadomoÅ›ci na czacie.",
     font = "FONT_OLD_10_WHITE_HI.TGA",
     collection = Interface.Binds.window
 })

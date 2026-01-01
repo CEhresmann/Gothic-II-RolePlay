@@ -7,7 +7,9 @@ enum PacketId {
     Admin,
     Crafting,
     Profession,
-    Other
+    Other,
+    Auth,
+    DiscordAuth
 }
 
 enum PacketPlayer {
@@ -181,4 +183,22 @@ function createNewMessageNotify(mode) {
         type = ChatPacketType.NewMessageNotify,
         mode = mode
     };
+}
+
+enum AuthPacket {
+    ShowAuthScreen,
+    RequestNewCode,
+    SetAuthCode,
+    ConfirmCode,
+    AuthSuccess,
+    AuthError
+}
+
+enum DiscordAuthPacket {
+    ShowAuthScreen,
+    RequestCode,
+    SetAuthCode,
+    ConfirmCode,
+    AuthSuccess,
+    AuthError
 }

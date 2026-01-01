@@ -1,6 +1,6 @@
 
 local RU = {
-    "System: Type /do <text>" : "οπθβες γμ",
+    "System: Type /do <text>" : "ΔΔ‘ΔΓΆΔΊΕ ΔƒΔ›",
 }
 
 setLanguagePackage("ru", RU)

@@ -1,4 +1,9 @@
 <server>
-	<script src="chat_server.nut" type="server"/>
-	<script src="Chat_commands.nut" type="server"/>
+    <!-- 
+        Chat Module Refactored
+        - Service: Handles chat logic and state.
+        - Commands: Modular command files are loaded by the controller.
+        - Controller: Binds everything together.
+    -->
+    <script src="ChatController.nut" type="server" />
 </server>

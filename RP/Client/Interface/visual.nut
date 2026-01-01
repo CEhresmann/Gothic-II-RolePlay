@@ -251,14 +251,14 @@ Interface.Visual <- {
                     })
                 ];
 
-                this.changingElements[1].setText("Gruboœæ: " + (currentFatness * 100).tointeger() + "%");
+                this.changingElements[1].setText("GruboÅ›Ä‡: " + (currentFatness * 100).tointeger() + "%");
 
                 local currentChangingElements = this.changingElements;
                 this.changingElements[0].range.bind(EventType.Change, function(self) {
                     local fatnessValue = self.getValue() / 100.0;
                     //setPlayerFatness(heroId, fatnessValue);
                     Player.packetFatness(fatnessValue);
-                    currentChangingElements[1].setText("Gruboœæ: " + self.getValue() + "%");
+                    currentChangingElements[1].setText("GruboÅ›Ä‡: " + self.getValue() + "%");
                 });
                 break;
 
@@ -286,7 +286,7 @@ Interface.Visual <- {
                     })
                 ];
 
-                this.changingElements[0].setText("Wysokoœæ: " + format("%.2f", currentScale.x));
+                this.changingElements[0].setText("WysokoÅ›Ä‡: " + format("%.2f", currentScale.x));
 
                 local currentChangingElements = this.changingElements;
 
@@ -294,7 +294,7 @@ Interface.Visual <- {
                     local scaleValue = self.getValue() / 100.0;
                     //setPlayerScale(heroId, scaleValue, scaleValue, scaleValue);
                     Player.packetScale(scaleValue, scaleValue, scaleValue);
-                    currentChangingElements[0].setText("Wysokoœæ: " + format("%.2f", scaleValue));
+                    currentChangingElements[0].setText("WysokoÅ›Ä‡: " + format("%.2f", scaleValue));
                 });
                 break;
         }
@@ -344,7 +344,7 @@ Interface.Visual.fatnessButton <- GUI.Button({
     relativePositionPx = {x = 0.01 * Resolution.x, y = 0.34 * Resolution.y},
     sizePx = {width = 0.23 * Resolution.x, height = 0.05 * Resolution.y},
     file = "DLG_CONVERSATION.TGA",
-    label = {text = "Gruboœæ"},
+    label = {text = "GruboÅ›Ä‡"},
     collection = Interface.Visual.window
 })
 
@@ -352,7 +352,7 @@ Interface.Visual.scaleButton <- GUI.Button({
     relativePositionPx = {x = 0.01 * Resolution.x, y = 0.40 * Resolution.y},
     sizePx = {width = 0.23 * Resolution.x, height = 0.05 * Resolution.y},
     file = "DLG_CONVERSATION.TGA",
-    label = {text = "Wysokoœæ"},
+    label = {text = "WysokoÅ›Ä‡"},
     collection = Interface.Visual.window
 })
 Interface.Visual.leftButton <- GUI.Button({
@@ -519,6 +519,6 @@ addEventHandler("onChangeLanguage", function(lang) {
     Interface.Visual.headButton.setText(_L("Head"));
     Interface.Visual.faceButton.setText(_L("Face"));
     Interface.Visual.walkButton.setText(_L("Walking style"));
-    Interface.Visual.fatnessButton.setText("Gruboœæ");
-    Interface.Visual.scaleButton.setText("Wysokoœæ");
+    Interface.Visual.fatnessButton.setText("GruboÅ›Ä‡");
+    Interface.Visual.scaleButton.setText("WysokoÅ›Ä‡");
 });

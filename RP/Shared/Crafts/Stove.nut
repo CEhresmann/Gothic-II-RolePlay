@@ -1,5 +1,5 @@
 Craft("ItFoMutton", {
-    name = "Sma¿one miêso",
+    name = "SmaÅ¼one miÄ™so",
 	mob = CraftingStation.Stove
 	professionType = ProfessionType.Cook,
 	requiredLevel = 1,

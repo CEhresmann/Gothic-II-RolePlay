@@ -11,5 +11,5 @@ PlayerClass(1, "Obywatel", function(pid) {
 }, townFraction)
 
 
-PlayerClass(2, "Straønik", function(pid) {
+PlayerClass(2, "Stra≈ºnik", function(pid) {
 }, townFraction)

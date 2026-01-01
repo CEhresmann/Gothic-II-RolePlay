@@ -1,5 +1,5 @@
 
-local focusDraw = Label(3134,6904,"LEFT CONTROL aby porozmawiaæ");
+local focusDraw = Label(3134,6904,"LEFT CONTROL aby porozmawiaÄ‡");
 local focusNpc = -1;
 
 local focusTexture = Sprite(3000,6824,focusDraw.width+268,300, "MENU_INGAME.TGA");

@@ -65,13 +65,13 @@ Interface.StatsMenu <- {
     "updateSkillsDisplay" : function() {
         this.HP.setText("Zdrowie: " + this.playerStats.health + "/" + this.playerStats.maxHealth);
         this.Mana.setText("Mana: " + this.playerStats.mana + "/" + this.playerStats.maxMana);
-        this.Str.setText("Si³a: " + this.playerStats.strength);
-        this.Dex.setText("Zrêcznoœæ: " + this.playerStats.dexterity);
+        this.Str.setText("SiÅ‚a: " + this.playerStats.strength);
+        this.Dex.setText("ZrÄ™cznoÅ›Ä‡: " + this.playerStats.dexterity);
         this.oneH.setText("1H: " + this.playerStats.oneHanded + "%");
         this.twoH.setText("2H: " + this.playerStats.twoHanded + "%");
-        this.bow.setText("£uk: " + this.playerStats.bow + "%");
+        this.bow.setText("Åuk: " + this.playerStats.bow + "%");
         this.cbow.setText("Kusza: " + this.playerStats.crossbow + "%");
-        this.mage.setText("Kr¹g: " + this.playerStats.magicCircle);
+        this.mage.setText("KrÄ…g: " + this.playerStats.magicCircle);
         this.PN.setText("Punkty Nauki: " + this.learningPoints);
     },
     
@@ -124,7 +124,7 @@ Interface.StatsMenu <- {
         this.selectedProfession = { type = professionType, name = PROFESSION_CONFIG.Names[professionType] };
         
         if (this.playerProfessions[professionType] >= PROFESSION_CONFIG.MaxLevel) {
-            addNotification(heroId, "Osi¹gn¹³eœ maksymalny poziom tej profesji!");
+            addNotification(heroId, "OsiÄ…gnÄ…Å‚eÅ› maksymalny poziom tej profesji!");
             return;
         }
 
@@ -137,7 +137,7 @@ Interface.StatsMenu <- {
 
     "showUpgradeWindow" : function(itemName, cost) {
         if (cost < 0) return;
-        local nameText = "Ulepszyæ " + itemName + "?";
+        local nameText = "UlepszyÄ‡ " + itemName + "?";
         this.UpgradeText.setText(nameText);
         this.UpgradeText.setRelativePositionPx((this.Upgrade.getSizePx().width - textWidthPx(nameText)) / 2, this.UpgradeText.getRelativePositionPx().y);
         
@@ -180,7 +180,7 @@ Interface.StatsMenu.leave <- GUI.Button({
     relativePositionPx = {x = 0.6 * Resolution.x, y = 0.5 * Resolution.y},
     sizePx = {width = 0.10 * Resolution.x, height = 0.04 * Resolution.y},
     file = "INV_TITEL.TGA",
-    label = {text = "WyjdŸ"},
+    label = {text = "WyjdÅº"},
     collection = Interface.StatsMenu.window
 });
 
@@ -203,7 +203,7 @@ Interface.StatsMenu.skills <- GUI.Button({
     relativePositionPx = {x = 0.01 * Resolution.x, y = 0.04 * Resolution.y},
     sizePx = {width = 0.12 * Resolution.x, height = 0.04 * Resolution.y},
     file = "INV_SLOT_FOCUS.TGA",
-    label = {text = "Umiejêtnoœci"},
+    label = {text = "UmiejÄ™tnoÅ›ci"},
     collection = Interface.StatsMenu.Cat
 });
 
@@ -271,11 +271,11 @@ Interface.StatsMenu.skills.bind(EventType.Click, function(element) { Interface.S
 Interface.StatsMenu.proffesion.bind(EventType.Click, function(element) { Interface.StatsMenu.currentCategory = "professions"; Interface.StatsMenu.updateDisplay(); });
 Interface.StatsMenu.HP.bind(EventType.Click, function(element) { Interface.StatsMenu.requestUpgradeCost("Zdrowie", SkillType.Health); });
 Interface.StatsMenu.Mana.bind(EventType.Click, function(element) { Interface.StatsMenu.requestUpgradeCost("Mana", SkillType.Mana); });
-Interface.StatsMenu.Str.bind(EventType.Click, function(element) { Interface.StatsMenu.requestUpgradeCost("Si³a", SkillType.Strength); });
-Interface.StatsMenu.Dex.bind(EventType.Click, function(element) { Interface.StatsMenu.requestUpgradeCost("Zrêcznoœæ", SkillType.Dexterity); });
-Interface.StatsMenu.oneH.bind(EventType.Click, function(element) { Interface.StatsMenu.requestUpgradeCost("Broñ jednorêczna", SkillType.OneHanded); });
-Interface.StatsMenu.twoH.bind(EventType.Click, function(element) { Interface.StatsMenu.requestUpgradeCost("Broñ dwurêczna", SkillType.TwoHanded); });
-Interface.StatsMenu.bow.bind(EventType.Click, function(element) { Interface.StatsMenu.requestUpgradeCost("£uk", SkillType.Bow); });
+Interface.StatsMenu.Str.bind(EventType.Click, function(element) { Interface.StatsMenu.requestUpgradeCost("SiÅ‚a", SkillType.Strength); });
+Interface.StatsMenu.Dex.bind(EventType.Click, function(element) { Interface.StatsMenu.requestUpgradeCost("ZrÄ™cznoÅ›Ä‡", SkillType.Dexterity); });
+Interface.StatsMenu.oneH.bind(EventType.Click, function(element) { Interface.StatsMenu.requestUpgradeCost("BroÅ„ jednorÄ™czna", SkillType.OneHanded); });
+Interface.StatsMenu.twoH.bind(EventType.Click, function(element) { Interface.StatsMenu.requestUpgradeCost("BroÅ„ dwurÄ™czna", SkillType.TwoHanded); });
+Interface.StatsMenu.bow.bind(EventType.Click, function(element) { Interface.StatsMenu.requestUpgradeCost("Åuk", SkillType.Bow); });
 Interface.StatsMenu.cbow.bind(EventType.Click, function(element) { Interface.StatsMenu.requestUpgradeCost("Kusza", SkillType.Crossbow); });
 Interface.StatsMenu.mage.bind(EventType.Click, function(element) { Interface.StatsMenu.requestUpgradeCost("Magia", SkillType.MagicCircle); });
 

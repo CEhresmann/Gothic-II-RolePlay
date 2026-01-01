@@ -38,7 +38,7 @@ builderManager.deleteButton <- GUI.Button({
     relativePositionPx = {x = 0.01 * Resolution.x, y = 0.92 * Resolution.y},
     sizePx = {width = 0.30 * Resolution.x, height = 0.05 * Resolution.y},
     file = "RED.TGA",
-    label = {text = "Usuñ"},
+    label = {text = "UsuÅ„"},
     collection = builderManager.window,
     visible = false
 });

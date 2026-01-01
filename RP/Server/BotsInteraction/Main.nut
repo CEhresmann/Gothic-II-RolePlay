@@ -55,7 +55,7 @@ addEventHandler("onPacket", function(playerid, packet) {
 							lootPacket.send(playerid, RELIABLE);
 						}
 					}else {
-						addNotification(playerid, "Nie posiadasz umiÍtnoúci Myúliwego!");
+						addNotification(playerid, "Nie posiadasz umiƒôtno≈õci My≈õliwego!");
 					}
                 }
             }
@@ -81,7 +81,7 @@ addEventHandler("onPacket", function(playerid, packet) {
                     local responsePacket = Packet();
                     responsePacket.writeUInt8(PacketId.Other);
                     responsePacket.writeUInt8(PacketOther.Notification);
-                    responsePacket.writeString("To cia≥o zosta≥o juø wylootowane!");
+                    responsePacket.writeString("To cia≈Ço zosta≈Ço ju≈º wylootowane!");
                     responsePacket.send(playerid, RELIABLE);
                 }
             }

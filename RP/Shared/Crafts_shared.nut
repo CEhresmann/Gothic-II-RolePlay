@@ -16,10 +16,10 @@ function Craft(resultItem, details) {
 
 function getProfessionName(professionType) {
     switch(professionType) {
-        case ProfessionType.Hunter: return "Myúliwy";
-        case ProfessionType.Archer: return "£uczarz";
+        case ProfessionType.Hunter: return "My≈õliwy";
+        case ProfessionType.Archer: return "≈Åuczarz";
         case ProfessionType.Blacksmith: return "Kowal";
-        case ProfessionType.Armorer: return "P≥atnerz";
+        case ProfessionType.Armorer: return "P≈Çatnerz";
         case ProfessionType.Alchemist: return "Alchemik";
         case ProfessionType.Cook: return "Kucharz";
         default: return "Nieznana profesja";

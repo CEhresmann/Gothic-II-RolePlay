@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Авторизация через Discord</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            background: rgba(30, 30, 30, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #7289da;
+            font-size: 24px;
+        }
+        .code-section {
+            background: rgba(114, 137, 218, 0.1);
+            border: 2px solid #7289da;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .code-label {
+            font-size: 14px;
+            color: #aaa;
+            margin-bottom: 10px;
+        }
+        #auth-code {
+            font-size: 32px;
+            font-weight: bold;
+            color: #7289da;
+            letter-spacing: 4px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+        }
+        .instructions {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .instructions ol {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        .instructions li {
+            margin: 5px 0;
+        }
+        button {
+            background: #7289da;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            width: 100%;
+            margin: 10px 0;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #5b6eae;
+        }
+        button:disabled {
+            background: #555;
+            cursor: not-allowed;
+        }
+        .error {
+            background: rgba(237, 66, 69, 0.2);
+            border: 2px solid #ed4245;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            color: #ff6b6b;
+            display: none;
+        }
+        .error.show {
+            display: block;
+        }
+        .loading {
+            text-align: center;
+            color: #aaa;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔐 Авторизация через Discord</h1>
+        
+        <div class="code-section">
+            <div class="code-label">Твой код для входа:</div>
+            <div id="auth-code" class="loading">Запрашиваем...</div>
+        </div>
+
+        <div class="instructions">
+            <strong>Инструкция:</strong>
+            <ol>
+                <li>Скопируй код выше</li>
+                <li>Открой Discord и найди нашего бота</li>
+                <li>Введи команду: <code>/auth &lt;твой_код&gt;</code></li>
+                <li>Дождись подтверждения</li>
+            </ol>
+        </div>
+
+        <div class="error" id="error-message"></div>
+
+        <button onclick="requestNewCode()" id="new-code-btn">🔄 Получить новый код</button>
+    </div>
+
+    <script>
+        function setAuthCode(code) {
+            const codeElement = document.getElementById('auth-code');
+            codeElement.textContent = code;
+            codeElement.classList.remove('loading');
+        }
+
+        function showError(message) {
+            const errorElement = document.getElementById('error-message');
+            errorElement.textContent = message;
+            errorElement.classList.add('show');
+            setTimeout(() => {
+                errorElement.classList.remove('show');
+            }, 5000);
+        }
+
+        function requestNewCode() {
+            const btn = document.getElementById('new-code-btn');
+            btn.disabled = true;
+            btn.textContent = 'Запрашиваем...';
+            
+            const codeElement = document.getElementById('auth-code');
+            codeElement.textContent = 'Запрашиваем...';
+            codeElement.classList.add('loading');
+            
+            g2o.emit('requestNewAuthCode');
+            
+            setTimeout(() => {
+                btn.disabled = false;
+                btn.textContent = '🔄 Получить новый код';
+            }, 2000);
+        }
+
+        // Обработка ошибок от сервера
+        if (typeof g2o !== 'undefined') {
+            g2o.on('authError', function(message) {
+                showError(message || 'Произошла ошибка при авторизации');
+            });
+        }
+    </script>
+</body>
+</html>

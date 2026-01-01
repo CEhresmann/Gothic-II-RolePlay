@@ -1,3 +1,5 @@
 <server>
-    <script src="Trade.nut" type="server" />
+    <script src="TradeEntity.nut" type="server" />
+    <script src="TradeService.nut" type="server" />
+    <script src="TradeController.nut" type="server" />
 </server>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gothic CEF UI</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <h1>Authentication</h1>
+        <p>Enter this code in the Discord bot:</p>
+        <div id="auth-code-container">
+            <h2 id="auth-code">Waiting for code...</h2>
+        </div>
+        <button onclick="requestNewCode()">Request New Code</button>
+        <div id="error-container"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
