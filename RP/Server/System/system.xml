@@ -7,7 +7,6 @@
     <script src="GameTimeEvent.nut" type="server"/>
     <!--<script src="Worlddraws.nut" type="server"/>-->
 	<script src="Logs.nut" type="server"/>
-	<!-- Старая система авторизации отключена - используется Discord авторизация -->
 	<!--<script src="Auth/auth.nut" type="server"/>-->
 	<script src="Auth/discord_auth.nut" type="server"/>
 </server>

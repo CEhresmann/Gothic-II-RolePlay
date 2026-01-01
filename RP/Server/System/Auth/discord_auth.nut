@@ -19,8 +19,8 @@ DiscordAuth <- {
 function DiscordAuth::GenerateAuthCode(player) {
     local pid = player.pid;
     
-    if (pid in AuthSessions) {
-        local oldSession = DiscordAuthSession.findOne(@(q) q.where("player_id", "=", player.id).where("auth_code", "=", AuthSessions[pid].auth_code));
+    if (pid in DiscordAuth.AuthSessions) {
+        local oldSession = DiscordAuthSession.findOne(@(q) q.where("player_id", "=", player.id).where("auth_code", "=", DiscordAuth.AuthSessions[pid].auth_code));
         if (oldSession) {
             oldSession.delete();
         }
@@ -39,7 +39,7 @@ function DiscordAuth::GenerateAuthCode(player) {
     session.expires_at = expiration;
     session.insert();
 
-    AuthSessions[pid] <- {
+    DiscordAuth.AuthSessions[pid] <- {
         auth_code = code,
         expires_at = expiration
     };

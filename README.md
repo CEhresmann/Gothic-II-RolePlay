@@ -2,29 +2,7 @@
 
 This project is a significantly refactored and improved version of the **Open Roleplay 2.0** gamemode by **Artii**, which itself is an update to the classic **Gothic Roleplay** by **Quarchodron**.
 
-This fork aims to completely overhaul the codebase using modern development practices, such as **Clean Architecture**, to achieve maximum modularity, stability, and extensibility.
-
-### Key Improvements:
-
-*   **Complete Refactoring:** The code has been rewritten from the ground up, with a clear separation into logical layers (Domain, Application, Infrastructure).
-*   **Stability and Performance:** The new architecture reduces bugs and simplifies debugging.
-*   **Localization:** All end-user messages are translated.
-*   **Modern Authentication:** Integrated with Discord for fast and secure account linking.
-
----
-
-## Project Architecture
-
-The project is built on the principles of **Clean Architecture**, ensuring loose coupling and high modularity.
-
-### Server-Side (`RP/Server/`)
-
-The server logic is divided into three main layers:
-
-1.  **Entities:** Pure data objects representing key game concepts (e.g., `PlayerEntity`, `FractionEntity`). They contain no business logic.
-2.  **Repositories / Loaders:** The data access layer. Responsible for saving and loading entities from the database or configuration files.
-3.  **Services:** Contain all the application's business logic. They coordinate work between entities and repositories.
-4.  **Controllers:** The entry point for each module. They register event and command handlers, delegating execution to the services.
+This fork aims to overhaul the codebase to achieve maximum modularity, stability, and extensibility.
 
 ---
 
@@ -70,9 +48,7 @@ This is the easiest way to get the entire project running.
 
 ---
 
-## Getting Started: A User's Guide
-
-This guide will help you get the server up and running.
+## Getting Started
 
 ### 1. Database Setup
 
@@ -81,8 +57,6 @@ This guide will help you get the server up and running.
 *   **Configure the Connection:** Open the file `RP/Modules/Mysql/Connector.nut` and find the line `ORM.MySQL(...)`. Replace `"host"`, `"user"`, `"password"`, and `"database_name"` with your actual database credentials.
 
 ### 2. Discord Bot & API Setup
-
-This is required for players to log in.
 
 *   **Navigate to `discord_bot_api/`:**
     *   Create a `.env` file from the `.env.example`.
@@ -106,31 +80,9 @@ This is required for players to log in.
 
 ## О проекте
 
-Этот проект представляет собой значительно доработанную и улучшенную версию игрового мода **Open Roleplay 2.0** от **Artii**, который, в свою очередь, является обновлением классического **Gothic Roleplay** от **Quarchodron**.
+Этот проект представляет собой доработанную версию игрового мода **Open Roleplay 2.0** от **Artii**, который, в свою очередь, является обновлением классического **Gothic Roleplay** от **Quarchodron**.
 
-Данный форк нацелен на полную переработку кодовой базы с применением современных практик разработки, таких как **Чистая Архитектура**, для достижения максимальной модульности, стабильности и расширяемости.
-
-### Ключевые улучшения:
-
-*   **Полный рефакторинг:** Код переписан с нуля с разделением на логические слои (домен, приложение, инфраструктура).
-*   **Стабильность и производительность:** Новая архитектура снижает количество ошибок и упрощает их отладку.
-*   **Локализация:** Все сообщения для конечного пользователя переведены на русский язык.
-*   **Современная аутентификация:** Интеграция с Discord для быстрой и безопасной привязки аккаунтов.
-
----
-
-## Архитектура проекта
-
-Проект построен на принципах **Чистой Архитектуры**, что обеспечивает слабую связанность и высокую модульность компонентов.
-
-### Серверная часть (`RP/Server/`)
-
-Серверная логика разделена на три основных слоя:
-
-1.  **Entities (Сущности):** Чистые объекты данных, представляющие ключевые концепции игры (например, `PlayerEntity`, `FractionEntity`). Не содержат бизнес-логики.
-2.  **Repositories / Loaders (Репозитории / Загрузчики):** Слой доступа к данным. Отвечает за сохранение и загрузку сущностей из базы данных или конфигурационных файлов.
-3.  **Services (Сервисы):** Содержат всю бизнес-логику приложения. Координируют работу между сущностями и репозиториями.
-4.  **Controllers (Контроллеры):** "Точка входа" для каждого модуля. Регистрируют обработчики событий и команд, делегируя выполнение сервисам.
+форк нацелен на переработку кодовой базы с применением для модульности, стабильности и расширяемости.
 
 ---
 
@@ -145,7 +97,6 @@ This is required for players to log in.
 
 ## Развертывание с помощью Docker (Рекомендуется)
 
-Это самый простой способ запустить весь проект.
 
 **Требования:**
 *   Установленные [Docker](https://www.docker.com/get-started) и [Docker Compose](https://docs.docker.com/compose/install/).
@@ -177,8 +128,6 @@ This is required for players to log in.
 ---
 
 ## Руководство по запуску
-
-Это руководство поможет вам запустить сервер.
 
 ### 1. Настройка базы данных
 

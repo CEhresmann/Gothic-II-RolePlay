@@ -12,12 +12,12 @@ services:
       MYSQL_USER: ${DB_USER:-user}
       MYSQL_PASSWORD: ${DB_PASSWORD:-password}
     ports:
-      # Порт для подключения к БД с хост-машины (например, для отладки)
+      # Port for connecting to the DB from the host machine (e.g., for debugging)
       - "3306:3306"
     volumes:
-      # Сохраняем данные БД в именованном томе
+      # Persist DB data in a named volume
       - db_data:/var/lib/mysql
-      # При первом запуске можно подложить дамп для создания таблиц
+      # On the first run, you can provide a dump to create tables
       # - ./discord_bot_api/create_table.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - g2o_network

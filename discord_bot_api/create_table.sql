@@ -1,5 +1,5 @@
--- SQL скрипт для создания таблицы discord_auth_sessions
--- Выполнить в MySQL, если таблица еще не создана
+-- SQL script for creating the discord_auth_sessions table
+-- Execute in MySQL if the table has not been created yet
 
 CREATE TABLE IF NOT EXISTS discord_auth_sessions (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -12,11 +12,12 @@ CREATE TABLE IF NOT EXISTS discord_auth_sessions (
     FOREIGN KEY (player_id) REFERENCES player_accounts(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=cp1250 COLLATE=cp1250_polish_ci;
 
--- Проверка существования поля discord_id в player_accounts
--- Если поле уже есть, команда не выполнится (безопасно)
+-- Check for the existence of the discord_id field in player_accounts
+-- If the field already exists, the command will not be executed (safe)
 ALTER TABLE player_accounts 
 ADD COLUMN IF NOT EXISTS discord_id VARCHAR(20) NULL DEFAULT NULL AFTER CK;
 
--- Создание индекса для быстрого поиска по discord_id
+-- Create an index for fast searching by discord_id
 CREATE INDEX IF NOT EXISTS idx_discord_id ON player_accounts(discord_id);
+
 

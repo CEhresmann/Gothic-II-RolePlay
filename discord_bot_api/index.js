@@ -1,10 +1,12 @@
 /**
- * HTTP API сервер для взаимодействия Discord бота с игровым сервером
- * 
- * Эндпоинты:
- * - POST /discord/verify - проверка кода авторизации
- * - POST /discord/link - привязка Discord ID к игровому аккаунту
- * - GET /discord/status - статус API (для проверки работы)
+ * @file HTTP API server for interaction between the Discord bot and the game server.
+ * @author Timofey
+ * @version 1.0.0
+ *
+ * @requires dotenv
+ * @requires express
+ * @requires mysql2/promise
+ * @requires cors
  */
 
 require('dotenv').config();
@@ -20,7 +22,12 @@ const API_KEY = process.env.API_KEY;
 app.use(cors());
 app.use(express.json());
 
-// Middleware для проверки API ключа
+/**
+ * Middleware to check the API key.
+ * @param {express.Request} req - The Express request object.
+ * @param {express.Response} res - The Express response object.
+ * @param {express.NextFunction} next - The next middleware function.
+ */
 const checkApiKey = (req, res, next) => {
     const apiKey = req.headers['x-api-key'];
     if (!apiKey || apiKey !== API_KEY) {
@@ -29,7 +36,10 @@ const checkApiKey = (req, res, next) => {
     next();
 };
 
-// Создание пула подключений к MySQL
+/**
+ * MySQL connection pool.
+ * @type {mysql.Pool}
+ */
 const pool = mysql.createPool({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
@@ -40,7 +50,6 @@ const pool = mysql.createPool({
     queueLimit: 0
 });
 
-// Проверка подключения к БД при запуске
 pool.getConnection()
     .then(connection => {
         console.log('[DB] Connected to MySQL database');
@@ -52,11 +61,12 @@ pool.getConnection()
     });
 
 /**
- * POST /discord/verify
- * Проверяет код авторизации и возвращает информацию о сессии
- * 
- * Body: { auth_code: string }
- * Response: { valid: boolean, player_id?: number, expires_at?: number, error?: string }
+ * @route POST /discord/verify
+ * @group Discord - Operations for Discord integration
+ * @param {string} auth_code.body.required - The authorization code.
+ * @returns {object} 200 - An object with session information.
+ * @returns {Error}  400 - Invalid request
+ * @returns {Error}  500 - Internal server error
  */
 app.post('/discord/verify', checkApiKey, async (req, res) => {
     try {
@@ -70,7 +80,6 @@ app.post('/discord/verify', checkApiKey, async (req, res) => {
             });
         }
 
-        // Ищем сессию по коду
         const [sessions] = await pool.execute(
             'SELECT * FROM discord_auth_sessions WHERE auth_code = ?',
             [auth_code]
@@ -86,9 +95,7 @@ app.post('/discord/verify', checkApiKey, async (req, res) => {
         const session = sessions[0];
         const currentTime = Date.now();
 
-        // Проверяем срок действия (expires_at хранится в миллисекундах)
         if (session.expires_at < currentTime) {
-            // Удаляем просроченную сессию
             await pool.execute(
                 'DELETE FROM discord_auth_sessions WHERE id = ?',
                 [session.id]
@@ -116,11 +123,13 @@ app.post('/discord/verify', checkApiKey, async (req, res) => {
 });
 
 /**
- * POST /discord/link
- * Привязывает Discord ID к игровому аккаунту по коду авторизации
- * 
- * Body: { discord_id: string, auth_code: string }
- * Response: { success: boolean, player_id?: number, error?: string }
+ * @route POST /discord/link
+ * @group Discord - Operations for Discord integration
+ * @param {string} discord_id.body.required - The user's Discord ID.
+ * @param {string} auth_code.body.required - The authorization code.
+ * @returns {object} 200 - An object indicating success.
+ * @returns {Error}  400 - Invalid request
+ * @returns {Error}  500 - Internal server error
  */
 app.post('/discord/link', checkApiKey, async (req, res) => {
     try {
@@ -142,7 +151,6 @@ app.post('/discord/link', checkApiKey, async (req, res) => {
             });
         }
 
-        // Ищем сессию по коду
         const [sessions] = await pool.execute(
             'SELECT * FROM discord_auth_sessions WHERE auth_code = ?',
             [auth_code]
@@ -158,7 +166,6 @@ app.post('/discord/link', checkApiKey, async (req, res) => {
         const session = sessions[0];
         const currentTime = Date.now();
 
-        // Проверяем срок действия
         if (session.expires_at < currentTime) {
             await pool.execute(
                 'DELETE FROM discord_auth_sessions WHERE id = ?',
@@ -170,7 +177,6 @@ app.post('/discord/link', checkApiKey, async (req, res) => {
             });
         }
 
-        // Проверяем, не привязан ли уже этот Discord ID к другому аккаунту
         const [existingAccounts] = await pool.execute(
             'SELECT id FROM player_accounts WHERE discord_id = ? AND id != ?',
             [discord_id, session.player_id]
@@ -184,13 +190,11 @@ app.post('/discord/link', checkApiKey, async (req, res) => {
             });
         }
 
-        // Привязываем Discord ID к аккаунту
         await pool.execute(
             'UPDATE player_accounts SET discord_id = ? WHERE id = ?',
             [discord_id, session.player_id]
         );
 
-        // Удаляем использованную сессию
         await pool.execute(
             'DELETE FROM discord_auth_sessions WHERE id = ?',
             [session.id]
@@ -214,8 +218,9 @@ app.post('/discord/link', checkApiKey, async (req, res) => {
 });
 
 /**
- * GET /discord/status
- * Проверка статуса API (для отладки)
+ * @route GET /discord/status
+ * @group Discord - Operations for Discord integration
+ * @returns {object} 200 - API status information.
  */
 app.get('/discord/status', (req, res) => {
     res.json({ 
@@ -225,7 +230,6 @@ app.get('/discord/status', (req, res) => {
     });
 });
 
-// Обработка ошибок
 app.use((err, req, res, next) => {
     console.error('[API] Unhandled error:', err);
     res.status(500).json({ 
@@ -234,13 +238,11 @@ app.use((err, req, res, next) => {
     });
 });
 
-// Запуск сервера
 app.listen(PORT, () => {
     console.log(`[API] Server started on port ${PORT}`);
     console.log(`[API] API Key required in header: x-api-key`);
 });
 
-// Graceful shutdown
 process.on('SIGTERM', async () => {
     console.log('[API] Shutting down...');
     await pool.end();

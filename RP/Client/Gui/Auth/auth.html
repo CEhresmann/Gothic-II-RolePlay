@@ -109,7 +109,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>🔐 Авторизация через Discord</h1>
+        <h1> Авторизация через Discord</h1>
         
         <div class="code-section">
             <div class="code-label">Твой код для входа:</div>
@@ -128,7 +128,7 @@
 
         <div class="error" id="error-message"></div>
 
-        <button onclick="requestNewCode()" id="new-code-btn">🔄 Получить новый код</button>
+        <button onclick="requestNewCode()" id="new-code-btn">Получить новый код</button>
     </div>
 
     <script>
@@ -164,7 +164,6 @@
             }, 2000);
         }
 
-        // Обработка ошибок от сервера
         if (typeof g2o !== 'undefined') {
             g2o.on('authError', function(message) {
                 showError(message || 'Произошла ошибка при авторизации');

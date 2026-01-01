@@ -1,19 +1,19 @@
-# Используем официальный образ Node.js.
+# Use the official Node.js image.
 # https://hub.docker.com/_/node
 FROM node:18-alpine
 
-# Устанавливаем рабочую директорию в контейнере
+# Set the working directory in the container
 WORKDIR /usr/src/app
 
-# Копируем файлы package.json и package-lock.json (если есть)
+# Copy package.json and package-lock.json (if available)
 COPY package*.json ./
 
-# Устанавливаем зависимости
-# Используем --only=production для установки только production-зависимостей
+# Install dependencies
+# Use --only=production to install only production dependencies
 RUN npm install --only=production
 
-# Копируем исходный код приложения
+# Copy the application source code
 COPY . .
 
-# Команда для запуска приложения
+# Command to run the application
 CMD [ "node", "index.js" ]

@@ -5,9 +5,9 @@ local MobVisualToStation = {
 }
 
 CraftingStationNames <- {
-    [CraftingStation.Stove] = "Kuchenka",
-    [CraftingStation.Anvil] = "Kowadło",
-    [CraftingStation.AlchemyBench] = "Stół alchemiczny"
+    [CraftingStation.Stove] = "Stove",
+    [CraftingStation.Anvil] = "Anvil",
+    [CraftingStation.AlchemyBench] = "Alchemy Bench"
 }
 
 
@@ -25,7 +25,7 @@ Interface.CraftMenu <- {
     "show" : function(stationType) {
         Interface.baseInterface(true, PLAYER_GUI.CRAFTMENU);
         window.setVisible(true);
-		local topicCraft = CraftingStationNames[stationType] || "Stanowisko Rzemieślnicze";
+		local topicCraft = CraftingStationNames[stationType] || "Crafting Station";
         this.Topic.setText(topicCraft);
         this.Topic.setRelativePositionPx((0.9 * Resolution.x - textWidthPx(topicCraft)) / 2, this.Topic.getRelativePositionPx().y);
         populateCraftingList(stationType);
@@ -49,7 +49,7 @@ Interface.CraftMenu.leave <- GUI.Button({
     relativePositionPx = {x = 0.75 * Resolution.x, y = 0.83 * Resolution.y},
     sizePx = {width = 0.10 * Resolution.x, height = 0.03 * Resolution.y},
     file = "INV_TITEL.TGA",
-    label = {text = "Wyjdź"},
+    label = {text = "Exit"},
     collection = Interface.CraftMenu.window
 });
 
@@ -60,7 +60,7 @@ Interface.CraftMenu.NumberInput <- GUI.NumberInput({
 	file = "BLACK.TGA",
 	color = {a = 150},
 	align = Align.Center,
-	placeholder = "Ilość",
+	placeholder = "Amount",
 	paddingPx = 2,
 	collection = Interface.CraftMenu.window
 })
@@ -105,7 +105,7 @@ function updateCreateButtonText() {
     local amount = Interface.CraftMenu.NumberInput.getValue();
     if (amount <= 0) amount = 1;
     local recipeName = Interface.CraftMenu.CurrentRecipe.name;
-    local buttonText = "Stwórz " + recipeName + " (x" + amount + ")";
+    local buttonText = "Create " + recipeName + " (x" + amount + ")";
     Interface.CraftMenu.create.setText(buttonText);
 }
 
@@ -177,7 +177,7 @@ Interface.CraftMenu.create <- GUI.Button({
     relativePositionPx = {x = 0.35 * Resolution.x, y = 0.81 * Resolution.y},
     sizePx = {width = 0.35 * Resolution.x, height = 0.05 * Resolution.y},
     file = "INV_TITEL.TGA",
-    label = {text = "Stwórz"},
+    label = {text = "Create"},
     collection = Interface.CraftMenu.window
 });
 
@@ -232,7 +232,7 @@ function populateCraftingList(stationType) {
         showRecipeDetails(Interface.CraftMenu.CurrentStationRecipes[0]);
     } else {
         Interface.CraftMenu.CurrentRecipe = null;
-        Interface.CraftMenu.create.setText("Stwórz");
+        Interface.CraftMenu.create.setText("Create");
     }
 }
 

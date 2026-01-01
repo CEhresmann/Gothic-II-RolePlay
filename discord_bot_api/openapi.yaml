@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Discord Authentication API
-  description: HTTP API для взаимодействия Discord бота с игровым сервером Gothic 2 Online
+  description: HTTP API for interaction between the Discord bot and the Gothic 2 Online game server
   version: 1.0.0
   contact:
     name: API Support
@@ -9,23 +9,23 @@ info:
 
 servers:
   - url: http://localhost:3000
-    description: Локальный сервер разработки
+    description: Local development server
   - url: https://api.example.com
-    description: Продакшен сервер
+    description: Production server
 
 tags:
   - name: Authentication
-    description: Операции авторизации через Discord
+    description: Discord authorization operations
   - name: Status
-    description: Проверка статуса API
+    description: API status check
 
 paths:
   /discord/verify:
     post:
       tags:
         - Authentication
-      summary: Проверка кода авторизации
-      description: Проверяет валидность кода авторизации и возвращает информацию о сессии
+      summary: Verify authorization code
+      description: Verifies the validity of the authorization code and returns session information
       operationId: verifyAuthCode
       security:
         - ApiKeyAuth: []
@@ -40,7 +40,7 @@ paths:
               properties:
                 auth_code:
                   type: string
-                  description: Код авторизации из игры (8 символов)
+                  description: Authorization code from the game (8 characters)
                   example: "ABCDEFGH"
                   minLength: 8
                   maxLength: 8
@@ -50,7 +50,7 @@ paths:
                   auth_code: "ABCDEFGH"
       responses:
         '200':
-          description: Результат проверки кода
+          description: Code verification result
           content:
             application/json:
               schema:
@@ -72,19 +72,19 @@ paths:
                     valid: false
                     error: "CODE_EXPIRED"
         '400':
-          description: Неверный запрос
+          description: Invalid request
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '401':
-          description: Неверный API ключ
+          description: Invalid API key
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '500':
-          description: Внутренняя ошибка сервера
+          description: Internal server error
           content:
             application/json:
               schema:
@@ -94,8 +94,8 @@ paths:
     post:
       tags:
         - Authentication
-      summary: Привязка Discord ID к игровому аккаунту
-      description: Привязывает Discord ID пользователя к игровому аккаунту по коду авторизации
+      summary: Link Discord ID to a game account
+      description: Links a user's Discord ID to a game account using an authorization code
       operationId: linkDiscordAccount
       security:
         - ApiKeyAuth: []
@@ -111,12 +111,12 @@ paths:
               properties:
                 discord_id:
                   type: string
-                  description: Discord ID пользователя (Snowflake)
+                  description: User's Discord ID (Snowflake)
                   example: "123456789012345678"
                   pattern: '^\d+$'
                 auth_code:
                   type: string
-                  description: Код авторизации из игры
+                  description: Authorization code from the game
                   example: "ABCDEFGH"
                   minLength: 8
                   maxLength: 8
@@ -127,7 +127,7 @@ paths:
                   auth_code: "ABCDEFGH"
       responses:
         '200':
-          description: Результат привязки
+          description: Linking result
           content:
             application/json:
               schema:
@@ -153,19 +153,19 @@ paths:
                     error: "DISCORD_ALREADY_LINKED"
                     message: "This Discord account is already linked to another game account"
         '400':
-          description: Неверный запрос
+          description: Invalid request
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '401':
-          description: Неверный API ключ
+          description: Invalid API key
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '500':
-          description: Внутренняя ошибка сервера
+          description: Internal server error
           content:
             application/json:
               schema:
@@ -175,12 +175,12 @@ paths:
     get:
       tags:
         - Status
-      summary: Проверка статуса API
-      description: Возвращает текущий статус API сервера
+      summary: Check API status
+      description: Returns the current status of the API server
       operationId: getStatus
       responses:
         '200':
-          description: Статус API
+          description: API status
           content:
             application/json:
               schema:
@@ -196,7 +196,7 @@ components:
       type: apiKey
       in: header
       name: x-api-key
-      description: API ключ для авторизации запросов
+      description: API key for authorizing requests
 
   schemas:
     VerifySuccessResponse:
@@ -211,11 +211,11 @@ components:
           example: true
         player_id:
           type: integer
-          description: ID игрока в базе данных
+          description: Player ID in the database
           example: 123
         expires_at:
           type: integer
-          description: Время истечения кода в миллисекундах (Unix timestamp)
+          description: Code expiration time in milliseconds (Unix timestamp)
           example: 1704067200000
 
     VerifyErrorResponse:
@@ -233,11 +233,11 @@ components:
             - INVALID_CODE
             - CODE_EXPIRED
             - INTERNAL_ERROR
-          description: Код ошибки
+          description: Error code
           example: "INVALID_CODE"
         message:
           type: string
-          description: Описание ошибки (опционально)
+          description: Error description (optional)
           example: "auth_code is required"
 
     LinkSuccessResponse:
@@ -251,7 +251,7 @@ components:
           example: true
         player_id:
           type: integer
-          description: ID игрока в базе данных
+          description: Player ID in the database
           example: 123
 
     LinkErrorResponse:
@@ -272,11 +272,11 @@ components:
             - PLAYER_NOT_FOUND
             - INTERNAL_ERROR
             - INVALID_REQUEST
-          description: Код ошибки
+          description: Error code
           example: "DISCORD_ALREADY_LINKED"
         message:
           type: string
-          description: Описание ошибки
+          description: Error description
           example: "This Discord account is already linked to another game account"
 
     StatusResponse:
@@ -292,11 +292,11 @@ components:
         timestamp:
           type: string
           format: date-time
-          description: Текущее время сервера в ISO 8601 формате
+          description: Current server time in ISO 8601 format
           example: "2024-01-01T12:00:00.000Z"
         version:
           type: string
-          description: Версия API
+          description: API version
           example: "1.0.0"
 
     ErrorResponse:
@@ -306,10 +306,10 @@ components:
       properties:
         error:
           type: string
-          description: Код ошибки
+          description: Error code
           example: "INVALID_API_KEY"
         message:
           type: string
-          description: Описание ошибки
+          description: Error description
           example: "Invalid API key"
 
