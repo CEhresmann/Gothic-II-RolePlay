@@ -14,9 +14,9 @@ graph TD
     end
 
     subgraph "Бэкенд-сервисы (Docker)"
-        DiscordBotAPI[Discord Bot API (Node.js/Express)]
-        DiscordBot[Discord Bot (Node.js)]
-        Database[(MySQL DB)]
+        DiscordBotAPI[Discord Bot API ]
+        DiscordBot[Discord Bot]
+        Database[MySQL DB]
     end
 
     subgraph "Внешние системы"
@@ -44,4 +44,5 @@ graph TD
 *   **Discord Bot:** Бот, который "живет" в Discord. Он обрабатывает slash-команды от пользователей и общается с Discord Bot API для выполнения их запросов.
 *   **База данных (MySQL DB):** Хранит информацию об аккаунтах игроков, их привязке к Discord и временных сессиях аутентификации.
 *   **Discord API:** Внешний сервис, с которым взаимодействует Discord-бот для отправки сообщений и регистрации команд.
+
 
