@@ -82,33 +82,6 @@ client.on('interactionCreate', async interaction => {
         await interaction.deferReply({ ephemeral: true });
 
         try {
-            const verifyResponse = await axios.post(
-                `${API_URL}/discord/verify`,
-                { auth_code: code },
-                {
-                    headers: {
-                        'x-api-key': API_KEY,
-                        'Content-Type': 'application/json'
-                    },
-                    timeout: 5000
-                }
-            );
-
-            if (!verifyResponse.data.valid) {
-                let errorMessage = 'Invalid or expired authorization code.';
-                
-                if (verifyResponse.data.error === 'CODE_EXPIRED') {
-                    errorMessage = 'The authorization code has expired. Please get a new one in the game.';
-                } else if (verifyResponse.data.error === 'INVALID_CODE') {
-                    errorMessage = 'Invalid authorization code. Please check your input.';
-                }
-
-                return await interaction.editReply({
-                    content: `❌ ${errorMessage}`,
-                    ephemeral: true
-                });
-            }
-
             const linkResponse = await axios.post(
                 `${API_URL}/discord/link`,
                 {
@@ -124,39 +97,40 @@ client.on('interactionCreate', async interaction => {
                 }
             );
 
-            if (!linkResponse.data.success) {
-                let errorMessage = 'Error linking account.';
-                
-                if (linkResponse.data.error === 'DISCORD_ALREADY_LINKED') {
-                    errorMessage = 'This Discord account is already linked to another game account.';
-                } else if (linkResponse.data.error === 'CODE_EXPIRED') {
-                    errorMessage = 'The authorization code has expired. Please get a new one in the game.';
-                } else if (linkResponse.data.error === 'INVALID_CODE') {
-                    errorMessage = 'Invalid authorization code.';
+            if (linkResponse.data.success) {
+                console.log(`[BOT] Successfully linked Discord ${discordId} to player ${linkResponse.data.player_id}`);
+                await interaction.editReply({
+                    content: `✅ **Success!** Your Discord account has been linked to your game account.\n\nYou can now close the authorization window in the game.`,
+                    ephemeral: true
+                });
+            } else {
+                let errorMessage = 'An error occurred while linking your account.';
+                switch (linkResponse.data.error) {
+                    case 'INVALID_CODE':
+                        errorMessage = 'Invalid authorization code. Please check your input.';
+                        break;
+                    case 'CODE_EXPIRED':
+                        errorMessage = 'The authorization code has expired. Please get a new one in the game.';
+                        break;
+                    case 'DISCORD_ALREADY_LINKED':
+                        errorMessage = 'This Discord account is already linked to another game account.';
+                        break;
                 }
-
-                return await interaction.editReply({
+                await interaction.editReply({
                     content: `❌ ${errorMessage}`,
                     ephemeral: true
                 });
             }
 
-            console.log(`[BOT] Successfully linked Discord ${discordId} to player ${linkResponse.data.player_id}`);
-            
-            await interaction.editReply({
-                content: `✅ **Success!** Your Discord account has been linked to your game account.\n\nYou can now close the authorization window in the game.`,
-                ephemeral: true
-            });
-
         } catch (error) {
             console.error('[BOT] Error processing auth command:', error);
             
-            let errorMessage = 'An error occurred while verifying the code. Please try again later.';
+            let errorMessage = 'An error occurred while processing your request. Please try again later.';
             
             if (error.code === 'ECONNREFUSED' || error.code === 'ETIMEDOUT') {
                 errorMessage = 'Could not connect to the authorization server. Please contact an administrator.';
             } else if (error.response) {
-                errorMessage = `Server error: ${error.response.data.message || error.response.statusText}`;
+                errorMessage = `Server error: ${error.response.statusText}. Please contact an administrator.`;
             }
 
             await interaction.editReply({

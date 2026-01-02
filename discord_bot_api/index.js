@@ -5,14 +5,27 @@
  *
  * @requires dotenv
  * @requires express
- * @requires mysql2/promise
+ * @requires sequelize
  * @requires cors
  */
 
 require('dotenv').config();
 const express = require('express');
-const mysql = require('mysql2/promise');
+const crypto = require('crypto');
 const cors = require('cors');
+const { Op } = require('sequelize');
+const sequelize = require('./database');
+const DiscordAuthSession = require('./models/DiscordAuthSession');
+const PlayerAccount = require('./models/PlayerAccount');
+
+const ERROR_CODES = {
+    INVALID_REQUEST: 'INVALID_REQUEST',
+    INVALID_API_KEY: 'INVALID_API_KEY',
+    INVALID_CODE: 'INVALID_CODE',
+    CODE_EXPIRED: 'CODE_EXPIRED',
+    DISCORD_ALREADY_LINKED: 'DISCORD_ALREADY_LINKED',
+    INTERNAL_ERROR: 'INTERNAL_ERROR'
+};
 
 const app = express();
 const PORT = process.env.API_PORT || 3000;
@@ -30,35 +43,22 @@ app.use(express.json());
  */
 const checkApiKey = (req, res, next) => {
     const apiKey = req.headers['x-api-key'];
-    if (!apiKey || apiKey !== API_KEY) {
-        return res.status(401).json({ error: 'Invalid API key' });
+    if (!apiKey) {
+        return res.status(401).json({ error: ERROR_CODES.INVALID_API_KEY });
     }
-    next();
+
+    try {
+        const apiKeyBuffer = Buffer.from(apiKey, 'utf8');
+        const expectedApiKeyBuffer = Buffer.from(API_KEY, 'utf8');
+        if (crypto.timingSafeEqual(apiKeyBuffer, expectedApiKeyBuffer)) {
+            next();
+        } else {
+            res.status(401).json({ error: ERROR_CODES.INVALID_API_KEY });
+        }
+    } catch (error) {
+        res.status(401).json({ error: ERROR_CODES.INVALID_API_KEY });
+    }
 };
-
-/**
- * MySQL connection pool.
- * @type {mysql.Pool}
- */
-const pool = mysql.createPool({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
-});
-
-pool.getConnection()
-    .then(connection => {
-        console.log('[DB] Connected to MySQL database');
-        connection.release();
-    })
-    .catch(err => {
-        console.error('[DB] Failed to connect to MySQL:', err);
-        process.exit(1);
-    });
 
 /**
  * @route POST /discord/verify
@@ -75,34 +75,25 @@ app.post('/discord/verify', checkApiKey, async (req, res) => {
         if (!auth_code || typeof auth_code !== 'string') {
             return res.status(400).json({ 
                 valid: false, 
-                error: 'INVALID_REQUEST',
+                error: ERROR_CODES.INVALID_REQUEST,
                 message: 'auth_code is required' 
             });
         }
 
-        const [sessions] = await pool.execute(
-            'SELECT * FROM discord_auth_sessions WHERE auth_code = ?',
-            [auth_code]
-        );
+        const session = await DiscordAuthSession.findOne({ where: { auth_code } });
 
-        if (sessions.length === 0) {
+        if (!session) {
             return res.json({ 
                 valid: false, 
-                error: 'INVALID_CODE' 
+                error: ERROR_CODES.INVALID_CODE
             });
         }
 
-        const session = sessions[0];
         const currentTime = Date.now();
-
         if (session.expires_at < currentTime) {
-            await pool.execute(
-                'DELETE FROM discord_auth_sessions WHERE id = ?',
-                [session.id]
-            );
             return res.json({ 
                 valid: false, 
-                error: 'CODE_EXPIRED' 
+                error: ERROR_CODES.CODE_EXPIRED
             });
         }
 
@@ -116,8 +107,7 @@ app.post('/discord/verify', checkApiKey, async (req, res) => {
         console.error('[API] Error in /discord/verify:', error);
         return res.status(500).json({ 
             valid: false, 
-            error: 'INTERNAL_ERROR',
-            message: error.message 
+            error: ERROR_CODES.INTERNAL_ERROR
         });
     }
 });
@@ -138,7 +128,7 @@ app.post('/discord/link', checkApiKey, async (req, res) => {
         if (!discord_id || typeof discord_id !== 'string') {
             return res.status(400).json({ 
                 success: false, 
-                error: 'INVALID_REQUEST',
+                error: ERROR_CODES.INVALID_REQUEST,
                 message: 'discord_id is required' 
             });
         }
@@ -146,59 +136,45 @@ app.post('/discord/link', checkApiKey, async (req, res) => {
         if (!auth_code || typeof auth_code !== 'string') {
             return res.status(400).json({ 
                 success: false, 
-                error: 'INVALID_REQUEST',
+                error: ERROR_CODES.INVALID_REQUEST,
                 message: 'auth_code is required' 
             });
         }
 
-        const [sessions] = await pool.execute(
-            'SELECT * FROM discord_auth_sessions WHERE auth_code = ?',
-            [auth_code]
-        );
+        const session = await DiscordAuthSession.findOne({ where: { auth_code } });
 
-        if (sessions.length === 0) {
+        if (!session) {
             return res.json({ 
                 success: false, 
-                error: 'INVALID_CODE' 
+                error: ERROR_CODES.INVALID_CODE
             });
         }
 
-        const session = sessions[0];
         const currentTime = Date.now();
-
         if (session.expires_at < currentTime) {
-            await pool.execute(
-                'DELETE FROM discord_auth_sessions WHERE id = ?',
-                [session.id]
-            );
             return res.json({ 
                 success: false, 
-                error: 'CODE_EXPIRED' 
+                error: ERROR_CODES.CODE_EXPIRED
             });
         }
 
-        const [existingAccounts] = await pool.execute(
-            'SELECT id FROM player_accounts WHERE discord_id = ? AND id != ?',
-            [discord_id, session.player_id]
-        );
+        const existingAccount = await PlayerAccount.findOne({ 
+            where: { 
+                discord_id,
+                id: { [Op.ne]: session.player_id }
+            } 
+        });
 
-        if (existingAccounts.length > 0) {
+        if (existingAccount) {
             return res.json({ 
                 success: false, 
-                error: 'DISCORD_ALREADY_LINKED',
+                error: ERROR_CODES.DISCORD_ALREADY_LINKED,
                 message: 'This Discord account is already linked to another game account' 
             });
         }
 
-        await pool.execute(
-            'UPDATE player_accounts SET discord_id = ? WHERE id = ?',
-            [discord_id, session.player_id]
-        );
-
-        await pool.execute(
-            'DELETE FROM discord_auth_sessions WHERE id = ?',
-            [session.id]
-        );
+        await PlayerAccount.update({ discord_id }, { where: { id: session.player_id } });
+        await session.destroy();
 
         console.log(`[API] Linked Discord ${discord_id} to player ${session.player_id}`);
 
@@ -211,8 +187,7 @@ app.post('/discord/link', checkApiKey, async (req, res) => {
         console.error('[API] Error in /discord/link:', error);
         return res.status(500).json({ 
             success: false, 
-            error: 'INTERNAL_ERROR',
-            message: error.message 
+            error: ERROR_CODES.INTERNAL_ERROR
         });
     }
 });
@@ -233,18 +208,31 @@ app.get('/discord/status', (req, res) => {
 app.use((err, req, res, next) => {
     console.error('[API] Unhandled error:', err);
     res.status(500).json({ 
-        error: 'INTERNAL_ERROR',
-        message: err.message 
+        error: ERROR_CODES.INTERNAL_ERROR
     });
 });
 
-app.listen(PORT, () => {
-    console.log(`[API] Server started on port ${PORT}`);
-    console.log(`[API] API Key required in header: x-api-key`);
-});
+const startServer = async () => {
+    try {
+        await sequelize.authenticate();
+        console.log('[DB] Connected to MySQL database via Sequelize');
+        
+        // await sequelize.sync(); // Uncomment to auto-sync models with the database (creates tables)
+
+        app.listen(PORT, () => {
+            console.log(`[API] Server started on port ${PORT}`);
+            console.log(`[API] API Key required in header: x-api-key`);
+        });
+    } catch (error) {
+        console.error('[DB] Failed to connect to MySQL via Sequelize:', error);
+        process.exit(1);
+    }
+};
+
+startServer();
 
 process.on('SIGTERM', async () => {
     console.log('[API] Shutting down...');
-    await pool.end();
+    await sequelize.close();
     process.exit(0);
 });

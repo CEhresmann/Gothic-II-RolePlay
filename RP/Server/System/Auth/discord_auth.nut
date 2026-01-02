@@ -5,7 +5,7 @@ class DiscordAuthSession extends ORM.Model </ table="discord_auth_sessions" /> {
     </ type = "INTEGER", not_null = true />
     player_id = -1
 
-    </ type = "VARCHAR(8)", not_null = true />
+    </ type = "VARCHAR(10)", not_null = true />
     auth_code = ""
 
     </ type = "INTEGER", not_null = true />
@@ -26,9 +26,10 @@ function DiscordAuth::GenerateAuthCode(player) {
         }
     }
 
+    local chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     local code = "";
-    for (local i = 0; i < 8; i++) {
-        code += format("%c", rand() % 26 + 65); // A-Z
+    for (local i = 0; i < 10; i++) {
+        code += chars[rand() % chars.len()];
     }
 
     local expiration = getTickCount() + (5 * 60 * 1000); // 5 minutes
@@ -193,4 +194,13 @@ addEventHandler("onPacket", function(playerId, packet) {
             errorPacket.send(playerId, RELIABLE_ORDERED);
             break;
     }
+});
+
+function DiscordAuth::CleanupExpiredSessions() {
+    local currentTime = getTickCount();
+    DiscordAuthSession.delete(@(q) q.where("expires_at", "<", currentTime));
+}
+
+addEventHandler("onInit", function() {
+    setTimer(DiscordAuth.CleanupExpiredSessions, 60000, 0); // Cleanup every minute
 });

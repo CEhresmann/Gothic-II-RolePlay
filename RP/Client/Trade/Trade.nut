@@ -858,7 +858,7 @@ Interface.TradingMenu.input <- GUI.NumberInput({
     file = "BLACK.TGA",
     color = {a = 200},
     align = Align.Center,
-    placeholder = "Ilość",
+    placeholder = "Iloďż˝ďż˝",
     paddingPx = 2,
     collection = Interface.TradingMenu.window
 });
@@ -875,7 +875,7 @@ Interface.TradingMenu.leave <- GUI.Button({
     sizePx = {width = 0.10 * Resolution.x, height = 0.04 * Resolution.y},
     file = "MENU_INGAME.TGA",
     color = {a = 255},
-    label = {text = "Odmów"},
+    label = {text = "Odmďż˝w"},
     collection = Interface.TradingMenu.window
 });
 Interface.TradingMenu.myItems <- GUI.Window({
@@ -981,7 +981,7 @@ Interface.TradingMenu.accept.bind(EventType.Click, function(element) {
             }
         }
         if (!canProceed) {
-            sendClientChatMessage("Nie posiadasz wszystkich zaoferowanych przedmiotów!", {r=255, g=0, b=0});
+            sendClientChatMessage("You don't have all the offered items!", {r=255, g=0, b=0});    
             return;
         }
         local packet = Packet();
@@ -1031,7 +1031,7 @@ addEventHandler("onPacket", function(packet) {
                     local targetId = packet.readInt32();
                     local traderId = packet.readInt32();
                     if (targetId == heroId) {
-                        sendClientChatMessage(Interface.TradingMenu.tradePartnerName + " zaakceptował wymianę!");
+                        sendClientChatMessage(Interface.TradingMenu.tradePartnerName + " accepted the trade!");
                     }
                     break;
                 case 7:

@@ -15,66 +15,79 @@ This fork aims to overhaul the codebase to achieve maximum modularity, stability
 
 ---
 
-## Deployment with Docker (Recommended)
+## Full Project Setup Guide
 
-This is the easiest way to get the entire project running.
+This guide covers the complete setup process, integrating this project's services (database, API, bot) with the official G2O game server.
+
+### **Part 1: Setting Up the Backend (Database, API, Bot)**
+
+This part uses Docker to simplify the setup of all web services.
 
 **Prerequisites:**
-*   [Docker](https://www.docker.com/get-started) and [Docker Compose](https://docs.docker.com/compose/install/) installed.
+*   **Git:** To clone this repository.
+*   **Docker Desktop:** Must be installed and running. [Download here](https://www.docker.com/products/docker-desktop/).
 
 **Steps:**
 
-1.  **Create Environment Files:**
-    *   Copy `.env.example` to `.env` in the root directory and fill in the database credentials.
-    *   Copy `discord_bot_api/.env.example` to `discord_bot_api/.env` and fill in your `API_KEY`.
-    *   Copy `discord_bot/.env.example` to `discord_bot/.env` and fill in your `DISCORD_TOKEN` and the same `API_KEY`.
-
-2.  **Run Docker Compose:**
-    Open a terminal in the project root and run:
+1.  **Clone This Repository:**
     ```bash
-    docker-compose up --build -d
-    ```
-    This command will build the images for the API and the bot, and start all services (database, API, bot) in the background.
-
-3.  **Check the Status:**
-    You can check the logs to make sure everything is running correctly:
-    ```bash
-    docker-compose logs -f
+    git clone <your-repository-url>
+    cd <repository-directory>
     ```
 
-4.  **Launch the Game Server:**
-    *   For now, the G2O game server must still be run manually on your host machine.
-    *   Make sure to configure `RP/Modules/Mysql/Connector.nut` to connect to the database running in Docker (host: `127.0.0.1`, port: `3306`, and the user/password from your `.env` file).
+2.  **Create `.env` Configuration Files:**
+    *   **Root `.env`:** In the project root, copy `.env.example` to `.env`. This file is used to initialize the database in Docker. The default values are fine for local setup.
+    *   **API `.env`:** In `discord_bot_api/`, copy `.env.example` to `.env`. Open it and set a unique, secret `API_KEY` that you create yourself.
+    *   **Bot `.env`:** In `discord_bot/`, copy `.env.example` to `.env`. Open it and provide your `DISCORD_TOKEN` (from the [Discord Developer Portal](https://discord.com/developers/applications)) and the same `API_KEY` you just created.
+
+3.  **Launch Backend Services:**
+    *   From the project's root directory, run:
+        ```bash
+        docker-compose up --build -d
+        ```
+    *   This will build and start the database, API, and bot containers. You can monitor them with `docker-compose logs -f`. At this point, all backend services are running.
 
 ---
 
-## Getting Started
+### **Part 2: Setting Up the G2O Game Server**
 
-### 1. Database Setup
+This part involves downloading the official G2O server and connecting it to our backend.
 
-*   **Install MySQL:** Make sure you have a MySQL server installed and running.
-*   **Import the Schema:** Use a tool like MySQL Workbench or the command line to import the database structure from `RP/Modules/Mysql/GothicRoleplay2-0.sql`. This will create all the necessary tables.
-*   **Configure the Connection:** Open the file `RP/Modules/Mysql/Connector.nut` and find the line `ORM.MySQL(...)`. Replace `"host"`, `"user"`, `"password"`, and `"database_name"` with your actual database credentials.
+**Prerequisites:**
+*   **G2O Game Server:** You must download the latest server files from the official source.
 
-### 2. Discord Bot & API Setup
+**Steps:**
 
-*   **Navigate to `discord_bot_api/`:**
-    *   Create a `.env` file from the `.env.example`.
-    *   Fill in your database details and create a secret `API_KEY`.
-    *   Run `npm install` to download dependencies.
-    *   Run `node index.js` to start the API server.
-*   **Navigate to `discord_bot/`:**
-    *   Create a `.env` file from the `.env.example`.
-    *   Fill in your Discord Bot Token, the API URL (from the previous step), and the same `API_KEY`.
-    *   Run `npm install`.
-    *   Run `node index.js` to start the bot.
+1.  **Download and Extract the G2O Server:**
+    *   Get the server package from the official G2O website.
+    *   Extract it into a dedicated folder on your machine.
 
-### 3. Launch the Game Server
+2.  **Integrate the Gamemode:**
+    *   Copy the `RP` folder from this repository into the `gamemodes` subfolder of your G2O server directory. The structure should be:
+        ```
+        g2o-server/
+        ├── G2O_Server.exe
+        ├── gamemodes/
+        │   └── RP/   <-- Like here
+        └── ...
+        ```
 
-*   Simply start your G2O server. The scripts will load automatically. Players can now connect, and they will be prompted to authenticate via Discord.
+3.  **Configure the Database Connection:**
+    *   Inside the `RP/Modules/Mysql/` directory (the one you just copied), rename `db.conf.example` to `db.conf`.
+    *   The default settings in this file are pre-configured to connect to the database running in Docker. No changes are needed if you used the default setup in Part 1.
 
----
----
+4.  **Configure the Server:**
+    *   In your G2O server's root directory, create or edit the `server.cfg` file (Note: older versions might use `config.xml`).
+    *   Add or modify this line to load our gamemode:
+        ```
+        gamemode: RP
+        ```
+    *   For detailed server configuration (server name, slots, etc.), refer to the official G2O documentation that comes with the server or is available on their website.
+
+5.  **Run the Game Server:**
+    *   Execute `G2O_Server.exe`.
+
+The server will now launch, load the `RP` gamemode, and successfully connect to the backend services running in Docker. Your project is fully operational.
 
 # Open Roleplay 2.0 
 
@@ -95,67 +108,71 @@ This is the easiest way to get the entire project running.
 
 ---
 
-## Развертывание с помощью Docker (Рекомендуется)
+## Полное руководство по настройке проекта
 
+
+### **Настройка бэкенда (БД, API, Бот)**
 
 **Требования:**
-*   Установленные [Docker](https://www.docker.com/get-started) и [Docker Compose](https://docs.docker.com/compose/install/).
+*   **Git:** Для клонирования репозитория.
+*   **Docker Desktop:** Должен быть установлен и запущен. [Скачать здесь](https://www.docker.com/products/docker-desktop/).
 
 **Шаги:**
 
-1.  **Создайте файлы окружения:**
-    *   Скопируйте `.env.example` в `.env` в корневой папке проекта и заполните данные для подключения к БД.
-    *   Скопируйте `discord_bot_api/.env.example` в `discord_bot_api/.env` и укажите ваш `API_KEY`.
-    *   Скопируйте `discord_bot/.env.example` в `discord_bot/.env` и укажите ваш `DISCORD_TOKEN` и тот же `API_KEY`.
-
-2.  **Запустите Docker Compose:**
-    Откройте терминал в корне проекта и выполните команду:
+1.  **Клонируйте репозиторий:**
     ```bash
-    docker-compose up --build -d
-    ```
-    Эта команда соберет образы для API и бота и запустит все сервисы (базу данных, API, бот) в фоновом режиме.
-
-3.  **Проверьте статус:**
-    Вы можете проверить логи, чтобы убедиться, что все работает корректно:
-    ```bash
-    docker-compose logs -f
+    git clone <ссылка-на-ваш-репозиторий>
+    cd <папка-репозитория>
     ```
 
-4.  **Запустите игровой сервер:**
-    *   На данный момент игровой сервер G2O все еще нужно запускать вручную на вашем компьютере.
-    *   Убедитесь, что вы настроили `RP/Modules/Mysql/Connector.nut` для подключения к базе данных, запущенной в Docker (хост: `127.0.0.1`, порт: `3306`, и пользователь/пароль из вашего `.env` файла).
+2.  **Создайте конфигурационные файлы `.env`:**
+    *   **Корневой `.env`:** В корне проекта скопируйте `.env.example` в `.env`. Этот файл используется для первоначальной настройки базы данных в Docker. Значений по умолчанию достаточно для локальной разработки.
+    *   **API `.env`:** В папке `discord_bot_api/` скопируйте `.env.example` в `.env`. Откройте его и установите уникальный, секретный `API_KEY`, который вы должны придумать сами.
+    *   **Бот `.env`:** В папке `discord_bot/` скопируйте `.env.example` в `.env`. Откройте его и укажите ваш `DISCORD_TOKEN` (полученный на [портале разработчиков Discord](https://discord.com/developers/applications)) и тот же самый `API_KEY`, который вы создали шагом ранее.
+
+3.  **Запустите бэкенд-сервисы:**
+    *   Вернитесь в корневую директорию проекта и выполните:
+        ```bash
+        docker-compose up --build -d
+        ```
+    *   Эта команда соберет и запустит контейнеры базы данных, API и бота. Вы можете следить за их состоянием с помощью `docker-compose logs -f`. На этом этапе все бэкенд-сервисы запущены.
 
 ---
 
-## Руководство по запуску
+### **Настройка игрового сервера G2O**
 
-### 1. Настройка базы данных
+**Шаги:**
 
-*   **Установите MySQL:** Убедитесь, что у вас установлен и запущен MySQL сервер.
-*   **Импортируйте схему:** Используя инструмент вроде MySQL Workbench или командную строку, импортируйте структуру базы данных из файла `RP/Modules/Mysql/GothicRoleplay2-0.sql`. Это создаст все необходимые таблицы.
-*   **Настройте подключение:** Откройте файл `RP/Modules/Mysql/Connector.nut` и найдите строку `ORM.MySQL(...)`. Замените `"host"`, `"user"`, `"password"` и `"database_name"` на ваши реальные данные для подключения к БД.
+1.  **Скачайте и распакуйте сервер G2O:**
+    *   Получите архив с сервером с официального сайта G2O.
+    *   Распакуйте его в отдельную папку на вашем компьютере.
 
-### 2. Настройка Discord-бота и API
+2.  **Интегрируйте игровой режим:**
+    *   Скопируйте папку `RP` из этого репозитория в подпапку `gamemodes` вашего сервера G2O. Структура должна выглядеть так:
+        ```
+        g2o-server/
+        ├── G2O_Server.exe
+        ├── gamemodes/
+        │   └── RP/   <-- Сюда
+        └── ...
+        ```
 
-Это необходимо для входа игроков на сервер.
+3.  **Настройте подключение к базе данных:**
+    *   Внутри папки `RP/Modules/Mysql/` переименуйте файл `db.conf.example` в `db.conf`.
+    *   Настройки по умолчанию в этом файле уже сконфигурированы для подключения к базе данных в Docker. Если вы использовали стандартные настройки в Части 1, ничего менять не нужно.
 
-*   **Перейдите в `discord_bot_api/`:**
-    *   Создайте файл `.env` из `.env.example`.
-    *   Заполните данные вашей БД и придумайте секретный `API_KEY`.
-    *   Выполните `npm install` для установки зависимостей.
-    *   Выполните `node index.js` для запуска API сервера.
-*   **Перейдите в `discord_bot/`:**
-    *   Создайте файл `.env` из `.env.example`.
-    *   Укажите токен вашего Discord-бота, URL API (из предыдущего шага) и тот же самый `API_KEY`.
-    *   Выполните `npm install`.
-    *   Выполните `node index.js` для запуска бота.
+4.  **Сконфигурируйте сервер:**
+    *   В корневой директории вашего сервера G2O создайте или отредактируйте файл `server.cfg` (Примечание: старые версии могли использовать `config.xml`).
+    *   Добавьте или измените эту строку, чтобы сервер загружал наш игровой режим:
+        ```
+        gamemode: RP
+        ```
+    *   Для детальной настройки сервера (название, слоты и т.д.) обратитесь к официальной документации G2O, которая поставляется с сервером или доступна на их сайте.
 
-### 3. Запуск игрового сервера
+5.  **Запустите игровой сервер:**
+    *   Запустите файл `G2O_Server.exe`.
 
-*   Просто запустите ваш сервер G2O. Скрипты загрузятся автоматически. Теперь игроки могут подключаться и проходить аутентификацию через Discord.
-
----
----
+Теперь сервер запустится, загрузит игровой режим `RP` и успешно подключится к бэкенд-сервисам, работающим в Docker. Ваш проект полностью готов к работе.
 
 ## ----- PL SECTION -----
 
