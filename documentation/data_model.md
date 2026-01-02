@@ -21,7 +21,6 @@ erDiagram
         int hp_max
         int mana
         int mana_max
-        -- и много других полей --
     }
 
     PLAYER_POSITIONS {
@@ -127,3 +126,4 @@ erDiagram
 | `player_id` | INTEGER | Идентификатор игрового аккаунта (FK to `player_accounts.id`). |
 | `auth_code` | VARCHAR | Уникальный, короткоживущий код. |
 | `expires_at` | BIGINT | Unix timestamp, после которого сессия недействительна. |
+
