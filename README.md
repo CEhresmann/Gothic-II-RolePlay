@@ -31,8 +31,8 @@ This part uses Docker to simplify the setup of all web services.
 
 1.  **Clone This Repository:**
     ```bash
-    git clone <your-repository-url>
-    cd <repository-directory>
+    git clone https://github.com/CEhresmann/Gothic-II-RolePlay.git
+    cd Gothic-II-RolePlay
     ```
 
 2.  **Create `.env` Configuration Files:**
@@ -95,16 +95,16 @@ The server will now launch, load the `RP` gamemode, and successfully connect to 
 
 Этот проект представляет собой доработанную версию игрового мода **Open Roleplay 2.0** от **Artii**, который, в свою очередь, является обновлением классического **Gothic Roleplay** от **Quarchodron**.
 
-форк нацелен на переработку кодовой базы с применением для модульности, стабильности и расширяемости.
+форк нацелен на переработку кодовой базы, пока тут только авторизация по дс.
 
 ---
 
 ## Игровые механики
 
-*   **Классы и фракции:** Игроки могут присоединяться к фракциям и получать классы, открывая новые возможности.
-*   **Торговля:** Безопасный обмен предметами между игроками.
-*   **Крафт:** Создание новых предметов из материалов по рецептам.
-*   **Прокачка:** Развитие персонажа через получение опыта и улучшение навыков.
+*   **Классы и фракции:**
+*   **Торговля:**
+*   **Крафт:**
+*   **Прокачка:** 
 
 ---
 
@@ -121,8 +121,8 @@ The server will now launch, load the `RP` gamemode, and successfully connect to 
 
 1.  **Клонируйте репозиторий:**
     ```bash
-    git clone <ссылка-на-ваш-репозиторий>
-    cd <папка-репозитория>
+    git clone https://github.com/CEhresmann/Gothic-II-RolePlay.git
+    cd Gothic-II-RolePlay
     ```
 
 2.  **Создайте конфигурационные файлы `.env`:**
@@ -144,9 +144,6 @@ The server will now launch, load the `RP` gamemode, and successfully connect to 
 **Шаги:**
 
 1.  **Скачайте и распакуйте сервер G2O:**
-    *   Получите архив с сервером с официального сайта G2O.
-    *   Распакуйте его в отдельную папку на вашем компьютере.
-
 2.  **Интегрируйте игровой режим:**
     *   Скопируйте папку `RP` из этого репозитория в подпапку `gamemodes` вашего сервера G2O. Структура должна выглядеть так:
         ```
@@ -172,8 +169,6 @@ The server will now launch, load the `RP` gamemode, and successfully connect to 
 5.  **Запустите игровой сервер:**
     *   Запустите файл `G2O_Server.exe`.
 
-Теперь сервер запустится, загрузит игровой режим `RP` и успешно подключится к бэкенд-сервисам, работающим в Docker. Ваш проект полностью готов к работе.
-
 ## ----- PL SECTION -----
 
 *Ta sekcja została zachowana z oryginalnego pliku README i może zawierać nieaktualne informacje.*
@@ -183,3 +178,4 @@ The server will now launch, load the `RP` gamemode, and successfully connect to 
 # Autor: Artii #
 
 **Ten projekt jest rozwiniętą i zaktualizowaną wersją oryginalnej paczki Gothic Roleplay autorstwa Quarchodron** — dostępnej pod adresem: https://gitlab.com/g2o/gamemodes/gothicroleplay.
+
