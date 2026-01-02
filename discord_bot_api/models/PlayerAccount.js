@@ -11,10 +11,11 @@ const PlayerAccount = sequelize.define('PlayerAccount', {
         type: DataTypes.STRING,
         allowNull: true
     }
-    // Add other fields from your player_accounts table here
+    // Add other fields needed
 }, {
     tableName: 'player_accounts',
     timestamps: false
 });
 
 module.exports = PlayerAccount;
+
