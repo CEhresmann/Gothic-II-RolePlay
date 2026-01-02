@@ -13,7 +13,6 @@ erDiagram
         varchar discord_id FK "Nullable, Foreign Key to Discord User"
         varchar username
         varchar password
-        -- other game fields
     }
 
     DISCORD_AUTH_SESSIONS {
@@ -38,7 +37,6 @@ erDiagram
 | `discord_id` | VARCHAR | Уникальный идентификатор Discord пользователя. Может быть `NULL`, если аккаунт не привязан. | FK (неявный) |
 | `username` | VARCHAR | Имя пользователя в игре. | |
 | `password` | VARCHAR | Хэш пароля. | |
-| `...` | `...` | Прочие поля, специфичные для игры. | |
 
 ### `discord_auth_sessions`
 
@@ -50,3 +48,4 @@ erDiagram
 | `player_id` | INTEGER | Идентификатор игрового аккаунта, который инициировал сессию. | FK to `player_accounts.id` |
 | `auth_code` | VARCHAR(10) | Уникальный, короткоживущий код, который игрок вводит в Discord. | |
 | `expires_at` | BIGINT | Unix timestamp, после которого сессия и код становятся недействительными. | |
+
