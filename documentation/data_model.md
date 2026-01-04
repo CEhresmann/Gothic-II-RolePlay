@@ -21,7 +21,6 @@ erDiagram
         int hp_max
         int mana
         int mana_max
-        -- и много других полей --
     }
 
     PLAYER_POSITIONS {
@@ -55,10 +54,43 @@ erDiagram
         bigint expires_at "Timestamp of expiration"
     }
 
+    ADMINS_ACCOUNT {
+        int id PK
+        varchar login
+        varchar password
+        int access_level
+    }
+
+    SERVER_LOGS {
+        int id PK
+        timestamp event_time
+        varchar event_type
+        text message
+        int player_id "Nullable, FK"
+    }
+    
+    WORLDBUILDER_VOBS {
+        int id PK
+        varchar vob_name
+        varchar vob_type
+        text properties
+    }
+
+    WORLD_DRAWS {
+        int id PK
+        varchar draw_type
+        text data
+    }
+    
+    DATABASE_HEALTH {
+        int id PK
+    }
+
     PLAYER_ACCOUNTS ||--o| PLAYER_POSITIONS : "has one"
     PLAYER_ACCOUNTS ||--o| PLAYER_SKILLS : "has one"
     PLAYER_ACCOUNTS ||--o| PLAYER_ITEMS : "has many"
     PLAYER_ACCOUNTS ||--o| DISCORD_AUTH_SESSIONS : "has many"
+    PLAYER_ACCOUNTS ||--o| SERVER_LOGS : "logs by"
 ```
 
 ## 2. Описание таблиц
@@ -83,7 +115,6 @@ erDiagram
 | `walk_style` | VARCHAR | Стиль ходьбы. |
 | `body_model`, `head_model` | VARCHAR | Названия моделей тела и головы. |
 | `profession_*` | INTEGER | Множество полей для уровней профессий. |
-| ... | ... | И другие поля. |
 
 ### `player_positions`
 
@@ -127,3 +158,55 @@ erDiagram
 | `player_id` | INTEGER | Идентификатор игрового аккаунта (FK to `player_accounts.id`). |
 | `auth_code` | VARCHAR | Уникальный, короткоживущий код. |
 | `expires_at` | BIGINT | Unix timestamp, после которого сессия недействительна. |
+
+### `admins_account`
+
+Хранит учетные данные и уровни доступа администрации.
+
+| Поле | Тип | Описание |
+|---|---|---|
+| `id` | INTEGER | Уникальный идентификатор (PK). |
+| `login` | VARCHAR | Логин администратора. |
+| `password` | VARCHAR | Хэш пароля. |
+| `access_level` | INTEGER | Уровень доступа. |
+
+### `server_logs`
+
+Хранит логи различных событий на сервере.
+
+| Поле | Тип | Описание |
+|---|---|---|
+| `id` | INTEGER | Уникальный идентификатор записи (PK). |
+| `event_time` | TIMESTAMP | Время события. |
+| `event_type` | VARCHAR | Тип события (например, 'CHAT', 'CONNECTION', 'ERROR'). |
+| `message` | TEXT | Содержание лога. |
+| `player_id` | INTEGER | ID игрока, связанного с событием (Nullable, FK to `player_accounts.id`). |
+
+### `worldbuilder_vobs`
+
+Хранит информацию об объектах (VOBs), созданных в редакторе мира.
+
+| Поле | Тип | Описание |
+|---|---|---|
+| `id` | INTEGER | Уникальный идентификатор объекта (PK). |
+| `vob_name` | VARCHAR | Уникальное имя объекта. |
+| `vob_type` | VARCHAR | Тип объекта (например, 'oCNpc', 'oCItem'). |
+| `properties` | TEXT | JSON-строка со свойствами объекта. |
+
+### `world_draws`
+
+Хранит данные для отрисовки различных элементов в мире (3D тексты, эффекты и т.д.).
+
+| Поле | Тип | Описание |
+|---|---|---|
+| `id` | INTEGER | Уникальный идентификатор (PK). |
+| `draw_type` | VARCHAR | Тип элемента (например, '3D_TEXT', 'EFFECT'). |
+| `data` | TEXT | JSON-строка с данными для отрисовки. |
+
+### `Database_Health`
+
+Служебная таблица для проверки доступности и работоспособности базы данных.
+
+| Поле | Тип | Описание |
+|---|---|---|
+| `id` | INTEGER | Уникальный идентификатор (PK). |
