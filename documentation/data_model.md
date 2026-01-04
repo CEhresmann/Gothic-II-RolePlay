@@ -1,6 +1,6 @@
 # Модель данных
 
-Этот документ описывает структуру данных, используемых в системе, и отношения между сущностями. Модель была восстановлена на основе анализа `PlayerRepository.nut`.
+Этот документ описывает структуру данных, используемых в системе, и отношения между сущностями. 
 
 ## 1. ER-диаграмма 
 
@@ -57,8 +57,8 @@ erDiagram
 
     PLAYER_ACCOUNTS ||--o| PLAYER_POSITIONS : "has one"
     PLAYER_ACCOUNTS ||--o| PLAYER_SKILLS : "has one"
-    PLAYER_ACCOUNTS ||--o{ PLAYER_ITEMS : "has many"
-    PLAYER_ACCOUNTS ||--o{ DISCORD_AUTH_SESSIONS : "has many"
+    PLAYER_ACCOUNTS ||--o| PLAYER_ITEMS : "has many"
+    PLAYER_ACCOUNTS ||--o| DISCORD_AUTH_SESSIONS : "has many"
 ```
 
 ## 2. Описание таблиц
