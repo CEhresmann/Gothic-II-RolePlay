@@ -2,26 +2,20 @@
 
 This project is a significantly refactored and improved version of the **Open Roleplay 2.0** gamemode by **Artii**, which itself is an update to the classic **Gothic Roleplay** by **Quarchodron**.
 
-This fork aims to overhaul the codebase to achieve maximum modularity, stability, and extensibility.
-
 ---
 
 ## Game Mechanics
 
-*   **Classes and Factions:** Players can join factions and acquire classes, unlocking new abilities.
-*   **Trading:** Secure item exchange between players.
-*   **Crafting:** Create new items from materials using recipes.
-*   **Progression:** Character development through experience and skill improvement.
+*   **Classes and Factions**
+*   **Trading** 
+*   **Crafting**
+*   **Progression** 
 
 ---
 
 ## Full Project Setup Guide
 
-This guide covers the complete setup process, integrating this project's services (database, API, bot) with the official G2O game server.
-
 ### **Part 1: Setting Up the Backend (Database, API, Bot)**
-
-This part uses Docker to simplify the setup of all web services.
 
 **Prerequisites:**
 *   **Git:** To clone this repository.
@@ -50,8 +44,6 @@ This part uses Docker to simplify the setup of all web services.
 ---
 
 ### **Part 2: Setting Up the G2O Game Server**
-
-This part involves downloading the official G2O server and connecting it to our backend.
 
 **Prerequisites:**
 *   **G2O Game Server:** You must download the latest server files from the official source.
@@ -87,32 +79,26 @@ This part involves downloading the official G2O server and connecting it to our 
 5.  **Run the Game Server:**
     *   Execute `G2O_Server.exe`.
 
-The server will now launch, load the `RP` gamemode, and successfully connect to the backend services running in Docker. Your project is fully operational.
-
 # Open Roleplay 2.0 
 
 ## О проекте
 
-Этот проект представляет собой доработанную версию игрового мода **Open Roleplay 2.0** от **Artii**, который, в свою очередь, является обновлением классического **Gothic Roleplay** от **Quarchodron**.
-
+Проект представляет собой доработанную версию игрового мода **Open Roleplay 2.0** от **Artii**, который, в свою очередь, является обновлением классического **Gothic Roleplay** от **Quarchodron**.
 форк нацелен на переработку кодовой базы, пока тут только авторизация по дс.
 
 ---
 
 ## Игровые механики
 
-*   **Классы и фракции:**
-*   **Торговля:**
-*   **Крафт:**
-*   **Прокачка:** 
+*   **Классы и фракции**
+*   **Торговля**
+*   **Крафт**
+*   **Прокачка** 
 
 ---
 
 ## Полное руководство по настройке проекта
-
-
 ### **Настройка бэкенда (БД, API, Бот)**
-
 **Требования:**
 *   **Git:** Для клонирования репозитория.
 *   **Docker Desktop:** Должен быть установлен и запущен. [Скачать здесь](https://www.docker.com/products/docker-desktop/).
@@ -140,7 +126,6 @@ The server will now launch, load the `RP` gamemode, and successfully connect to 
 ---
 
 ### **Настройка игрового сервера G2O**
-
 **Шаги:**
 
 1.  **Скачайте и распакуйте сервер G2O:**
@@ -175,7 +160,8 @@ The server will now launch, load the `RP` gamemode, and successfully connect to 
 
 # Open Roleplay 2.0
 
-# Autor: Artii #
+# Autor: [Artii](https://gitlab.com/harem3201/openroleplay2.0) #
 
 **Ten projekt jest rozwiniętą i zaktualizowaną wersją oryginalnej paczki Gothic Roleplay autorstwa Quarchodron** — dostępnej pod adresem: https://gitlab.com/g2o/gamemodes/gothicroleplay.
+
 

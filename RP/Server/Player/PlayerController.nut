@@ -5,8 +5,7 @@
  *
  * This file initializes the PlayerService and registers all necessary
  * game event handlers, delegating the logic to the service layer.
- * It acts as the bridge between the game engine's event system and
- * our application's business logic.
+ * It acts as the bridge between the game engine's event system and business logic.
  */
 
 // Include the new architectural components

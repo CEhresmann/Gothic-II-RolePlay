@@ -159,3 +159,4 @@ const PlayerAccount = sequelize.define('PlayerAccount', {
 
 module.exports = PlayerAccount;
 
+
