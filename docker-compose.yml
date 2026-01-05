@@ -50,6 +50,33 @@ services:
     networks:
       - g2o_network
 
+  g2o_server:
+    build:
+      context: ./g2o_server
+      dockerfile: Dockerfile
+    container_name: g2o_server
+    restart: always
+    ports:
+      - "28960:28960"
+    volumes:
+      - ./RP:/g2o_server/gamemodes/RP
+    depends_on:
+      - db
+      - http_server
+    networks:
+      - g2o_network
+
+  http_server:
+    image: nginx:latest
+    container_name: g2o_http_server
+    restart: always
+    ports:
+      - "28971:80"
+    volumes:
+      - ./g2o_server/cache/public:/usr/share/nginx/html
+    networks:
+      - g2o_network
+
 networks:
   g2o_network:
     driver: bridge

@@ -32,3 +32,5 @@ lerna-debug.log*
 Thumbs.db
 .trash/
 /RP/Modules/Mysql/db.conf
+/g2o_server
+
