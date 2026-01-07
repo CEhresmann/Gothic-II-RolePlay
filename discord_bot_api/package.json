@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "HTTP API server for Discord authentication with Gothic 2 Online server",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js"

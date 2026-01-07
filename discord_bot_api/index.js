@@ -9,14 +9,14 @@
  * @requires cors
  */
 
-require('dotenv').config();
-const express = require('express');
-const crypto = require('crypto');
-const cors = require('cors');
-const { Op } = require('sequelize');
-const sequelize = require('./database');
-const DiscordAuthSession = require('./models/DiscordAuthSession');
-const PlayerAccount = require('./models/PlayerAccount');
+import 'dotenv/config';
+import express from 'express';
+import crypto from 'crypto';
+import cors from 'cors';
+import { Op } from 'sequelize';
+import sequelize from './database.js';
+import DiscordAuthSession from './models/DiscordAuthSession.js';
+import PlayerAccount from './models/PlayerAccount.js';
 
 const ERROR_CODES = {
     INVALID_REQUEST: 'INVALID_REQUEST',
@@ -214,10 +214,11 @@ app.use((err, req, res, next) => {
 
 const startServer = async () => {
     try {
+        console.log('[DB] Attempting to connect to MySQL...');
         await sequelize.authenticate();
         console.log('[DB] Connected to MySQL database via Sequelize');
         
-        // await sequelize.sync(); // Uncomment to auto-sync models with the database (creates tables)
+        await sequelize.sync(); // Uncomment to auto-sync models with the database (creates tables)
 
         app.listen(PORT, () => {
             console.log(`[API] Server started on port ${PORT}`);

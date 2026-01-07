@@ -1,6 +1,6 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../database');
-const PlayerAccount = require('./PlayerAccount');
+import { DataTypes } from 'sequelize';
+import sequelize from '../database.js';
+import PlayerAccount from './PlayerAccount.js';
 
 const DiscordAuthSession = sequelize.define('DiscordAuthSession', {
     id: {
@@ -46,5 +46,5 @@ const DiscordAuthSession = sequelize.define('DiscordAuthSession', {
 DiscordAuthSession.belongsTo(PlayerAccount, { foreignKey: 'player_id' });
 PlayerAccount.hasMany(DiscordAuthSession, { foreignKey: 'player_id' });
 
-module.exports = DiscordAuthSession;
+export default DiscordAuthSession;
 
