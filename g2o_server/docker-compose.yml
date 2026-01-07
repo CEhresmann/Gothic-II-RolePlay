@@ -1,0 +1,43 @@
+services:
+  mysql-server:
+    image: mysql:9.1.0
+    restart: always
+    env_file: ./config/mysql.env
+    ports:
+      - "127.0.0.1:3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./migrations/:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "127.0.0.1"]
+      timeout: 10s
+      interval: 5s
+      retries: 10
+
+  http-server:
+    image: nginx:latest
+    ports:
+      - "28971:80"
+    volumes:
+      - ./g2o_server/cache/addons/:/usr/share/nginx/html:ro
+
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "28970:28970/tcp"
+      - "28970:28970/udp"
+    restart: always
+    working_dir: /g2o_server
+    command:
+      - sh
+      - -c
+      - |
+        chmod u+x G2O_Server.x64
+        ./G2O_Server.x64
+    depends_on: 
+      mysql-server:
+        condition: service_healthy
+volumes:
+  mysql_data:

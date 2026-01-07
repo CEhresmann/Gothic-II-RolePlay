@@ -4,14 +4,14 @@ services:
   db:
     image: mysql:8.0
     container_name: g2o_db
-    command: --default-authentication-plugin=mysql_native_password
+    command: 
+      - --default-authentication-plugin=caching_sha2_password
+      - --skip-host-cache
     restart: always
-    env_file:
-      - ./discord_bot_api/.env
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-root}
       MYSQL_DATABASE: ${DB_NAME}
-      MYSQL_USER: ${DB_USER}
+      MYSQL_USER: ${DB_USER:-g2o_user}
       MYSQL_PASSWORD: ${DB_PASSWORD}
     ports:
       - "3306:3306"
@@ -19,6 +19,10 @@ services:
       - db_data:/var/lib/mysql
       # On the first run, you can provide a dump to create tables
       - ./discord_bot_api/create_table.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
     networks:
       - g2o_network
 
@@ -30,12 +34,22 @@ services:
     restart: always
     env_file:
       - ./discord_bot_api/.env
+    environment:
+      DB_HOST: db
+      DB_USER: g2o_user
     ports:
       - "${API_PORT:-3000}:${API_PORT:-3000}"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     networks:
       - g2o_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 60s
+      timeout: 30s
+      retries: 5
+    command: ["/usr/local/bin/wait-for-it.sh", "db:3306", "--", "node", "index.js"]
 
   bot:
     build:
@@ -47,22 +61,33 @@ services:
       - ./discord_bot/.env
     depends_on:
       - api
+      #  condition: service_healthy
     networks:
       - g2o_network
 
   g2o_server:
     build:
-      context: ./g2o_server
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: g2o_server/Dockerfile
     container_name: g2o_server
     restart: always
     ports:
       - "28960:28960"
     volumes:
       - ./RP:/g2o_server/gamemodes/RP
+    env_file:
+      - ./discord_bot_api/.env
     depends_on:
       - db
+      #  condition: service_healthy
       - http_server
+      #  condition: service_started
+    command:
+      - sh
+      - -c
+      - |
+        chmod u+x /app/G2O_Server.x64
+        /app/G2O_Server.x64
     networks:
       - g2o_network
 

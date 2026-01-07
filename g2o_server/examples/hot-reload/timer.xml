@@ -1,0 +1,4 @@
+<server>
+	<script src="client/timer.nut" type="client" reload="true" />
+	<script src="server/timer.nut" type="server" reload="true" />
+</server>

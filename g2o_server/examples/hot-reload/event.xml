@@ -1,0 +1,4 @@
+<server>
+	<script src="client/event.nut" type="client" reload="true" />
+	<script src="server/event.nut" type="server" reload="true" />
+</server>
