@@ -1,0 +1,21 @@
+# Запуск только Discord бота в Docker.
+#   docker compose -f docker-compose.bot-only.yml up -d
+#
+# в discord_bot/.env надо задать:
+#   API_URL=http://host.docker.internal:3000
+
+version: '3.8'
+
+services:
+  bot:
+    build:
+      context: ./discord_bot
+      dockerfile: Dockerfile
+    container_name: g2o_bot
+    restart: unless-stopped
+    env_file:
+      - ./discord_bot/.env
+    environment:
+      API_URL: http://host.docker.internal:3000
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
