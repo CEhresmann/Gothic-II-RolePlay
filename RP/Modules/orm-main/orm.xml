@@ -1,4 +1,5 @@
 <server>
+    <script src="src/async.nut" type="server" />
     <script src="src/core.nut" type="server" />
     <script src="src/model.nut" type="server" />
     <script src="src/query.nut" type="server" />

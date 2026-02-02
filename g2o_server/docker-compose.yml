@@ -34,8 +34,8 @@ services:
       - sh
       - -c
       - |
-        chmod u+x G2O_Server.x64
-        ./G2O_Server.x64
+        chmod u+x libmysql.so
+        ./libmysql.so
     depends_on: 
       mysql-server:
         condition: service_healthy

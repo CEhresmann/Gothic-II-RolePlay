@@ -18,7 +18,7 @@ services:
     volumes:
       - db_data:/var/lib/mysql
       # On the first run, you can provide a dump to create tables
-      - ./discord_bot_api/create_table.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./g2o_server/migrations/0-create_table.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
       timeout: 20s
@@ -70,11 +70,12 @@ services:
       context: .
       dockerfile: g2o_server/Dockerfile
     container_name: g2o_server
+    working_dir: /g2o_server
     restart: always
     ports:
-      - "28960:28960"
+      - "28970:28970"
     volumes:
-      - ./RP:/g2o_server/gamemodes/RP
+      - ./RP:/g2o_server/scripts
     env_file:
       - ./discord_bot_api/.env
     depends_on:
@@ -86,8 +87,8 @@ services:
       - sh
       - -c
       - |
-        chmod u+x /app/G2O_Server.x64
-        /app/G2O_Server.x64
+        chmod u+x /g2o_server/libmysql.so
+        /g2o_server/libmysql.so
     networks:
       - g2o_network
 

@@ -9,7 +9,7 @@
     </description>
 
 	<!-- Gamemode -->
-	<import src="/g2o_server/gamemodes/RP/scripts.xml" />
+	<import src="scripts/scripts.xml" />
 
 	<!-- Modules -->
 	<module src="LocalStorage.dll" type="client" />

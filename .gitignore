@@ -26,7 +26,7 @@ lerna-debug.log*
 *.sln
 *.sw?
 .roo/
-
+.roomodes
 
 .DS_Store
 Thumbs.db

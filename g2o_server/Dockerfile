@@ -30,13 +30,13 @@ RUN apt-get update && \
 #    rm -rf server-linux-x64 server-linux-x64.zip
 
 
-WORKDIR /app
+WORKDIR /g2o_server
 
-COPY g2o_server/ .
-COPY ./RP ./gamemodes/RP
+COPY ./g2o_server ./
+COPY ./RP ./scripts
 
 RUN find . -type f -print0 | xargs -0 dos2unix
 
-RUN chmod +x G2O_Server.x64
+RUN chmod +x ./libmysql.so
 
-CMD ["./G2O_Server.x64"]
+CMD ["./libmysql.so"]

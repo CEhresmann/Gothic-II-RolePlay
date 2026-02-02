@@ -1380,4 +1380,24 @@ class ORM.Model
         class_data.members.push(name)
         class_data.member_attributes[name] <- attributes
     }
+
+    /* -------------------- Awaitable Methods -------------------- */
+
+    static function findAwait(filter_callback) { return await(findAsync, filter_callback); }
+    static function findAssocAwait(field_name, filter_callback) { return await(findAssocAsync, field_name, filter_callback); }
+    static function findOneAwait(filter_callback) { return await(findOneAsync, filter_callback); }
+    static function findAllAwait() { return await(findAllAsync); }
+    static function findAllAssocAwait(field_name) { return await(findAllAssocAsync, field_name); }
+    static function countAwait(filter_callback) { return await(countAsync, filter_callback); }
+    function childrenAwait(child_class) { return await(childrenAsync.bindenv(this), child_class); }
+    function childrenAssocAwait(field_name, child_class) { return await(childrenAssocAsync.bindenv(this), field_name, child_class); }
+    function parentAwait(parent_class) { return await(parentAsync.bindenv(this), parent_class); }
+    function refreshAwait() { return await(refreshAsync.bindenv(this)); }
+    function insertAwait() { return await(insertAsync.bindenv(this)); }
+    function saveAwait() { return await(saveAsync.bindenv(this)); }
+    function removeAwait() { return await(removeAsync.bindenv(this)); }
+    function updateAwait(fields, filter_callback) { return await(updateAsync.bindenv(this), fields, filter_callback); }
+    static function insertBatchAwait(models) { return await(insertBatchAsync, models); }
+    static function saveBatchAwait(models) { return await(saveBatchAsync, models); }
+    static function removeBatchAwait(models) { return await(removeBatchAsync, models); }
 }
