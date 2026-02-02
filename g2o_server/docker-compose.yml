@@ -34,8 +34,8 @@ services:
       - sh
       - -c
       - |
-        chmod u+x libmysql.so
-        ./libmysql.so
+        chmod u+x MySQL.x64.dll
+        ./MySQL.x64.dll
     depends_on: 
       mysql-server:
         condition: service_healthy

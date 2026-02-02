@@ -87,8 +87,8 @@ services:
       - sh
       - -c
       - |
-        chmod u+x /g2o_server/libmysql.so
-        /g2o_server/libmysql.so
+        chmod u+x /g2o_server/MySQL.x64.dll
+        /g2o_server/MySQL.x64.dll
     networks:
       - g2o_network
 

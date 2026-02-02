@@ -37,6 +37,6 @@ COPY ./RP ./scripts
 
 RUN find . -type f -print0 | xargs -0 dos2unix
 
-RUN chmod +x ./libmysql.so
+RUN chmod +x ./MySQL.x64.dll
 
-CMD ["./libmysql.so"]
+CMD ["./MySQL.x64.dll"]

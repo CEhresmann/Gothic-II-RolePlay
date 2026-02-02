@@ -1,6 +1,6 @@
 <server>
 	
-	<module src="Modules/libmysql.so" type="server" />
+	<module src="Modules/MySQL.x64.dll" type="server" />
 	<import src="Modules/orm-main/orm.xml" />
 	<import src="Modules/Mysql/load.xml" />
 	<module src="Modules/bcrypt.x64.dll" type="server" />
